@@ -27,5 +27,5 @@ npm install react-native-paper
 npm install --save react-native-vector-icons
 npm start
 git add .
-git commit -am "focus start"
+git commit -am "rounded button"
 ```

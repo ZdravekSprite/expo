@@ -1,13 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { RoundedButton } from '../../components/RoundedButton';
 
 export const Focus = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>What would you like to focus on?</Text>
         <View style={styles.inputContainer}>
-          <TextInput />
+          <TextInput style={styles.input}/>
+          <RoundedButton size={48} title='+' />
         </View>
     </View>
   );
@@ -26,5 +28,11 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingTop: 24,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    flex: 1,
+    marginRight: 24,
   },
 });
