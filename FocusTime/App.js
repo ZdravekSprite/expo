@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Focus } from './src/fetures/focus/Focus';
 
 export default function App() {
-  const [focusSubject, setFocusSubject] = useState('Focus Subject!');
+  const [focusSubject, setFocusSubject] = useState(null);
   return (
     <View style={styles.container}>
       {focusSubject ? (
         <Text>Place for timer</Text>
       ) : (
-        <Text>Place for input</Text>
+        <Focus />
       )}
     </View>
   );
