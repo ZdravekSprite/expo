@@ -1,9 +1,15 @@
+import React, {useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
+  const [focusSubject, setFocusSubject] = useState('Focus Subject!');
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
+      {focusSubject ? (
+        <Text>Place for timer</Text>
+      ) : (
+        <Text>Place for input</Text>
+      )}
     </View>
   );
 }
