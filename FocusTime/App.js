@@ -9,17 +9,15 @@ export default function App() {
       {focusSubject ? (
         <Text>Place for timer</Text>
       ) : (
-        <Focus />
+        <Focus addSubject={setFocusSubject}/>
       )}
+      <Text>{focusSubject}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
 });

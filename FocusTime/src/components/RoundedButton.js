@@ -9,9 +9,13 @@ export const RoundedButton = ({
 }) => {
   return (
     <TouchableOpacity style={[styles(size).radius, style]}>
-      <Text style={[styles(size).text, textStyle]}>{props.title}</Text>
-    </TouchableOpacity >
-  )
+      <Text
+        style={[styles(size).text, textStyle]}
+        onPress={props.onPress}>
+        {props.title}
+      </Text>
+    </TouchableOpacity>
+  );
 };
 
 const styles = (size) => StyleSheet.create({
@@ -25,6 +29,6 @@ const styles = (size) => StyleSheet.create({
   },
   text: {
     color: '#333',
-    fontSize: size / 2
+    fontSize: size * 3 / 5
   },
 })

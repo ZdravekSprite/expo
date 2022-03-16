@@ -1,16 +1,30 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RoundedButton } from '../../components/RoundedButton';
 
-export const Focus = () => {
+export const Focus = ({ addSubject }) => {
+  const [subject, setSubject] = useState(null);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>What would you like to focus on?</Text>
-        <View style={styles.inputContainer}>
-          <TextInput style={styles.input}/>
-          <RoundedButton size={48} title='+' />
-        </View>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          onSubmitEditing={
+            ({ nativeEvent }) => {
+              setSubject(nativeEvent.text);
+            }
+          }
+        />
+        <RoundedButton
+          size={48}
+          title='+'
+          onPress={() => {
+            addSubject(subject);
+          }}
+        />
+      </View>
     </View>
   );
 }
@@ -18,21 +32,22 @@ export const Focus = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
+    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     color: '#555',
     fontWeight: 'bold',
-    fontSize: 24,
+    fontSize: 20,
   },
   inputContainer: {
-    paddingTop: 24,
+    paddingTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
   },
   input: {
     flex: 1,
-    marginRight: 24,
+    marginRight: 20,
   },
 });
