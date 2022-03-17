@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RoundedButton } from '../../components/RoundedButton';
+import { sizes } from '../../utils/sizes';
+import { colors } from '../../utils/colors';
 
 export const Focus = ({ addSubject }) => {
   const [subject, setSubject] = useState(null);
@@ -18,7 +20,7 @@ export const Focus = ({ addSubject }) => {
           }
         />
         <RoundedButton
-          size={48}
+          size={sizes.xxl}
           title='+'
           onPress={() => {
             addSubject(subject);
@@ -32,22 +34,22 @@ export const Focus = ({ addSubject }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
-    padding: 20,
+    padding: sizes.xx,
     alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
-    color: '#555',
+    color: colors.darkLight,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: sizes.xx,
   },
   inputContainer: {
-    paddingTop: 20,
+    paddingTop: sizes.xx,
     flexDirection: 'row',
     alignItems: 'center',
   },
   input: {
     flex: 1,
-    marginRight: 20,
+    marginRight: sizes.xx,
   },
 });

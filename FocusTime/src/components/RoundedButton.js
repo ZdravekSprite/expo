@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { sizes } from '../utils/sizes';
+import { colors } from '../utils/colors';
 
 export const RoundedButton = ({
   style = {},
   textStyle = {},
-  size = 125,
+  size = sizes.xxxx,
   ...props
 }) => {
   return (
@@ -24,11 +26,11 @@ const styles = (size) => StyleSheet.create({
     width: size,
     height: size,
     alignItems: 'center',
-    borderColor: '#000',
+    borderColor: colors.darkHeavy,
     borderWidth: 2
   },
   text: {
-    color: '#333',
+    color: colors.darkLight,
     fontSize: size * 3 / 5
   },
 })

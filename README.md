@@ -25,7 +25,11 @@ To run your project, navigate to the directory and run one of the following npm 
 cd FocusTime
 npm install react-native-paper
 npm install --save react-native-vector-icons
+```
+
+```bash
+cd FocusTime
 npm start
 git add .
-git commit -am "set subject"
+git commit -am "styling"
 ```
