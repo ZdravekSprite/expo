@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import { RoundedButton } from '../../components/RoundedButton';
-import { sizes } from '../../utils/sizes';
 import { colors } from '../../utils/colors';
+import { sizes } from '../../utils/sizes';
 
 export const Focus = ({ addSubject }) => {
   const [subject, setSubject] = useState(null);
@@ -34,7 +34,6 @@ export const Focus = ({ addSubject }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
-    padding: sizes.xx,
     alignItems: 'center',
     justifyContent: 'center',
   },
