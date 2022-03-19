@@ -6,9 +6,14 @@ import { sizes } from '../utils/sizes';
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => time < 10 ? `0${time}` : time;
 export const Countdown = ({
-  minutes = 20,
+  minutes = 1,
   isPaused,
+  onProgress
 }) => {
+  const interval = React.useRef(null);
+
+  const [millis, setMillis] = useState(minutesToMillis(minutes));
+
   const countDown = () => {
     setMillis((time) => {
       if(time === 0) {
@@ -16,20 +21,20 @@ export const Countdown = ({
         return time;
       }
       const timeLeft = time - 1000;
-      // TO-DO report the progress
+      onProgress(timeLeft / minutesToMillis(minutes))
       return timeLeft;
     })
   }
 
   useEffect(()=>{
     if (isPaused) {
+      if (interval.current) clearInterval(interval.current)
       return;
     }
-    setInterval.current = setInterval(countDown, 1000);
-    return () => clearInterval(setInterval.current)
+    interval.current = setInterval(countDown, 1000);
+    return () => clearInterval(interval.current)
   }, [isPaused])
 
-  const [millis, setMillis] = useState(minutesToMillis(minutes));
   const min = Math.floor(millis / 1000 / 60) % 60;
   const sec = Math.floor(millis / 1000) % 60;
   return (
