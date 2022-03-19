@@ -16,7 +16,7 @@ export const Countdown = ({
 
   const countDown = () => {
     setMillis((time) => {
-      if(time === 0) {
+      if (time === 0) {
         // TO-DO more stuff
         return time;
       }
@@ -26,7 +26,11 @@ export const Countdown = ({
     })
   }
 
-  useEffect(()=>{
+  useEffect(() => {
+    setMillis(minutesToMillis(minutes))
+  }, [minutes])
+
+  useEffect(() => {
     if (isPaused) {
       if (interval.current) clearInterval(interval.current)
       return;

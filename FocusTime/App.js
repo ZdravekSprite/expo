@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Focus } from './src/fetures/focus/Focus';
 import { Timer } from './src/fetures/timer/Timer';
 import { colors } from './src/utils/colors';

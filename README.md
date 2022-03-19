@@ -31,5 +31,5 @@ npm install --save react-native-vector-icons
 cd FocusTime
 npm start
 git add .
-git commit -am "bar"
+git commit -am "timing"
 ```
