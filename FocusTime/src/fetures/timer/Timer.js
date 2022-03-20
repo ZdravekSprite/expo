@@ -10,7 +10,7 @@ import { RoundedButton } from '../../components/RoundedButton';
 import { Timing } from './Timing';
 
 const DEFAULT_TIME = 1;
-export const Timer = ({ focusSubject }) => {
+export const Timer = ({ focusSubject, onTimerEnd }) => {
   useKeepAwake();
 
   const [minutes, setMinutes] = useState(DEFAULT_TIME);
@@ -31,6 +31,7 @@ export const Timer = ({ focusSubject }) => {
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
+    onTimerEnd();
   }
   const changeTime = (min) => {
     setMinutes(min);
