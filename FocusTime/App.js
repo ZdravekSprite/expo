@@ -4,8 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { Focus } from './src/fetures/focus/Focus';
 import { Timer } from './src/fetures/timer/Timer';
 
-import { colors } from './src/utils/colors';
-import { sizes } from './src/utils/sizes';
+import { colors, sizes } from './src/Utils';
 
 export default function App() {
   const [focusSubject, setFocusSubject] = useState(null);
@@ -13,8 +12,8 @@ export default function App() {
     <View style={styles.container}>
       {focusSubject ? (
         <Timer
-          focusSubject={focusSubject}
-          onTimerEnd={() => { setFocusSubject(null) }}
+          subject={focusSubject}
+          clearSubject={() => { setFocusSubject(null) }}
         />
       ) : (
         <Focus addSubject={setFocusSubject} />

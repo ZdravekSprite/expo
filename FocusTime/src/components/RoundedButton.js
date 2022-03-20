@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { sizes } from '../utils/sizes';
-import { colors } from '../utils/colors';
+import { sizes, colors } from '../Utils';
 
 export const RoundedButton = ({
   style = {},
   textStyle = {},
-  size = sizes.xxxx,
+  size = sizes.xxxl,
   ...props
 }) => {
   return (

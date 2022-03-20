@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text } from 'react-native';
-import { colors } from '../utils/colors';
-import { sizes } from '../utils/sizes';
+import { colors, sizes } from '../Utils';
 
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => time < 10 ? `0${time}` : time;

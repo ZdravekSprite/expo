@@ -7,13 +7,13 @@ export const Timing = ({ changeTime }) => {
   return (
     <>
       <View style={styles.timingButton}>
-        <RoundedButton size={75} title='0,1' onPress={() => changeTime(0.1)} />
+        <RoundedButton title='0,1' onPress={() => changeTime(0.1)} />
       </View>
       <View style={styles.timingButton}>
-        <RoundedButton size={75} title='15' onPress={() => changeTime(15)} />
+        <RoundedButton title='15' onPress={() => changeTime(15)} />
       </View>
       <View style={styles.timingButton}>
-        <RoundedButton size={75} title='20' onPress={() => changeTime(20)} />
+        <RoundedButton title='20' onPress={() => changeTime(20)} />
       </View>
     </>
   )
