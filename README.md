@@ -33,5 +33,5 @@ npm install --save react-native-vector-icons
 cd FocusTime
 npm start
 git add .
-git commit -am "keep awake"
+git commit -am "vibrate"
 ```

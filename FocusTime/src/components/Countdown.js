@@ -5,19 +5,20 @@ import { sizes } from '../utils/sizes';
 
 const minutesToMillis = (min) => min * 1000 * 60;
 const formatTime = (time) => time < 10 ? `0${time}` : time;
+
 export const Countdown = ({
   minutes = 1,
-  isPaused,
-  onProgress
+  isPaused = true,
+  onProgress = () => { },
+  onEnd = () => { },
 }) => {
   const interval = React.useRef(null);
-
   const [millis, setMillis] = useState(minutesToMillis(minutes));
 
   const countDown = () => {
     setMillis((time) => {
       if (time === 0) {
-        // TO-DO more stuff
+        clearInterval(interval.current);
         return time;
       }
       const timeLeft = time - 1000;
@@ -30,6 +31,9 @@ export const Countdown = ({
   }, [minutes])
 
   useEffect(() => {
+    if (millis === 0) {
+      onEnd();
+    }
     onProgress(millis / minutesToMillis(minutes))
   }, [millis])
 
