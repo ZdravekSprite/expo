@@ -10,6 +10,11 @@ import { Timing } from './Timing';
 
 const DEFAULT_TIME = 1;
 const VIBRATE_SEC = 1;
+const STATUSES = {
+  COMPLETE: 1,
+  CANCELLED: 2
+};
+
 export const Timer = ({ subject, clearSubject }) => {
   useKeepAwake();
 
@@ -31,7 +36,7 @@ export const Timer = ({ subject, clearSubject }) => {
     setMinutes(DEFAULT_TIME);
     setProgress(1);
     setIsStarted(false);
-    clearSubject();
+    clearSubject(STATUSES.COMPLETE);
   }
   const changeTime = (min) => {
     setMinutes(min);
@@ -65,10 +70,10 @@ export const Timer = ({ subject, clearSubject }) => {
         />
       </View>
       <RoundedButton
-          title={'-'}
-          size={sizes.xxl}
-          onPress={() => clearSubject()}
-        />
+        title={'-'}
+        size={sizes.xxl}
+        onPress={() => clearSubject(STATUSES.CANCELLED)}
+      />
     </View>
   )
 }
