@@ -1,7 +1,8 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Focus } from './src/fetures/focus/Focus';
+import { FocusHistory } from './src/fetures/focus/FocusHistory';
 import { Timer } from './src/fetures/timer/Timer';
 
 import { colors, sizes } from './src/Utils';
@@ -11,7 +12,7 @@ export default function App() {
   const [focusHistory, setFocusHistory] = useState([]);
 
   const addFocusHistorySubjectWithStatus = (subject, status) => {
-    setFocusHistory([...focusHistory, {subject, status}])
+    setFocusHistory([...focusHistory, { key:String(focusHistory.length + 1), subject, status }])
   };
   console.log(focusHistory);
   return (
@@ -25,7 +26,13 @@ export default function App() {
           }}
         />
       ) : (
-        <Focus addSubject={setFocusSubject} />
+        <>
+          <Focus addSubject={setFocusSubject} />
+          <FocusHistory
+            focusHistory={focusHistory}
+            setFocusHistory={setFocusHistory}
+          />
+        </>
       )}
     </View>
   );
