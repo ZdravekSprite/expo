@@ -25,7 +25,7 @@ To run your project, navigate to the directory and run one of the following npm 
 cd FocusTime
 npm install react-native-paper
 npm install expo-keep-awake
-
+npm install @react-native-async-storage/async-storage
 npm install --save react-native-vector-icons
 ```
 
@@ -33,5 +33,5 @@ npm install --save react-native-vector-icons
 cd FocusTime
 npm start
 git add .
-git commit -am "Focus History"
+git commit -am "clear History"
 ```

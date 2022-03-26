@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import { Focus } from './src/fetures/focus/Focus';
@@ -12,9 +12,9 @@ export default function App() {
   const [focusHistory, setFocusHistory] = useState([]);
 
   const addFocusHistorySubjectWithStatus = (subject, status) => {
-    setFocusHistory([...focusHistory, { key:String(focusHistory.length + 1), subject, status }])
+    setFocusHistory([...focusHistory, { key: String(focusHistory.length + 1), subject, status }])
   };
-  console.log(focusHistory);
+
   return (
     <View style={styles.container}>
       {focusSubject ? (
