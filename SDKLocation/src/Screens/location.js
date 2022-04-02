@@ -3,11 +3,11 @@ import { Platform, Text, View, StyleSheet } from 'react-native';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
-import { RoundedButton } from './Components';
+import { RoundedButton } from '../Components';
 
 export const LocationScreen = () => {
   const [location, setLocation] = useState({
-    timestemp: 0,
+    timestamp: 0,
     coords: {
       accuracy: null,
       altitude: null,
