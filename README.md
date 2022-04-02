@@ -62,6 +62,6 @@ npm start
 
 ```bash
 git add .
-git commit -am "SDKLocation onPress"
+git commit -am "SDKLocation Fetures"
 git push
 ```
