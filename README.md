@@ -49,6 +49,7 @@ git commit -am "clear History"
 ```bash
 expo init SDKLocation
 git checkout -b location
+git push --set-upstream origin location
 cd SDKLocation
 expo install expo-location
 expo install expo-device
@@ -61,6 +62,6 @@ npm start
 
 ```bash
 git add .
-git commit -am "SDKLocation Snack"
+git commit -am "SDKLocation onPress"
 git push
 ```
