@@ -48,6 +48,19 @@ git commit -am "clear History"
 
 ```bash
 expo init SDKLocation
+git checkout -b location
+cd SDKLocation
+expo install expo-location
+expo install expo-device
+```
+
+```bash
+cd SDKLocation
+npm start
+```
+
+```bash
 git add .
-git commit -am "start SDKLocation"
+git commit -am "SDKLocation Snack"
+git push
 ```
