@@ -3,7 +3,7 @@ import { Platform, Text, View, StyleSheet, TouchableOpacity } from 'react-native
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
-export const LocationScreen = ({ navigation }) => {
+export const LocationScreen = () => {
   const [location, setLocation] = useState({
     timestamp: 0,
     coords: {
@@ -52,14 +52,6 @@ export const LocationScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('TrafficSigns')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to Traffic Signs
-        </Text>
-      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           getLocation();

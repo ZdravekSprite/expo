@@ -60,6 +60,8 @@ expo install react-native-screens react-native-safe-area-context
 expo install react-native-maps
 npm install react-native-maps --save-exact
 yarn add react-native-maps -e
+yarn add @react-native-async-storage/async-storage
+expo doctor --fix-dependencies
 ```
 
 ```bash
@@ -69,6 +71,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation harcode route list"
+git commit -am "SDKLocation route save"
 git push
 ```

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { RoutesScreen } from './src/Screens/routes';
-import { MapViewScreen } from './src/Screens/mapview';
-import { LocationScreen } from './src/Screens/location';
-import { TrafficSignsScreen } from './src/Screens/trafficSigns';
-import { HomeScreen } from './src/Screens/home';
+import { RoutesScreen } from './src/screens/Routes';
+import { MapViewScreen } from './src/screens/Mapview';
+import { LocationScreen } from './src/screens/Location';
+import { TrafficSignsScreen } from './src/screens/TrafficSigns';
+import { HomeScreen } from './src/Screens/Home';
 
 const Stack = createNativeStackNavigator();
 

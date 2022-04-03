@@ -1,25 +1,88 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import * as Device from 'expo-device';
+import * as Location from 'expo-location';
 
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
-export const TrafficSignsScreen = ({ navigation }) => {
+export const TrafficSignsScreen = () => {
+  const [rec, setRec] = useState(false);
+  const [route, setRoute] = useState([]);
   const [settlement, setSettlement] = useState(true);
   const [speedLimit, setSpeedLimit] = useState(null);
+  const [location, setLocation] = useState({
+    timestamp: 0,
+    coords: {
+      accuracy: null,
+      altitude: null,
+      altitudeAccuracy: null,
+      heading: null,
+      latitude: null,
+      longitude: null,
+      speed: null,
+    },
+    settlement: false,
+    speedLimit: null,
+  });
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const getLocation = async () => {
+    if (Platform.OS === 'android' && !Device.isDevice) {
+      setErrorMsg(
+        'Oops, this will not work on Snack in an Android emulator. Try it on your device!'
+      );
+      return;
+    }
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation({
+      ...location,
+      settlement: settlement,
+      speedLimit: speedLimit,
+    });
+  };
+
   const changeSpeed = (speed) => {
     setSpeedLimit(speed);
   }
+
+  const addLocation = () => {
+    setRoute([
+      ...route,
+      {
+        ... location,
+        key: String(route.length + 1),
+      }
+    ]
+    );
+  }
+  useEffect(() => {
+    if(rec) {
+      getLocation();
+    }
+  }, [rec, speedLimit, settlement]);
+
+  useEffect(() => {
+    if(rec) {
+      addLocation();
+    }
+  }, [location]);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Location')}
-          style={styles.button}
-        >
-          <Text style={styles.buttonLabel}>
-            Go to Location
-          </Text>
-        </TouchableOpacity>
       </View>
       <View style={styles.row}>
         <SpeedLimitButton speed='30' onPress={() => changeSpeed(30)} />
@@ -69,8 +132,61 @@ export const TrafficSignsScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <Text>
-          Trenutno ograničenje brzine: {speedLimit ?? 'nema'}
+          Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
+          {errorMsg ?? 'nema greške'}{"\n"}
+          {location.timestamp ?? 'nema lokacije'} {route.length}
         </Text>
+        <View style={styles.row}>
+          <TouchableOpacity
+            onPress={() => setRec(true)}
+            style={[
+              styles.button,
+              styles.rec,
+              rec ? styles.selected : null
+            ]}
+          >
+            <Text
+              style={[
+                styles.buttonLabel,
+                rec ? styles.selectedLabel : null
+              ]}
+            >
+              REC
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setRec(false)}
+            style={[
+              styles.button,
+              styles.rec,
+              !rec ? styles.selected : null
+            ]}
+          >
+            <Text
+              style={[
+                styles.buttonLabel,
+                !rec ? styles.selectedLabel : null
+              ]}
+            >
+              PAUSE
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => console.log('eject')}
+            style={[
+              styles.button,
+              styles.rec,
+            ]}
+          >
+            <Text
+              style={[
+                styles.buttonLabel,
+              ]}
+            >
+              EJECT
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -90,21 +206,24 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingHorizontal: 8,
-    paddingVertical: 6,
+    paddingVertical: 4,
     borderRadius: 4,
     backgroundColor: "oldlace",
     alignSelf: "flex-start",
     marginHorizontal: "1%",
-    marginBottom: 6,
+    marginBottom: 4,
     minWidth: "48%",
     textAlign: "center",
+  },
+  rec: {
+    minWidth: "30%",
   },
   selected: {
     backgroundColor: "coral",
     borderWidth: 0,
   },
   buttonLabel: {
-    padding: 6,
+    padding: 4,
     fontSize: 24,
     fontWeight: "500",
     color: "coral",
