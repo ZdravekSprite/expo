@@ -69,6 +69,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation fix location on map"
+git commit -am "SDKLocation fix Polyline"
 git push
 ```
