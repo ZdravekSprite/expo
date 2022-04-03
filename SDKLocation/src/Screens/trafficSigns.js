@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
@@ -31,6 +32,34 @@ export const TrafficSignsScreen = () => {
     speedLimit: null,
   });
   const [errorMsg, setErrorMsg] = useState(null);
+  const [routesHistory, setRoutesHistory] = useState([]);
+
+  const saveRoutesHistory = async () => {
+    try {
+      AsyncStorage.setItem('routesHistory', JSON.stringify(routesHistory));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const loadRoutesHistory = async () => {
+    try {
+      const history = await AsyncStorage.getItem('routesHistory');
+
+      if (history && JSON.parse(history).length) {
+        setRoutesHistory(JSON.parse(history));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    loadRoutesHistory();
+  }, []);
+
+  useEffect(() => {
+    saveRoutesHistory();
+  }, [routesHistory]);
 
   const getLocation = async () => {
     if (Platform.OS === 'android' && !Device.isDevice) {
@@ -61,24 +90,37 @@ export const TrafficSignsScreen = () => {
     setRoute([
       ...route,
       {
-        ... location,
+        ...location,
         key: String(route.length + 1),
       }
     ]
     );
   }
   useEffect(() => {
-    if(rec) {
+    if (rec) {
       getLocation();
     }
   }, [rec, speedLimit, settlement]);
 
   useEffect(() => {
-    if(rec) {
+    if (rec) {
       addLocation();
     }
   }, [location]);
 
+  const addRoute = () => {
+    setRoutesHistory([
+      ...routesHistory,
+      {
+        //key: String(routesHistory.length + 1),
+        id: route[0].timestamp,
+        title: route[0].timestamp,
+        route: String(route.length) + ' dots',
+        data: route,
+      }
+    ]
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -134,7 +176,7 @@ export const TrafficSignsScreen = () => {
         <Text>
           Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
           {errorMsg ?? 'nema greške'}{"\n"}
-          {location.timestamp ?? 'nema lokacije'} {route.length}
+          {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
         </Text>
         <View style={styles.row}>
           <TouchableOpacity
@@ -172,7 +214,10 @@ export const TrafficSignsScreen = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => console.log('eject')}
+            onPress={() => {
+              //console.log('eject');
+              addRoute();
+            }}
             style={[
               styles.button,
               styles.rec,

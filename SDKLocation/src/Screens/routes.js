@@ -1,39 +1,38 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-/*
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-    route: "Route 1",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-    route: "Route 2",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-    route: "Route 3",
-  },
-];
-*/
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={[styles.item, backgroundColor]}
-  >
-    <Text style={[styles.title, textColor]}>
-      {item.title}
-    </Text>
-  </TouchableOpacity>
+
+const longToDate = (millisec) => {
+  const d = new Date(millisec);
+  return (d.toDateString() + ' ' + d.getHours() + ':' + d.getMinutes());
+};
+
+const Item = ({ item, onPress, onDelete, backgroundColor, textColor }) => (
+  <View style={styles.row}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[
+        styles.item,
+        backgroundColor,
+        {flex:1},
+      ]}
+    >
+      <Text style={[styles.title, textColor]}>
+        {longToDate(item.title)}
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      onPress={onDelete}
+      style={[styles.item, backgroundColor]}
+    >
+      <Text style={[styles.title, textColor]}>X</Text>
+    </TouchableOpacity>
+  </View>
 );
 
 export const RoutesScreen = () => {
   const [selectedId, setSelectedId] = useState(null);
-  const [routesHistory, setRoutesHistory] = useState(null);
+  const [routesHistory, setRoutesHistory] = useState([]);
 
   const saveRoutesHistory = async () => {
     try {
@@ -54,8 +53,14 @@ export const RoutesScreen = () => {
     }
   };
 
+  const removeRoute = (routeId) => {
+    const newRoutesHistory = routesHistory.filter((r) => r.id !== routeId);
+    setRoutesHistory(newRoutesHistory);
+  };
+
   useEffect(() => {
     loadRoutesHistory();
+    //setRoutesHistory([]);
   }, []);
 
   useEffect(() => {
@@ -70,6 +75,7 @@ export const RoutesScreen = () => {
       <Item
         item={item}
         onPress={() => setSelectedId(item.id)}
+        onDelete={() => removeRoute(item.id)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -96,13 +102,18 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: 'flex-start'
+  },
   item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    padding: 12,
+    marginVertical: 4,
+    marginHorizontal: 4,
   },
   title: {
-    fontSize: 32,
+    fontSize: 16,
   },
   route: {
     flex: 1,
