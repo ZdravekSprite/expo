@@ -53,15 +53,19 @@ git push --set-upstream origin location
 cd SDKLocation
 expo install expo-location
 expo install expo-device
+
+yarn add @react-navigation/native
+yarn add @react-navigation/native-stack
+expo install react-native-screens react-native-safe-area-context
 ```
 
 ```bash
 cd SDKLocation
-npm start
+yarn start
 ```
 
 ```bash
 git add .
-git commit -am "SDKLocation trafficSigns"
+git commit -am "SDKLocation Hello React Navigation"
 git push
 ```
