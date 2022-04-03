@@ -58,6 +58,8 @@ yarn add @react-navigation/native
 yarn add @react-navigation/native-stack
 expo install react-native-screens react-native-safe-area-context
 expo install react-native-maps
+npm install react-native-maps --save-exact
+yarn add react-native-maps -e
 ```
 
 ```bash
@@ -67,6 +69,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation MapView"
+git commit -am "SDKLocation fix location on map"
 git push
 ```
