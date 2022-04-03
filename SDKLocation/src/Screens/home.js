@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const HomeScreen = ({ navigation }) => {
   return (
@@ -21,6 +21,14 @@ export const HomeScreen = ({ navigation }) => {
       >
         <Text style={styles.buttonLabel}>
           Go to Location
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('MapView')}
+        style={styles.button}
+      >
+        <Text style={styles.buttonLabel}>
+          Go to Map View
         </Text>
       </TouchableOpacity>
     </View>

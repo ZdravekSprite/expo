@@ -44,7 +44,7 @@ git add .
 git commit -am "clear History"
 ```
 
-### SDK Location
+### SDK Location MapView
 
 ```bash
 expo init SDKLocation
@@ -57,6 +57,7 @@ expo install expo-device
 yarn add @react-navigation/native
 yarn add @react-navigation/native-stack
 expo install react-native-screens react-native-safe-area-context
+expo install react-native-maps
 ```
 
 ```bash
@@ -66,6 +67,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation Hello React Navigation"
+git commit -am "SDKLocation MapView"
 git push
 ```
