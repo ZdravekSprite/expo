@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { RoutesScreen } from './src/Screens/routes';
 import { MapViewScreen } from './src/Screens/mapview';
 import { LocationScreen } from './src/Screens/location';
 import { TrafficSignsScreen } from './src/Screens/trafficSigns';
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="TrafficSigns" component={TrafficSignsScreen} />
         <Stack.Screen name="Location" component={LocationScreen} />
         <Stack.Screen name="MapView" component={MapViewScreen} />
+        <Stack.Screen name="Routes" component={RoutesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

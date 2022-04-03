@@ -69,6 +69,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation fix Polyline"
+git commit -am "SDKLocation harcode route list"
 git push
 ```

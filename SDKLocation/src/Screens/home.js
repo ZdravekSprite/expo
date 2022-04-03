@@ -31,6 +31,14 @@ export const HomeScreen = ({ navigation }) => {
           Go to Map View
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Routes')}
+        style={styles.button}
+      >
+        <Text style={styles.buttonLabel}>
+          Go to Routes
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
