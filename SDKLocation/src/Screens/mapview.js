@@ -4,7 +4,7 @@ import MapView, { Polyline } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const PolyFromRoute = ({ route = { data: [] }, stroke = 5, color = 'rgba(123,45,67,0.5)' }) => {
+const PolyFromRoute = ({ route = { data: [] }, color = 'rgba(123,45,67,0.5)' }) => {
   let segments = [];
   route.data.forEach(({ coords, speedLimit, settlement, timestamp }) => {
     let newCord = {
@@ -27,7 +27,6 @@ const PolyFromRoute = ({ route = { data: [] }, stroke = 5, color = 'rgba(123,45,
       segments[segments.length] = newSegment;
     }
   });
-  //console.log(segments[0].coords.map(({ latitude, longitude }) => ({ 'lat': latitude, 'lon': longitude })));
   //console.log(segments.map(({ timestamp, speedLimit, coords }) => ({ 'timestamp': timestamp, 'speedLimit': speedLimit, 'coords': coords })));
   return (
     <>
@@ -80,6 +79,10 @@ export const MapViewScreen = () => {
         })}
         <PolyFromRoute route={routesHistory[0]} />
         <PolyFromRoute route={routesHistory[1]} />
+        <PolyFromRoute route={routesHistory[2]} />
+        <PolyFromRoute route={routesHistory[3]} />
+        <PolyFromRoute route={routesHistory[4]} />
+        <PolyFromRoute route={routesHistory[5]} />
       </MapView>
     </View>
   );
