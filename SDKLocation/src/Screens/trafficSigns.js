@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
-export const TrafficSignsScreen = () => {
+export const TrafficSignsScreen = ({ navigation }) => {
   const [rec, setRec] = useState(false);
   const [route, setRoute] = useState([]);
   const [settlement, setSettlement] = useState(true);
@@ -33,6 +33,7 @@ export const TrafficSignsScreen = () => {
   });
   const [errorMsg, setErrorMsg] = useState(null);
   const [routesHistory, setRoutesHistory] = useState([]);
+  const interval = React.useRef(null);
 
   const saveRoutesHistory = async () => {
     try {
@@ -97,9 +98,12 @@ export const TrafficSignsScreen = () => {
     );
   }
   useEffect(() => {
-    if (rec) {
-      getLocation();
+    if (!rec) {
+      if (interval.current) clearInterval(interval.current)
+      return;
     }
+    interval.current = setInterval(getLocation, 1000);
+    return () => clearInterval(interval.current)
   }, [rec, speedLimit, settlement]);
 
   useEffect(() => {
@@ -216,7 +220,8 @@ export const TrafficSignsScreen = () => {
           <TouchableOpacity
             onPress={() => {
               //console.log('eject');
-              addRoute();
+              if(route.length) addRoute();
+              navigation.navigate('Routes');
             }}
             style={[
               styles.button,

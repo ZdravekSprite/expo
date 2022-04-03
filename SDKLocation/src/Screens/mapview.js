@@ -76,7 +76,7 @@ export const MapViewScreen = () => {
         }}
       >
         {routesHistory.forEach(route => {
-          console.log(route);
+          //console.log(route);
         })}
         <PolyFromRoute route={routesHistory[0]} />
         <PolyFromRoute route={routesHistory[1]} />
