@@ -6,7 +6,7 @@ import { RoutesScreen } from './src/screens/Routes';
 import { MapViewScreen } from './src/screens/Mapview';
 import { LocationScreen } from './src/screens/Location';
 import { TrafficSignsScreen } from './src/screens/TrafficSigns';
-import { HomeScreen } from './src/Screens/Home';
+import { HomeScreen } from './src/screens/Home';
 
 const Stack = createNativeStackNavigator();
 

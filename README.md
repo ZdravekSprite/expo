@@ -71,6 +71,6 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation route list x"
+git commit -am "SDKLocation route map x2"
 git push
 ```

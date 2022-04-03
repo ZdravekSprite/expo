@@ -14,7 +14,7 @@ const Item = ({ item, onPress, onDelete, backgroundColor, textColor }) => (
       style={[
         styles.item,
         backgroundColor,
-        {flex:1},
+        { flex: 1 },
       ]}
     >
       <Text style={[styles.title, textColor]}>
