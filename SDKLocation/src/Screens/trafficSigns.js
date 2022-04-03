@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
-export const TrafficSignsScreen = () => {
+export const TrafficSignsScreen = ({ navigation }) => {
   const [settlement, setSettlement] = useState(true);
   const [speedLimit, setSpeedLimit] = useState(null);
   const changeSpeed = (speed) => {
@@ -12,7 +12,14 @@ export const TrafficSignsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Location')}
+          style={styles.button}
+        >
+          <Text style={styles.buttonLabel}>
+            Go to Location
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.row}>
         <SpeedLimitButton speed='30' onPress={() => changeSpeed(30)} />
@@ -62,7 +69,7 @@ export const TrafficSignsScreen = () => {
           </Text>
         </TouchableOpacity>
         <Text>
-          Trenutno ograničenje brzine: {speedLimit ?? 'nema' }
+          Trenutno ograničenje brzine: {speedLimit ?? 'nema'}
         </Text>
       </View>
     </View>

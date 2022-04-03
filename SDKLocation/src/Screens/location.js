@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Platform, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import * as Device from 'expo-device';
 import * as Location from 'expo-location';
 
-import { RoundedButton } from '../Components';
-
-export const LocationScreen = () => {
+export const LocationScreen = ({ navigation }) => {
   const [location, setLocation] = useState({
     timestamp: 0,
     coords: {
@@ -54,12 +52,24 @@ export const LocationScreen = () => {
 
   return (
     <View style={styles.container}>
-      <RoundedButton
-        title='X'
+      <TouchableOpacity
+        onPress={() => navigation.navigate('TrafficSigns')}
+        style={styles.button}
+      >
+        <Text style={styles.buttonLabel}>
+          Go to Traffic Signs
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
         onPress={() => {
           getLocation();
         }}
-      />
+        style={styles.button}
+      >
+        <Text style={styles.buttonLabel}>
+          Location ... again
+        </Text>
+      </TouchableOpacity>
       {location.timestamp ? (
         <>
           <Text style={styles.paragraph}>timestamp: {longToDate(location.timestamp)}</Text>
@@ -88,5 +98,18 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 18,
     textAlign: 'center',
+  },
+  button: {
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    marginHorizontal: "auto",
+    marginBottom: 24,
+    textAlign: "center",
+  },
+  buttonLabel: {
+    padding: 6,
+    fontSize: 24,
+    fontWeight: "500",
+    color: "coral",
   },
 });
