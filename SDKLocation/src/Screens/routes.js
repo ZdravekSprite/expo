@@ -60,6 +60,9 @@ export const RoutesScreen = () => {
 
   useEffect(() => {
     loadRoutesHistory();
+    return () => {
+      setRoutesHistory({});
+    };
     //setRoutesHistory([]);
   }, []);
 

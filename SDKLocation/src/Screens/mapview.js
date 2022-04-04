@@ -61,6 +61,9 @@ export const MapViewScreen = () => {
   };
   useEffect(() => {
     loadRoutesHistory();
+    return () => {
+      setRoutesHistory({});
+    };
   }, []);
 
   return (

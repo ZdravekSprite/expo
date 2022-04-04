@@ -12,25 +12,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
+const DEFAULT_LOCATION = {
+  timestamp: 0,
+  coords: {
+    accuracy: null,
+    altitude: null,
+    altitudeAccuracy: null,
+    heading: null,
+    latitude: null,
+    longitude: null,
+    speed: null,
+  },
+  settlement: false,
+  speedLimit: null,
+};
 export const TrafficSignsScreen = ({ navigation }) => {
   const [rec, setRec] = useState(false);
   const [route, setRoute] = useState([]);
   const [settlement, setSettlement] = useState(true);
   const [speedLimit, setSpeedLimit] = useState(null);
-  const [location, setLocation] = useState({
-    timestamp: 0,
-    coords: {
-      accuracy: null,
-      altitude: null,
-      altitudeAccuracy: null,
-      heading: null,
-      latitude: null,
-      longitude: null,
-      speed: null,
-    },
-    settlement: false,
-    speedLimit: null,
-  });
+  const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [errorMsg, setErrorMsg] = useState(null);
   const [routesHistory, setRoutesHistory] = useState([]);
   const interval = React.useRef(null);
@@ -56,6 +57,9 @@ export const TrafficSignsScreen = ({ navigation }) => {
 
   useEffect(() => {
     loadRoutesHistory();
+    return () => {
+      setRoutesHistory({});
+    };
   }, []);
 
   useEffect(() => {
@@ -88,21 +92,23 @@ export const TrafficSignsScreen = ({ navigation }) => {
   }
 
   const addLocation = () => {
-    setRoute([
-      ...route,
-      {
-        ...location,
-        key: String(route.length + 1),
-      }
-    ]
-    );
+    const lastLocation = route.length > 0  ? route[route.length-1] : DEFAULT_LOCATION;
+    if (lastLocation.timestamp !== location.timestamp) {
+      setRoute([
+        ...route,
+        {
+          ...location,
+          key: String(route.length + 1),
+        }
+      ]);
+    }
   }
   useEffect(() => {
     if (!rec) {
       if (interval.current) clearInterval(interval.current)
       return;
     }
-    interval.current = setInterval(getLocation, 1000);
+    interval.current = setInterval(getLocation, 5000);
     return () => clearInterval(interval.current)
   }, [rec, speedLimit, settlement]);
 

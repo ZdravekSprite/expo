@@ -41,6 +41,9 @@ export const LocationScreen = () => {
 
   useEffect(() => {
     getLocation();
+    /*return () => {
+      setLocation(null);
+    };*/
   }, []);
 
   let text = 'Waiting..';
