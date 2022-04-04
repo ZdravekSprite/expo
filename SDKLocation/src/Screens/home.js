@@ -39,6 +39,14 @@ export const HomeScreen = ({ navigation }) => {
           Go to Routes
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('File')}
+        style={styles.button}
+      >
+        <Text style={styles.buttonLabel}>
+          Go to File
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

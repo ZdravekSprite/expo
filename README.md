@@ -62,6 +62,7 @@ npm install react-native-maps --save-exact
 yarn add react-native-maps -e
 yarn add @react-native-async-storage/async-storage
 expo doctor --fix-dependencies
+expo install expo-file-system
 ```
 
 ```bash
@@ -71,7 +72,7 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation com.zdraveksprite.SDKLocation v0.1.1"
+git commit -am "SDKLocation file v0.1.2"
 git push
 ```
 

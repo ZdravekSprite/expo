@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import * as Device from 'expo-device';
-import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { DEFAULT_LOCATION } from '../Utils';
 import { PrestanakButton, SpeedLimitButton } from '../Components';
 
-const DEFAULT_LOCATION = {
-  timestamp: 0,
-  coords: {
-    accuracy: null,
-    altitude: null,
-    altitudeAccuracy: null,
-    heading: null,
-    latitude: null,
-    longitude: null,
-    speed: null,
-  },
-  settlement: false,
-  speedLimit: null,
-};
+import { gpsLocation } from '../features/Location';
+
 export const TrafficSignsScreen = ({ navigation }) => {
   const [rec, setRec] = useState(false);
   const [route, setRoute] = useState([]);
@@ -67,24 +53,16 @@ export const TrafficSignsScreen = ({ navigation }) => {
   }, [routesHistory]);
 
   const getLocation = async () => {
-    if (Platform.OS === 'android' && !Device.isDevice) {
-      setErrorMsg(
-        'Oops, this will not work on Snack in an Android emulator. Try it on your device!'
-      );
-      return;
+    let gps = await gpsLocation(setLocation, setErrorMsg);
+    if (gps.errorMsg) {
+      console.log(gps.errorMsg);
+    } else {
+      setLocation({
+        ...gps.location,
+        settlement: settlement,
+        speedLimit: speedLimit,
+      });
     }
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation({
-      ...location,
-      settlement: settlement,
-      speedLimit: speedLimit,
-    });
   };
 
   const changeSpeed = (speed) => {
@@ -92,7 +70,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
   }
 
   const addLocation = () => {
-    const lastLocation = route.length > 0  ? route[route.length-1] : DEFAULT_LOCATION;
+    const lastLocation = route.length > 0 ? route[route.length - 1] : DEFAULT_LOCATION;
     if (lastLocation.timestamp !== location.timestamp) {
       setRoute([
         ...route,
@@ -183,11 +161,13 @@ export const TrafficSignsScreen = ({ navigation }) => {
             Van naselja
           </Text>
         </TouchableOpacity>
+        <View style={styles.row}>
         <Text>
           Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
           {errorMsg ?? 'nema greške'}{"\n"}
           {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
         </Text>
+        </View>
         <View style={styles.row}>
           <TouchableOpacity
             onPress={() => setRec(true)}
@@ -226,7 +206,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               //console.log('eject');
-              if(route.length) addRoute();
+              if (route.length) addRoute();
               navigation.navigate('Routes');
             }}
             style={[
@@ -258,7 +238,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    width: '100%'
   },
   button: {
     paddingHorizontal: 8,

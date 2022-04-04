@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import * as Device from 'expo-device';
-import * as Location from 'expo-location';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+
+import { DEFAULT_LOCATION } from '../Utils';
+
+import { gpsLocation } from '../features/Location';
 
 export const LocationScreen = () => {
-  const [location, setLocation] = useState({
-    timestamp: 0,
-    coords: {
-      accuracy: null,
-      altitude: null,
-      altitudeAccuracy: null,
-      heading: null,
-      latitude: null,
-      longitude: null,
-      speed: null,
-    }
-  });
+  const [location, setLocation] = useState(DEFAULT_LOCATION);
   const [errorMsg, setErrorMsg] = useState(null);
 
   const longToDate = (millisec) => {
@@ -23,20 +14,12 @@ export const LocationScreen = () => {
   };
 
   const getLocation = async () => {
-    if (Platform.OS === 'android' && !Device.isDevice) {
-      setErrorMsg(
-        'Oops, this will not work on Snack in an Android emulator. Try it on your device!'
-      );
-      return;
+    let gps = await gpsLocation(setLocation, setErrorMsg);
+    if (gps.errorMsg) {
+      console.log(gps.errorMsg);
+    } else {
+      setLocation(gps.location);
     }
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
-      return;
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
   };
 
   useEffect(() => {
@@ -57,7 +40,7 @@ export const LocationScreen = () => {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          getLocation();
+          getLocation(setLocation, setErrorMsg);
         }}
         style={styles.button}
       >

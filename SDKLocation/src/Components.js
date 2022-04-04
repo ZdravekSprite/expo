@@ -54,7 +54,7 @@ export const PrestanakButton = ({
         textStyle,
         { transform: [{ translateY: size / 25 }] }
       ]}>
-        {props.speed}
+        {props.speed ?? ' ' }
       </Text>
       <View style={{
         transform: [

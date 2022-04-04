@@ -16,3 +16,18 @@ export const sizes = {
   xxxl: 80,
   xxxx: 100
 }
+
+export const DEFAULT_LOCATION = {
+  timestamp: 0,
+  coords: {
+    accuracy: null,
+    altitude: null,
+    altitudeAccuracy: null,
+    heading: null,
+    latitude: null,
+    longitude: null,
+    speed: null,
+  },
+  settlement: false,
+  speedLimit: null,
+}
