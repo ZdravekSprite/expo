@@ -4,7 +4,17 @@ import MapView, { Polyline } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const PolyFromRoute = ({ route = { data: [] }, color = 'rgba(123,45,67,0.5)' }) => {
+const DEFAULT_REGION = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};
+
+const PolyFromRoute = ({
+  route = { data: [] },
+  color = 'rgba(123,45,67,0.5)',
+}) => {
   let segments = [];
   route.data.forEach(({ coords, speedLimit, settlement, timestamp }) => {
     let newCord = {
@@ -48,6 +58,8 @@ const PolyFromRoute = ({ route = { data: [] }, color = 'rgba(123,45,67,0.5)' }) 
 
 export const MapViewScreen = () => {
   const [routesHistory, setRoutesHistory] = useState([]);
+  const [region, setRegion] = useState(DEFAULT_REGION);
+
   const loadRoutesHistory = async () => {
     try {
       const history = await AsyncStorage.getItem('routesHistory');
@@ -66,26 +78,59 @@ export const MapViewScreen = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (routesHistory.length) {
+      setRegion({
+        latitude: routesHistory[0].data[0].coords.latitude,
+        longitude: routesHistory[0].data[0].coords.longitude,
+        latitudeDelta: 0.1,
+        longitudeDelta: 0.1,
+      })
+      /*
+      routesHistory.forEach(({data}) => {
+        data.forEach(({ coords }) => {
+          let oldRegion = region;
+          if (region.latitude < coords.latitude) setRegion({ ...region, latitude: coords.latitude })
+          if (region.longitude < coords.longitude) setRegion({ ...region, longitude: coords.longitude })
+        });
+      });
+      */
+    }
+  }, [routesHistory]);
+  /*
+  route format
+  data: {[{coords:{latitude:0,longitude:0},{coords:{latitude:0,longitude:0}}]}
+  */
+
+  var myArray = routesHistory.length > 0 ? routesHistory[2].data : [];
+
+  let flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+    function (previousValue, currentValue) {
+      return previousValue.concat(currentValue)
+    },
+    []
+  )
+  Array.prototype.hasMin = function (attrib) {
+    const checker = (o, i) => typeof (o) === 'object' && o[i]
+    return (this.length && this.reduce(function (prev, curr) {
+      const prevOk = checker(prev.coords, attrib);
+      const currOk = checker(curr.coords, attrib);
+      if (!prevOk && !currOk) return {};
+      if (!prevOk) return curr;
+      if (!currOk) return prev;
+      return prev < curr.coords[attrib] ? prev : curr.coords[attrib];
+    })) || null;
+  }
+
+  console.log(myArray.hasMin('longitude'))
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        region={{
-          latitude: 45.78096,
-          longitude: 15.89925,
-          latitudeDelta: 0.3,
-          longitudeDelta: 0.2,
-        }}
+        region={region}
       >
-        {routesHistory.forEach(route => {
-          //console.log(route);
-        })}
-        <PolyFromRoute route={routesHistory[0]} />
-        <PolyFromRoute route={routesHistory[1]} />
-        <PolyFromRoute route={routesHistory[2]} />
-        <PolyFromRoute route={routesHistory[3]} />
-        <PolyFromRoute route={routesHistory[4]} />
-        <PolyFromRoute route={routesHistory[5]} />
+        {routesHistory.length > 0 ? routesHistory.map((route, i) => <PolyFromRoute route={route} key={i} />) : null}
+        {console.log('test')}
       </MapView>
     </View>
   );

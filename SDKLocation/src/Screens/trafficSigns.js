@@ -208,6 +208,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
               //console.log('eject');
               if (route.length) addRoute();
               navigation.navigate('Routes');
+              setRoute([]);
             }}
             style={[
               styles.button,

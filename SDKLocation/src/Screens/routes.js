@@ -91,9 +91,10 @@ export const RoutesScreen = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
+        style={{ height: '75%' }}
       />
       <Text style={styles.route}>
-        {selectedId ? routesHistory.find(r => r.id == selectedId).route : ''}
+        {routesHistory.length > 0 && selectedId ? routesHistory.find(r => r.id == selectedId).route : ''}
       </Text>
     </SafeAreaView>
   );
