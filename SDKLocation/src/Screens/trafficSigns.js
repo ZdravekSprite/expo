@@ -162,11 +162,11 @@ export const TrafficSignsScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <View style={styles.row}>
-        <Text>
-          Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
-          {errorMsg ?? 'nema greške'}{"\n"}
-          {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
-        </Text>
+          <Text>
+            Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
+            {errorMsg ?? 'nema greške'}{"\n"}
+            {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
+          </Text>
         </View>
         <View style={styles.row}>
           <TouchableOpacity

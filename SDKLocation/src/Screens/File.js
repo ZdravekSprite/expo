@@ -1,25 +1,28 @@
 import * as React from 'react';
-import { Button, View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import * as FileSystem from 'expo-file-system';
+
+import { sizes } from '../Utils';
+import { MyButton } from '../Components';
 
 export const FileScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>File Screen</Text>
-      <Button
-        title="save file"
-        onPress={() => saveFile()}
+    <View style={styles.container}>
+      <Text style={styles.label}>File Screen</Text>
+      <MyButton
+      title='save file'
+      onPress={() => saveFile()}
       />
-      <Button
-        title="load file"
+      <MyButton
+        title='load file'
         onPress={() => loadFile()}
       />
-      <Button
-        title="getTextFromFile"
+      <MyButton
+        title='getTextFromFile'
         onPress={() => getTextFromFile()}
       />
-      <Button
-        title="test"
+      <MyButton
+        title='test'
         onPress={() => test()}
       />
     </View>
@@ -46,3 +49,17 @@ const getTextFromFile = async () => {
 const test = async () => {
   console.log('test');
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: sizes.xx,
+  },
+  label: {
+    padding: sizes.md,
+    fontSize: sizes.xl,
+    fontWeight: "900",
+  },
+});

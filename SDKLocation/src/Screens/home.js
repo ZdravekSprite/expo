@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import { sizes } from '../Utils';
+import { MyButton } from '../Components';
 
 export const HomeScreen = ({ navigation }) => {
   return (
@@ -7,46 +10,26 @@ export const HomeScreen = ({ navigation }) => {
       <Text style={styles.label}>
         Home Screen
       </Text>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('TrafficSigns')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to Traffic Signs
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Location')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to Location
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('MapView')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to Map View
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('Routes')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to Routes
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate('File')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Go to File
-        </Text>
-      </TouchableOpacity>
+      <MyButton
+      title='Go to Traffic Signs'
+      onPress={() => navigation.navigate('TrafficSigns')}
+      />
+      <MyButton
+      title='Go to Location'
+      onPress={() => navigation.navigate('Location')}
+      />
+      <MyButton
+      title='Go to Map View'
+      onPress={() => navigation.navigate('MapView')}
+      />
+      <MyButton
+      title='Go to Routes'
+      onPress={() => navigation.navigate('Routes')}
+      />
+      <MyButton
+      title='Go to File'
+      onPress={() => navigation.navigate('File')}
+      />
     </View>
   );
 }
@@ -56,22 +39,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    padding: sizes.xx,
   },
   label: {
-    padding: 16,
-    fontSize: 32,
+    padding: sizes.md,
+    fontSize: sizes.xl,
     fontWeight: "900",
-  },
-  button: {
-    borderRadius: 4,
-    backgroundColor: "oldlace",
-    margin: 8,
-  },
-  buttonLabel: {
-    padding: 8,
-    fontSize: 24,
-    fontWeight: "500",
-    color: "coral",
   },
 });

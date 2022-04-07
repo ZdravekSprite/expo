@@ -1,4 +1,5 @@
 # expo
+
 Expo is a framework and a platform for universal React applications
 
 ```bash
@@ -24,7 +25,7 @@ git commit -am "start FocusTime"
 To run your project, navigate to the directory and run one of the following npm commands.
 
 - **cd FocusTime**
-- **npm start** # you can open iOS, Android, or web from here, or run them directly with the commands below.    
+- **npm start** # you can open iOS, Android, or web from here, or run them directly with the commands below.
 - **npm run android**
 - **npm run ios** # requires an iOS device or macOS for access to an iOS simulator
 - **npm run web**
@@ -72,11 +73,12 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation file v0.1.4"
+git commit -am "SDKLocation file v0.1.5"
 git push
 ```
 
 ## location -> main
+
 ```bash
 git checkout main
 git pull
@@ -85,6 +87,7 @@ git push
 ```
 
 ## main -> location
+
 ```bash
 git checkout location
 git pull

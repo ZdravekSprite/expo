@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const formatTime = (time) => time < 10 ? `0${time}` : time;
 const longToDate = (millisec) => {
   const d = new Date(millisec);
-  return (d.toDateString() + ' ' + d.getHours() + ':' + d.getMinutes());
+  return (d.toDateString() + ' ' + formatTime(d.getHours()) + ':' + formatTime(d.getMinutes()));
 };
 
 const Item = ({ item, onPress, onDelete, backgroundColor, textColor }) => (

@@ -2,6 +2,23 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { sizes, colors } from './Utils';
 
+export const MyButton = ({
+  style = {},
+  textStyle = {},
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[fix_styles.button, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[fix_styles.buttonLabel, textStyle]}>
+        {props.title}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
 export const RoundedButton = ({
   style = {},
   textStyle = {},
@@ -54,7 +71,7 @@ export const PrestanakButton = ({
         textStyle,
         { transform: [{ translateY: size / 25 }] }
       ]}>
-        {props.speed ?? ' ' }
+        {props.speed ?? ' '}
       </Text>
       <View style={{
         transform: [
@@ -120,5 +137,19 @@ const styles = (size) => StyleSheet.create({
     height: size / 25,
     margin: size / 100,
     borderWidth: 1,
+  },
+})
+
+const fix_styles = StyleSheet.create({
+  button: {
+    borderRadius: sizes.xs,
+    backgroundColor: colors.button,
+    margin: sizes.sm,
+  },
+  buttonLabel: {
+    padding: sizes.sm,
+    fontSize: sizes.lg,
+    fontWeight: "500",
+    color: colors.label,
   },
 })
