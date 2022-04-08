@@ -57,6 +57,7 @@ export const RoutesScreen = () => {
   const removeRoute = (routeId) => {
     const newRoutesHistory = routesHistory.filter((r) => r.id !== routeId);
     setRoutesHistory(newRoutesHistory);
+    setSelectedId(null);
   };
 
   useEffect(() => {

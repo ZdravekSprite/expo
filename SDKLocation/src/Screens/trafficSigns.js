@@ -206,9 +206,12 @@ export const TrafficSignsScreen = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => {
               //console.log('eject');
-              if (route.length) addRoute();
+              if (route.length) {
+                addRoute();
+                setRoute([]);
+                setRec(false);
+              }
               navigation.navigate('Routes');
-              setRoute([]);
             }}
             style={[
               styles.button,
