@@ -35,3 +35,10 @@ export const DEFAULT_LOCATION = {
   settlement: false,
   speedLimit: null,
 }
+
+export const DEFAULT_REGION = {
+  latitude: 0,
+  longitude: 0,
+  latitudeDelta: 0,
+  longitudeDelta: 0,
+};

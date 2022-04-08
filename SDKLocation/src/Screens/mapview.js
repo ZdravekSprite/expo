@@ -4,12 +4,7 @@ import MapView, { Polyline } from 'react-native-maps';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const DEFAULT_REGION = {
-  latitude: 0,
-  longitude: 0,
-  latitudeDelta: 0,
-  longitudeDelta: 0,
-};
+import { DEFAULT_REGION } from '../Utils';
 
 const PolyFromRoute = ({
   route = { data: [] },

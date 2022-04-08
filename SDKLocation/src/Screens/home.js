@@ -30,6 +30,10 @@ export const HomeScreen = ({ navigation }) => {
       title='Go to File'
       onPress={() => navigation.navigate('File')}
       />
+      <MyButton
+      title='Go to POI'
+      onPress={() => navigation.navigate('POI')}
+      />
     </View>
   );
 }
