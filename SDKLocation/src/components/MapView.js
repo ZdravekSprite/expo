@@ -1,4 +1,4 @@
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 export const MyMapView = ({
   style = {},
@@ -27,7 +27,7 @@ export const MyMapView = ({
   },
   paddingAdjustmentBehavior = 'never', //'always' | 'automatic' | 'never' (GoogleMaps in iOS)
   liteMode = false, //Android
-  mapType = 'hybrid', //'standard' | 'none'(Google Maps) | 'satellite' | 'hybrid' | 'terrain' | 'mutedStandard'(iOS 11.0+)
+  mapType = 'standard', //'standard' | 'none'(Google Maps) | 'satellite' | 'hybrid' | 'terrain' | 'mutedStandard'(iOS 11.0+)
   customMapStyle = [
     {
       "stylers": [
@@ -90,21 +90,22 @@ export const MyMapView = ({
   userLocationPriority = 'high', //'balanced'|'high'|'low'|'passive' (Android)
   onUserLocationChange = () => { },
   onLongPress = () => { },
+  markers = [],
   ...props
 }) => {
   return (
     <MapView
       style={style}
       //provider='google'
-      //region={region}
-      initialRegion={region}
+      region={region}
+      //initialRegion={region}
       //camera={camera}
       //initialCamera={camera}
       //mapPadding={mapPadding}
       //paddingAdjustmentBehavior={paddingAdjustmentBehavior}
       //liteMode={liteMode}
       mapType={mapType}
-      customMapStyle={customMapStyle}
+      //customMapStyle={customMapStyle}
       //userInterfaceStyle={userInterfaceStyle}
       //showsUserLocation={showsUserLocation}
       userLocationPriority={userLocationPriority}
@@ -115,7 +116,14 @@ export const MyMapView = ({
       onUserLocationChange={(e) => onUserLocationChange(e)}
       onLongPress={(e) => onLongPress(e)}
     >
-      {props.children}
+      {markers.map((marker, index) => (
+        <Marker
+          key={index}
+          coordinate={marker.latlng}
+          title={marker.title}
+          description={marker.description}
+        />
+      ))}
     </MapView>
   );
 }
