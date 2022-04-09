@@ -8,7 +8,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { DEFAULT_LOCATION } from '../Utils';
-import { PrestanakButton, SpeedLimitButton } from '../Components';
+import { PrestanakButton, SpeedLimitButton } from '../components/Buttons';
 
 import { gpsLocation } from '../features/Location';
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { DEFAULT_LOCATION } from '../Utils';
+import { MyButton } from '../components/Buttons';
 
 import { gpsLocation } from '../features/Location';
 
@@ -38,16 +39,10 @@ export const LocationScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          getLocation(setLocation, setErrorMsg);
-        }}
-        style={styles.button}
-      >
-        <Text style={styles.buttonLabel}>
-          Location ... again
-        </Text>
-      </TouchableOpacity>
+      <MyButton
+        title='Location ... again'
+        onPress={() => getLocation(setLocation, setErrorMsg)}
+      />
       {location.timestamp ? (
         <>
           <Text style={styles.paragraph}>timestamp: {longToDate(location.timestamp)}</Text>

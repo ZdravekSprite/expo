@@ -3,15 +3,15 @@ import { View, Text, StyleSheet } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 
 import { sizes } from '../Utils';
-import { MyButton } from '../Components';
+import { MyButton } from '../components/Buttons';
 
 export const FileScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>File Screen</Text>
       <MyButton
-      title='save file'
-      onPress={() => saveFile()}
+        title='save file'
+        onPress={() => saveFile()}
       />
       <MyButton
         title='load file'

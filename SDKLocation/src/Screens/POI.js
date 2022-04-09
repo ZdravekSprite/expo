@@ -1,76 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
 
-import {
-  DEFAULT_LOCATION,
-  DEFAULT_REGION,
-  sizes,
-} from '../Utils';
-import { MyButton } from '../Components';
+import { sizes, colors } from '../Utils';
+import { MyMapView } from '../components/MapView';
 import { gpsLocation } from '../features/Location';
-
-const test = async (test) => {
-  console.log('test', await test);
-}
 
 export const POIScreen = () => {
   const [location, setLocation] = useState(null);
+  const [region, setRegion] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const getLocation = async () => {
+  const getRegion = async () => {
     let gps = await gpsLocation(setLocation, setErrorMsg);
     if (gps.errorMsg) {
       console.log(gps.errorMsg);
     } else {
-      setLocation(gps.location);
+      setRegion({
+        latitude: gps.location.coords.latitude,
+        longitude: gps.location.coords.longitude,
+        latitudeDelta: 0.0005,
+        longitudeDelta: 0.0005,
+      });
     }
   };
 
-  const getRegion = () => {
-    return {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-      latitudeDelta: 0.001,
-      longitudeDelta: 0.001,
-    }
-  };
+  useEffect(() => {
+    getRegion();
+    return () => {
+      setRegion(null);
+    };
+  }, []);
+
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>POI Screen</Text>
-      <MyButton
-        title='test'
-        onPress={() => {
-          getLocation()
-          test(location)
-        }}
-      />
-      {location ? (
-        <MapView
+      {region ? (
+        <MyMapView
           style={styles.map}
-          region={getRegion()}
+          region={region}
+          onUserLocationChange={(e) => {
+            //console.log(e.nativeEvent.coordinate.timestamp - (location ? location.coordinate.timestamp : 0))
+            //setLocation(e.nativeEvent)
+          }}
+          onLongPress={(e) => {
+            console.log(e.nativeEvent)
+          }}
         >
-          <Marker
-            coordinate={{
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            }}
-            title='x'
-            description='tu sam'
-            draggable
-            onDragEnd={e => {
-              setLocation({
-                coords: {
-                  latitude: e.nativeEvent.coordinate.latitude,
-                  longitude: e.nativeEvent.coordinate.longitude,
-                },
-              })
-              console.log('move',e.nativeEvent)
-            }}
-            onCalloutPress={e => console.log('save',e.nativeEvent)}
-          />
-        </MapView>
+        </MyMapView>
       ) : (
         <Text style={styles.label}>još nema lokacije</Text>
       )}
@@ -81,7 +58,7 @@ export const POIScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#999',
+    backgroundColor: colors.brightLight,
     alignItems: 'center',
     justifyContent: 'center',
     padding: sizes.xx,

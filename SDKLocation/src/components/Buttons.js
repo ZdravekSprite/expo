@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { sizes, colors } from './Utils';
+import { sizes, colors } from '../Utils';
 
 export const MyButton = ({
   style = {},

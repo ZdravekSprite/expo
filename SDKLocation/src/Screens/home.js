@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { sizes } from '../Utils';
-import { MyButton } from '../Components';
+import { MyButton } from '../components/Buttons';
 
 export const HomeScreen = ({ navigation }) => {
   return (
@@ -11,28 +11,28 @@ export const HomeScreen = ({ navigation }) => {
         Home Screen
       </Text>
       <MyButton
-      title='Go to Traffic Signs'
-      onPress={() => navigation.navigate('TrafficSigns')}
+        title='Go to Traffic Signs'
+        onPress={() => navigation.navigate('TrafficSigns')}
       />
       <MyButton
-      title='Go to Location'
-      onPress={() => navigation.navigate('Location')}
+        title='Go to Location'
+        onPress={() => navigation.navigate('Location')}
       />
       <MyButton
-      title='Go to Map View'
-      onPress={() => navigation.navigate('MapView')}
+        title='Go to Map View'
+        onPress={() => navigation.navigate('MapView')}
       />
       <MyButton
-      title='Go to Routes'
-      onPress={() => navigation.navigate('Routes')}
+        title='Go to Routes'
+        onPress={() => navigation.navigate('Routes')}
       />
       <MyButton
-      title='Go to File'
-      onPress={() => navigation.navigate('File')}
+        title='Go to File'
+        onPress={() => navigation.navigate('File')}
       />
       <MyButton
-      title='Go to POI'
-      onPress={() => navigation.navigate('POI')}
+        title='Go to POI'
+        onPress={() => navigation.navigate('POI')}
       />
     </View>
   );
