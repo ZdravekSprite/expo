@@ -90,6 +90,7 @@ export const MyMapView = ({
   userLocationPriority = 'high', //'balanced'|'high'|'low'|'passive' (Android)
   onUserLocationChange = () => { },
   onLongPress = () => { },
+  onDragEnd = () => { },
   markers = [],
   ...props
 }) => {
@@ -123,8 +124,8 @@ export const MyMapView = ({
           title={marker.title}
           description={marker.description}
           draggable
-          onDragEnd={e => { console.log('move', e.nativeEvent) }}
-          onCalloutPress={e => console.log('press', e.nativeEvent)}
+          onDragEnd={(e) => onDragEnd(e, index)}
+          onCalloutPress={e => console.log('press', e.nativeEvent, index)}
         />
       ))}
     </MapView>
