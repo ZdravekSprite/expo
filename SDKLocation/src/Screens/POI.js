@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker, Callout } from 'react-native-maps';
 
 import { sizes, colors } from '../Utils';
 import { MyMapView } from '../components/MapView';
@@ -9,6 +8,13 @@ export const POIScreen = () => {
   const [location, setLocation] = useState(null);
   const [region, setRegion] = useState(null);
   const [markers, setMarkers] = useState([]);
+
+  const decToDeg = (dec) => {
+    const step = Math.floor(dec);
+    const mins = Math.floor((dec - step) * 60);
+    const secs = Math.floor(((dec - step) * 60 - mins) * 60);
+    return step + '°'+ mins + "'" + secs + '"'
+  }
 
   return (
     <View style={styles.container}>
@@ -34,8 +40,8 @@ export const POIScreen = () => {
           console.log(e.nativeEvent)
           setMarkers([...markers, {
             latlng: e.nativeEvent.coordinate,
-            title: 'x',
-            description: 'desc'
+            title: 'x:' + decToDeg(e.nativeEvent.coordinate.longitude) + ' y:' + decToDeg(e.nativeEvent.coordinate.latitude),
+            description: 'kordinate'
           }])
         }}
         markers={markers}

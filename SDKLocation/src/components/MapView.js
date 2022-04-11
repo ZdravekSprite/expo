@@ -122,6 +122,9 @@ export const MyMapView = ({
           coordinate={marker.latlng}
           title={marker.title}
           description={marker.description}
+          draggable
+          onDragEnd={e => { console.log('move', e.nativeEvent) }}
+          onCalloutPress={e => console.log('press', e.nativeEvent)}
         />
       ))}
     </MapView>
