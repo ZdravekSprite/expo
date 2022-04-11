@@ -64,6 +64,8 @@ yarn add react-native-maps -e
 yarn add @react-native-async-storage/async-storage
 expo doctor --fix-dependencies
 expo install expo-file-system
+yarn add react-native-paper
+yarn add @react-native-picker/picker
 ```
 
 ```bash
@@ -73,7 +75,7 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation POI v0.1.10"
+git commit -am "SDKLocation POI v0.1.11x"
 git push
 ```
 
