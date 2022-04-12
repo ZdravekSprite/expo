@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { DEFAULT_LOCATION } from '../Utils';
-import { PrestanakButton, SpeedLimitButton } from '../components/Buttons';
+import { MyButton, PrestanakButton, SpeedLimitButton } from '../components/Buttons';
 
 import { gpsLocation } from '../features/Location';
 
@@ -129,38 +128,18 @@ export const TrafficSignsScreen = ({ navigation }) => {
         <PrestanakButton speed={speedLimit} onPress={() => changeSpeed(null)} />
       </View>
       <View style={styles.row}>
-        <TouchableOpacity
+        <MyButton
+          title='Naselje'
+          style={[styles.button, settlement ? styles.selected : null]}
+          textStyle={[styles.buttonLabel, settlement ? styles.selectedLabel : null]}
           onPress={() => setSettlement(true)}
-          style={[
-            styles.button,
-            settlement ? styles.selected : styles.button
-          ]}
-        >
-          <Text
-            style={[
-              styles.buttonLabel,
-              settlement ? styles.selectedLabel : styles.buttonLabel
-            ]}
-          >
-            Naselje
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        />
+        <MyButton
+          title='Van naselja'
+          style={[styles.button, !settlement ? styles.selected : styles.button]}
+          textStyle={[styles.buttonLabel, !settlement ? styles.selectedLabel : styles.buttonLabel]}
           onPress={() => setSettlement(false)}
-          style={[
-            styles.button,
-            !settlement ? styles.selected : styles.button
-          ]}
-        >
-          <Text
-            style={[
-              styles.buttonLabel,
-              !settlement ? styles.selectedLabel : styles.buttonLabel
-            ]}
-          >
-            Van naselja
-          </Text>
-        </TouchableOpacity>
+        />
         <View style={styles.row}>
           <Text>
             Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
@@ -169,41 +148,22 @@ export const TrafficSignsScreen = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity
+          <MyButton
+            title='REC'
+            style={[styles.button, styles.rec, rec ? styles.selected : null]}
+            textStyle={[styles.buttonLabel, rec ? styles.selectedLabel : null]}
             onPress={() => setRec(true)}
-            style={[
-              styles.button,
-              styles.rec,
-              rec ? styles.selected : null
-            ]}
-          >
-            <Text
-              style={[
-                styles.buttonLabel,
-                rec ? styles.selectedLabel : null
-              ]}
-            >
-              REC
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          />
+          <MyButton
+            title='PAUSE'
+            style={[styles.button, styles.rec, !rec ? styles.selected : null]}
+            textStyle={[styles.buttonLabel, !rec ? styles.selectedLabel : null]}
             onPress={() => setRec(false)}
-            style={[
-              styles.button,
-              styles.rec,
-              !rec ? styles.selected : null
-            ]}
-          >
-            <Text
-              style={[
-                styles.buttonLabel,
-                !rec ? styles.selectedLabel : null
-              ]}
-            >
-              PAUSE
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          />
+          <MyButton
+            title='EJECT'
+            style={[styles.button, styles.rec]}
+            textStyle={styles.buttonLabel}
             onPress={() => {
               //console.log('eject');
               if (route.length) {
@@ -213,19 +173,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
               }
               navigation.navigate('Routes');
             }}
-            style={[
-              styles.button,
-              styles.rec,
-            ]}
-          >
-            <Text
-              style={[
-                styles.buttonLabel,
-              ]}
-            >
-              EJECT
-            </Text>
-          </TouchableOpacity>
+          />
         </View>
       </View>
     </View>
@@ -270,6 +218,6 @@ const styles = StyleSheet.create({
     color: "coral",
   },
   selectedLabel: {
-    color: "white",
+    color: "oldlace",
   },
 });

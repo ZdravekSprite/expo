@@ -34,6 +34,10 @@ export const HomeScreen = ({ navigation }) => {
         title='Go to POI'
         onPress={() => navigation.navigate('POI')}
       />
+      <MyButton
+        title='Go to Test'
+        onPress={() => navigation.navigate('Test')}
+      />
     </View>
   );
 }

@@ -25,9 +25,12 @@ export const POIScreen = () => {
 
   const onSave = () => {
     console.log('save')
-    //console.log(poi, markers)
-    console.log(poi, markers[markers.length-1])
+    console.log(poi, markers)
+    //console.log(poi, markers[markers.length-1])
+    markers[markers.length - 1] = poi
+    setMarkers(markers)
     setPoi(null)
+    console.log(poi, markers)
   }
 
   return (
@@ -43,7 +46,7 @@ export const POIScreen = () => {
             <TextInput
               style={styles.input}
               label="Ime"
-              //value={text}
+              value={poi.name}
               //onChangeText={text => setText(text)}
               onSubmitEditing={({ nativeEvent }) => { setPoi({ ...poi, name: nativeEvent.text }) }}
               placeholder="ime točke interesa"
@@ -75,7 +78,16 @@ export const POIScreen = () => {
           </View>
         </ScrollView>
       ) : (
-        <Text style={styles.label}>POI Screen</Text>
+        <>
+          <Text style={styles.label}>POI Screen</Text>
+          <MyButton
+            title='print'
+            onPress={() => {
+              console.log(poi,markers)
+            }}
+          />
+        </>
+
       )}
       <MyMapView
         style={style(region, poi).map}
@@ -98,6 +110,7 @@ export const POIScreen = () => {
           poi ? ({}) : (
             setPoi({
               latlng: e.nativeEvent.coordinate,
+              name: 'poi ' + markers.length,
             }),
             setRegion({
               latitude: e.nativeEvent.coordinate.latitude,
@@ -107,8 +120,7 @@ export const POIScreen = () => {
             }),
             setMarkers([...markers, {
               latlng: e.nativeEvent.coordinate,
-              title: 'x:' + decToDeg(e.nativeEvent.coordinate.longitude) + ' y:' + decToDeg(e.nativeEvent.coordinate.latitude),
-              description: 'kordinata ' + markers.length
+              name: 'poi ' + markers.length,
             }]),
             setLock(true)
           )
@@ -116,13 +128,16 @@ export const POIScreen = () => {
         markers={markers}
         onDragEnd={(e, index) => {
           let latlng = e.nativeEvent.coordinate;
-          //if (index == markers.length - 1) setPoi({ ...poi, 'latlng': latlng })
-          //setMarkers(markers.map(m => m.index == index ? {  ...m, latlng: latlng } : m))
-
           console.log('move', index, latlng)
-          console.log('poi', { ...poi, 'latlng': latlng })
+
+          if (poi && index == markers.length - 1) {
+            console.log('poi', { ...poi, 'latlng': latlng })
+            setPoi({ ...poi, 'latlng': latlng })
+          }
+          //setMarkers(markers.map(m => m.index == index ? {  ...m, latlng: latlng } : m))
           markers[index].latlng = latlng
-          console.log('markers', markers)
+          setMarkers(markers)
+          //console.log('markers', markers)
         }}
       />
     </View>

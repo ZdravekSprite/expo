@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { TestScreen } from './src/screens/Test';
 import { POIScreen } from './src/screens/POI';
 import { FileScreen } from './src/screens/File';
 import { RoutesScreen } from './src/screens/Routes';
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="Routes" component={RoutesScreen} />
         <Stack.Screen name="File" component={FileScreen} />
         <Stack.Screen name="POI" component={POIScreen} />
+        <Stack.Screen name="Test" component={TestScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

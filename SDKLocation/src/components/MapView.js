@@ -94,6 +94,13 @@ export const MyMapView = ({
   markers = [],
   ...props
 }) => {
+  const decToDeg = (dec) => {
+    const step = Math.floor(dec);
+    const mins = Math.floor((dec - step) * 60);
+    const secs = Math.floor(((dec - step) * 60 - mins) * 6000) / 100;
+    return step + '°' + mins + "'" + secs + '"'
+  }
+
   return (
     <MapView
       style={style}
@@ -121,8 +128,9 @@ export const MyMapView = ({
         <Marker
           key={index}
           coordinate={marker.latlng}
-          title={marker.title}
-          description={marker.description}
+          title={marker.name}
+          description={marker.type}
+          //description={'x:' + decToDeg(marker.latlng.longitude) + ' y:' + decToDeg(marker.latlng.latitude)}
           draggable
           onDragEnd={(e) => onDragEnd(e, index)}
           onCalloutPress={e => console.log('press', e.nativeEvent, index)}
