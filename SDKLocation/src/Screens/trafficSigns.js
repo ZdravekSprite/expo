@@ -85,7 +85,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
       if (interval.current) clearInterval(interval.current)
       return;
     }
-    interval.current = setInterval(getLocation, 5000);
+    interval.current = setInterval(getLocation, 1000);
     return () => clearInterval(interval.current)
   }, [rec, speedLimit, settlement]);
 

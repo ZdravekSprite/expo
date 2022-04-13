@@ -8,7 +8,20 @@ import { DEFAULT_REGION } from '../Utils';
 
 const PolyFromRoute = ({
   route = { data: [] },
-  color = 'rgba(123,45,67,0.5)',
+  color = [
+    'rgba(0,0,0,0.5)',
+    'rgba(190,170,55,0.5)',
+    'rgba(80,180,65,0.5)',
+    'rgba(190,60,75,0.5)',
+    'rgba(40,200,85,0.5)',
+    'rgba(120,25,140,0.5)',
+    'rgba(30,220,105,0.5)',
+    'rgba(50,230,115,0.5)',
+    'rgba(70,240,125,0.5)',
+    'rgba(90,250,135,0.5)',
+    'rgba(110,5,145,0.5)',
+    'rgba(130,15,155,0.5)',
+  ],
 }) => {
   let segments = [];
   route.data.forEach(({ coords, speedLimit, settlement, timestamp }) => {
@@ -42,8 +55,8 @@ const PolyFromRoute = ({
             coordinates={[
               ...coords.map(({ latitude, longitude }) => ({ 'latitude': latitude, 'longitude': longitude })),
             ]}
-            strokeWidth={speedLimit ? 5 : 2}
-            strokeColor={color}
+            strokeWidth={2}
+            strokeColor={color[speedLimit/10]}
           />
         )
       })}

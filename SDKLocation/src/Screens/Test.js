@@ -14,6 +14,8 @@ export const TestScreen = () => {
   const [region, setRegion] = useState(null);
   const [poi, setPoi] = useState(null);
   const [poiList, setPoiList] = useState([]);
+  const [route, setRoute] = useState([]);
+  const [routesHistory, setRoutesHistory] = useState([]);
 
   const savePoiList = async () => {
     try {
@@ -34,16 +36,41 @@ export const TestScreen = () => {
     }
   };
 
+  const saveRoutesHistory = async () => {
+    try {
+      AsyncStorage.setItem('routesHistory', JSON.stringify(routesHistory));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const loadRoutesHistory = async () => {
+    try {
+      const history = await AsyncStorage.getItem('routesHistory');
+
+      if (history && JSON.parse(history).length) {
+        setRoutesHistory(JSON.parse(history));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     loadPoiList();
+    loadRoutesHistory();
     return () => {
       setPoiList([]);
+      setRoutesHistory([]);
     };
   }, []);
 
   useEffect(() => {
     savePoiList();
   }, [poiList]);
+
+  useEffect(() => {
+    saveRoutesHistory();
+  }, [routesHistory]);
 
   const newPoi = () => {
     console.log('new poi')
@@ -56,28 +83,76 @@ export const TestScreen = () => {
       )
     }
   }
+
+  const canclePoi = () => {
+    console.log('cancle poi')
+    setPoi(null)
+  }
+
+  const recRoute = () => {
+    console.log('rec route')
+    setRoute([...route, location])
+  }
+
+  const saveRoute = () => {
+    console.log('save route')
+    if (route.length > 1) {
+      setRoutesHistory([...routesHistory, route]);
+    }
+    setRoute([])
+    setRegion({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      latitudeDelta: location.accuracy * 0.00002,
+      longitudeDelta: location.accuracy * 0.00002,
+    });
+  }
+
+  const sendTest = () => {
+    console.log('send')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.row}>
         <MyButton
           title='print'
           onPress={() => {
-            console.log(location, poi, poiList)
+            console.log('----------print----------')
+            //console.log('l ', location)
+            //console.log('r ', region)
+            //console.log('p ', poi)
+            //console.log('pl ', poiList)
+            console.log('ro ', route)
+            //console.log('rl ', routesHistory)
+            console.log('-------------------------')
           }}
+        />
+        <MyButton
+          title='send'
+          onPress={sendTest}
         />
       </View>
       <View style={styles.row}>
         <MyButton
           title='new'
-          onPress={() => newPoi()}
+          onPress={newPoi}
+        />
+        <MyButton
+          title='save'
+          onPress={() => {
+            console.log('save')
+          }}
+        />
+        <MyButton
+          title='cancle'
+          onPress={canclePoi}
         />
       </View>
       <View style={styles.row}>
         <MyButton
           title='rec'
-          onPress={() => {
-            console.log('rec')
-          }}
+          onPress={recRoute}
         />
         <MyButton
           title='pause'
@@ -87,29 +162,29 @@ export const TestScreen = () => {
         />
         <MyButton
           title='save'
-          onPress={() => {
-            console.log('save')
-          }}
+          onPress={saveRoute}
         />
       </View>
       <MapView
-        style={style(region, poi).map}
+        style={style(region, poi, route).map}
         region={region}
         showsUserLocation={true}
-        followUserLocation={true}
+        followUserLocation={false}
         userLocationUpdateInterval={0}
-
         onUserLocationChange={(e) => {
           //console.log(e.nativeEvent)
           setLocation(e.nativeEvent.coordinate)
-          if (!region) {
-            setRegion({
-              latitude: e.nativeEvent.coordinate.latitude,
-              longitude: e.nativeEvent.coordinate.longitude,
-              latitudeDelta: e.nativeEvent.coordinate.accuracy * 0.00002,
-              longitudeDelta: e.nativeEvent.coordinate.accuracy * 0.00002,
-            });
-          }
+          if (!poi) setRegion({
+            ...region,
+            latitude: e.nativeEvent.coordinate.latitude,
+            longitude: e.nativeEvent.coordinate.longitude,
+            latitudeDelta: region ? region.latitudeDelta : e.nativeEvent.coordinate.accuracy * 0.00002,
+            longitudeDelta: region ? region.longitudeDelta : e.nativeEvent.coordinate.accuracy * 0.00002,
+          });
+        }}
+        onRegionChangeComplete={(e) => {
+          //console.log(e)
+          setRegion(e);
         }}
       >
       </MapView>
@@ -131,9 +206,9 @@ const styles = StyleSheet.create({
     width: '100%'
   },
 });
-const style = (region, poi) => StyleSheet.create({
+const style = (region, poi, route) => StyleSheet.create({
   map: {
-    display: region ? 'flex' : 'none',
+    display: region && !route.length ? 'flex' : 'none',
     width: Dimensions.get('window').width - 20,
     height: Dimensions.get('window').width / (poi ? 2 : 1) - 20,
   },
