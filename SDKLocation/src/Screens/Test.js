@@ -3,10 +3,12 @@ import {
   StyleSheet,
   View,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapView, { Marker } from 'react-native-maps';
 
+import { sizes, colors } from '../Utils';
 import { MyButton } from '../components/Buttons';
 
 export const TestScreen = () => {
@@ -114,6 +116,21 @@ export const TestScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.inputContainer}>
+        <TextInput
+          multiline
+          numberOfLines={4}
+          editable
+          maxLength={40}
+          onChangeText={text => onChangeText(text)}
+          style={styles.input}
+          value={JSON.stringify(location)}
+        //onChangeText={text => setText(text)}
+        //onSubmitEditing={({ nativeEvent }) => { setPoi({ ...poi, name: nativeEvent.text }) }}
+        />
+      </View>
+
+
       <View style={styles.row}>
         <MyButton
           title='print'
@@ -204,6 +221,15 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: 'flex-start',
     width: '100%'
+  },
+  inputContainer: {
+    paddingTop: sizes.xx,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    flex: 1,
+    marginRight: sizes.xx,
   },
 });
 const style = (region, poi, route) => StyleSheet.create({
