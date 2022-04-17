@@ -4,7 +4,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { TestScreen } from './src/screens/Test';
 import { POIScreen } from './src/screens/POI';
-import { FileScreen } from './src/screens/File';
 import { RoutesScreen } from './src/screens/Routes';
 import { MapViewScreen } from './src/screens/Mapview';
 import { LocationScreen } from './src/screens/Location';
@@ -26,7 +25,6 @@ export default function App() {
         <Stack.Screen name="Location" component={LocationScreen} />
         <Stack.Screen name="MapView" component={MapViewScreen} />
         <Stack.Screen name="Routes" component={RoutesScreen} />
-        <Stack.Screen name="File" component={FileScreen} />
         <Stack.Screen name="POI" component={POIScreen} />
         <Stack.Screen name="Test" component={TestScreen} />
       </Stack.Navigator>

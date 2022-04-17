@@ -27,10 +27,6 @@ export const HomeScreen = ({ navigation }) => {
         onPress={() => navigation.navigate('Routes')}
       />
       <MyButton
-        title='Go to File'
-        onPress={() => navigation.navigate('File')}
-      />
-      <MyButton
         title='Go to POI'
         onPress={() => navigation.navigate('POI')}
       />

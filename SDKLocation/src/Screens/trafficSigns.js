@@ -6,8 +6,8 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { DEFAULT_LOCATION } from '../Utils';
-import { MyButton, PrestanakButton, SpeedLimitButton } from '../components/Buttons';
+import { sizes, DEFAULT_LOCATION } from '../Utils';
+import { MyButton, PrestanakButton, SpeedLimitButton, RoundedButton } from '../components/Buttons';
 
 import { gpsLocation } from '../features/Location';
 
@@ -43,7 +43,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
   useEffect(() => {
     loadRoutesHistory();
     return () => {
-      setRoutesHistory({});
+      setRoutesHistory([]);
     };
   }, []);
 
@@ -81,10 +81,27 @@ export const TrafficSignsScreen = ({ navigation }) => {
     }
   }
   useEffect(() => {
+    /*
     if (!rec) {
       if (interval.current) clearInterval(interval.current)
       return;
     }
+    */
+    setRoute([
+      ...route,
+      {
+        ...location,
+        key: String(route.length + 1),
+        timestamp: new Date(),
+        settlement: settlement,
+        speedLimit: speedLimit,
+        }
+    ]);
+    setLocation({
+      ...location,
+      settlement: settlement,
+      speedLimit: speedLimit,
+    });
     interval.current = setInterval(getLocation, 1000);
     return () => clearInterval(interval.current)
   }, [rec, speedLimit, settlement]);
@@ -96,17 +113,19 @@ export const TrafficSignsScreen = ({ navigation }) => {
   }, [location]);
 
   const addRoute = () => {
-    setRoutesHistory([
-      ...routesHistory,
-      {
-        //key: String(routesHistory.length + 1),
-        id: route[0].timestamp,
-        title: route[0].timestamp,
-        route: String(route.length) + ' dots',
-        data: route,
-      }
-    ]
-    );
+    //console.log(route,routesHistory)
+    if (route.length > 1) {
+      setRoutesHistory([
+        ...routesHistory,
+        {
+          //key: String(routesHistory.length + 1),
+          id: route[0].timestamp,
+          title: route[0].timestamp,
+          route: String(route.length) + ' dots',
+          data: route,
+        }
+      ]);
+    }
   }
 
   return (
@@ -146,6 +165,9 @@ export const TrafficSignsScreen = ({ navigation }) => {
             {errorMsg ?? 'nema greške'}{"\n"}
             {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
           </Text>
+          <RoundedButton
+          style={var_styles(location.coords.accuracy ?? null).gps}
+          />
         </View>
         <View style={styles.row}>
           <MyButton
@@ -165,7 +187,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
             style={[styles.button, styles.rec]}
             textStyle={styles.buttonLabel}
             onPress={() => {
-              //console.log('eject');
+              console.log('eject');
               if (route.length) {
                 addRoute();
                 setRoute([]);
@@ -220,4 +242,11 @@ const styles = StyleSheet.create({
   selectedLabel: {
     color: "oldlace",
   },
+});
+const var_styles = (gps) => StyleSheet.create({
+  gps: {
+    backgroundColor: gps == null || gps > 20 ? "red" : gps > 10 ? "orange" : "green",
+    borderWidth: 1,
+    marginLeft: sizes.xxxl,
+  }
 });
