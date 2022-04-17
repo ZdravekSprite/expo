@@ -10,6 +10,7 @@ import MapView, { Marker } from 'react-native-maps';
 
 import { sizes, colors } from '../Utils';
 import { MyButton } from '../components/Buttons';
+import { BASE_URL } from '../config';
 
 export const TestScreen = () => {
   const [location, setLocation] = useState(null);
@@ -112,6 +113,16 @@ export const TestScreen = () => {
 
   const sendTest = () => {
     console.log('send')
+    fetch(`${BASE_URL}/routes`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', },
+      body: JSON.stringify({ data: JSON.stringify(location), })
+    }).then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+      }).catch((error) => {
+        console.log("Error");
+      });
   }
 
   return (
@@ -184,12 +195,13 @@ export const TestScreen = () => {
       </View>
       <MapView
         style={style(region, poi, route).map}
-        region={region}
+        //region={region}
         showsUserLocation={true}
         followUserLocation={false}
         userLocationUpdateInterval={0}
         onUserLocationChange={(e) => {
-          //console.log(e.nativeEvent)
+          //console.log(e.nativeEvent.coordinate.timestamp - location.timestamp)
+          console.log(e.nativeEvent.coordinate)
           setLocation(e.nativeEvent.coordinate)
           if (!poi) setRegion({
             ...region,

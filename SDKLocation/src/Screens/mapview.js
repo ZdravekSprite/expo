@@ -109,8 +109,8 @@ export const MapViewScreen = () => {
   route format
   data: {[{coords:{latitude:0,longitude:0},{coords:{latitude:0,longitude:0}}]}
   */
-
-  var myArray = routesHistory.length > 0 ? routesHistory[2].data : [];
+/*
+  var myArray = routesHistory.length > 0 ? routesHistory[1].data : [];
 
   let flattened = [[0, 1], [2, 3], [4, 5]].reduce(
     function (previousValue, currentValue) {
@@ -131,6 +131,7 @@ export const MapViewScreen = () => {
   }
 
   console.log(myArray.hasMin('longitude'))
+*/
   return (
     <View style={styles.container}>
       <MapView

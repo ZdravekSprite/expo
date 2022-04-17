@@ -68,6 +68,12 @@ yarn add react-native-paper
 yarn add @react-native-picker/picker
 ```
 
+### SDKLocation\src\config.js
+
+```ts
+export const BASE_URL = 'http://example.com/api';
+```
+
 ```bash
 cd SDKLocation
 yarn start
@@ -75,11 +81,11 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation Test v0.1.17x"
+git commit -am "SDKLocation Test v0.1.18"
 git push
 ```
 
-## location -> main
+### location -> main
 
 ```bash
 git checkout main
@@ -88,7 +94,7 @@ git merge location
 git push
 ```
 
-## main -> location
+### main -> location
 
 ```bash
 git checkout location
