@@ -20,33 +20,14 @@ export const TrafficSignsScreen = ({ navigation }) => {
   const saveRoutesHistory = async () => {
     try {
       AsyncStorage.setItem('routesHistory', JSON.stringify(routesHistory));
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) { console.log(e); }
   };
   const loadRoutesHistory = async () => {
     try {
       const history = await AsyncStorage.getItem('routesHistory');
-
-      if (history && JSON.parse(history).length) {
-        setRoutesHistory(JSON.parse(history));
-      }
-    } catch (e) {
-      console.log(e);
-    }
+      if (history && JSON.parse(history).length) { setRoutesHistory(JSON.parse(history)); }
+    } catch (e) { console.log(e); }
   };
-
-  useEffect(() => {
-    loadRoutesHistory();
-    return () => {
-      setRoutesHistory([]);
-    };
-  }, []);
-
-  useEffect(() => {
-    saveRoutesHistory();
-  }, [routesHistory]);
-
   const getLocation = async () => {
     let gps = await gpsLocation(setLocation, setErrorMsg);
     if (gps.errorMsg) {
@@ -60,23 +41,35 @@ export const TrafficSignsScreen = ({ navigation }) => {
     }
   };
 
+  useEffect(() => {
+    console.log('[]')
+    loadRoutesHistory();
+    return () => setRoutesHistory([])
+  }, []);
+
+  useEffect(() => {
+    console.log('routesHistory',routesHistory.length)
+    saveRoutesHistory();
+  }, [routesHistory]);
+
+
   const changeSpeed = (speed) => {
     setSpeedLimit(speed);
   }
 
   const activate = () => {
-    activateKeepAwake(); 
+    activateKeepAwake();
     alert('Activated!');
   };
 
   const deactivate = () => {
-    deactivateKeepAwake(); 
+    deactivateKeepAwake();
     alert('Deactivated!');
   };
 
   const addLocation = () => {
     const lastLocation = route.length > 0 ? route[route.length - 1] : DEFAULT_LOCATION;
-    if ((lastLocation.timestamp !== location.timestamp)&&(location.coords !== DEFAULT_LOCATION.coords) ) {
+    if ((lastLocation.timestamp !== location.timestamp) && (location.coords !== DEFAULT_LOCATION.coords)) {
       setRoute([
         ...route,
         {
@@ -84,17 +77,25 @@ export const TrafficSignsScreen = ({ navigation }) => {
           key: String(route.length + 1),
         }
       ]);
+      console.log('addLocation', location.timestamp)
     }
-    console.log('addLocation',location.coords)
   }
   useEffect(() => {
+    console.log('rec',rec)
     /*
-    if (!rec) {
-      if (interval.current) clearInterval(interval.current)
-      return;
-    }
+    setLocation({
+      ...location,
+      settlement: settlement,
+      speedLimit: speedLimit,
+    });
     */
-    if(route.length) {
+    interval.current = setInterval(getLocation, 1000);
+    return () => clearInterval(interval.current);
+  }, [rec]);
+
+  useEffect(() => {
+    console.log('ss',speedLimit, settlement)
+    if (route.length) {
       setRoute([
         ...route,
         {
@@ -104,21 +105,15 @@ export const TrafficSignsScreen = ({ navigation }) => {
           settlement: settlement,
           speedLimit: speedLimit,
         }
-      ]);  
-      console.log('setRoute',location.coords)
+      ]);
+      console.log('setRoute', location.coords)
     }
-    setLocation({
-      ...location,
-      settlement: settlement,
-      speedLimit: speedLimit,
-    });
-    interval.current = setInterval(getLocation, 1000);
-    return () => clearInterval(interval.current)
-  }, [rec, speedLimit, settlement]);
+  }, [speedLimit, settlement]);
 
   useEffect(() => {
     if (rec) {
-      addLocation();
+    console.log('location')
+    addLocation();
     }
   }, [location]);
 
