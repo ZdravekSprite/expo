@@ -17,6 +17,7 @@ export const sizes = {
   lg: 24,
   xl: 32,
   xxl: 48,
+  xxx: 75,
   xxxl: 80,
   xxxx: 100
 }

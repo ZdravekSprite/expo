@@ -66,6 +66,8 @@ expo doctor --fix-dependencies
 expo install expo-file-system
 yarn add react-native-paper
 yarn add @react-native-picker/picker
+expo install react-native-svg
+expo install expo-keep-awake
 ```
 
 ### SDKLocation\src\config.js
@@ -81,7 +83,7 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation Test v0.1.19"
+git commit -am "SDKLocation non stop open, more signs v0.1.21"
 git push
 ```
 

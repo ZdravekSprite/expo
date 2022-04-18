@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { StyleSheet, Text, View, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 
 import { sizes, DEFAULT_LOCATION } from '../Utils';
-import { MyButton, PrestanakButton, SpeedLimitButton, RoundedButton } from '../components/Buttons';
-
 import { gpsLocation } from '../features/Location';
+import { MyButton, PrestanakButton, SpeedLimitButton, RoundedButton, SemaforButton, B01Button, B02Button } from '../components/Buttons';
 
 export const TrafficSignsScreen = ({ navigation }) => {
   const [rec, setRec] = useState(false);
@@ -68,9 +64,19 @@ export const TrafficSignsScreen = ({ navigation }) => {
     setSpeedLimit(speed);
   }
 
+  const activate = () => {
+    activateKeepAwake(); 
+    alert('Activated!');
+  };
+
+  const deactivate = () => {
+    deactivateKeepAwake(); 
+    alert('Deactivated!');
+  };
+
   const addLocation = () => {
     const lastLocation = route.length > 0 ? route[route.length - 1] : DEFAULT_LOCATION;
-    if (lastLocation.timestamp !== location.timestamp) {
+    if ((lastLocation.timestamp !== location.timestamp)&&(location.coords !== DEFAULT_LOCATION.coords) ) {
       setRoute([
         ...route,
         {
@@ -79,6 +85,7 @@ export const TrafficSignsScreen = ({ navigation }) => {
         }
       ]);
     }
+    console.log('addLocation',location.coords)
   }
   useEffect(() => {
     /*
@@ -87,16 +94,19 @@ export const TrafficSignsScreen = ({ navigation }) => {
       return;
     }
     */
-    setRoute([
-      ...route,
-      {
-        ...location,
-        key: String(route.length + 1),
-        timestamp: new Date(),
-        settlement: settlement,
-        speedLimit: speedLimit,
+    if(route.length) {
+      setRoute([
+        ...route,
+        {
+          ...location,
+          key: String(route.length + 1),
+          timestamp: new Date().getMilliseconds,
+          settlement: settlement,
+          speedLimit: speedLimit,
         }
-    ]);
+      ]);  
+      console.log('setRoute',location.coords)
+    }
     setLocation({
       ...location,
       settlement: settlement,
@@ -145,6 +155,9 @@ export const TrafficSignsScreen = ({ navigation }) => {
         <SpeedLimitButton speed='120' onPress={() => changeSpeed(120)} />
         <SpeedLimitButton speed='130' onPress={() => changeSpeed(130)} />
         <PrestanakButton speed={speedLimit} onPress={() => changeSpeed(null)} />
+        <SemaforButton onPress={() => changeSpeed(null)} />
+        <B01Button onPress={() => changeSpeed(null)} />
+        <B02Button onPress={() => changeSpeed(null)} />
       </View>
       <View style={styles.row}>
         <MyButton
@@ -162,11 +175,11 @@ export const TrafficSignsScreen = ({ navigation }) => {
         <View style={styles.row}>
           <Text>
             Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
-            {errorMsg ?? 'nema greške'}{"\n"}
+            {errorMsg ?? ''}
             {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
           </Text>
           <RoundedButton
-          style={var_styles(location.coords.accuracy ?? null).gps}
+            style={var_styles(location.coords.accuracy ?? null).gps}
           />
         </View>
         <View style={styles.row}>
@@ -174,7 +187,11 @@ export const TrafficSignsScreen = ({ navigation }) => {
             title='REC'
             style={[styles.button, styles.rec, rec ? styles.selected : null]}
             textStyle={[styles.buttonLabel, rec ? styles.selectedLabel : null]}
-            onPress={() => setRec(true)}
+            onPress={() => {
+              console.log('rec');
+              activate
+              setRec(true)
+            }}
           />
           <MyButton
             title='PAUSE'
@@ -183,17 +200,17 @@ export const TrafficSignsScreen = ({ navigation }) => {
             onPress={() => setRec(false)}
           />
           <MyButton
-            title='EJECT'
+            title='SAVE'
             style={[styles.button, styles.rec]}
             textStyle={styles.buttonLabel}
             onPress={() => {
-              console.log('eject');
+              console.log('save');
+              deactivate
               if (route.length) {
                 addRoute();
                 setRoute([]);
                 setRec(false);
               }
-              navigation.navigate('Routes');
             }}
           />
         </View>
