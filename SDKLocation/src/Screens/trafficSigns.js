@@ -3,19 +3,20 @@ import { StyleSheet, Text, View, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 
-import { sizes, DEFAULT_LOCATION } from '../Utils';
+import { sizes } from '../Utils';
 import { gpsLocation } from '../features/Location';
-import { MyButton, PrestanakButton, SpeedLimitButton, RoundedButton, SemaforButton, B01Button, B02Button } from '../components/Buttons';
+import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton, SemaforButton, B01Button, B02Button } from '../components/Buttons';
 
-export const TrafficSignsScreen = ({ navigation }) => {
-  const [rec, setRec] = useState(false);
-  const [route, setRoute] = useState([]);
-  const [settlement, setSettlement] = useState(true);
-  const [speedLimit, setSpeedLimit] = useState(null);
-  const [location, setLocation] = useState(DEFAULT_LOCATION);
+export const TrafficSignsScreen = () => {
+  const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [rec, setRec] = useState(false);
+  const [path, setPath] = useState([]);
+  const [trafficSigns, setTrafficSigns] = useState([]);
   const [routesHistory, setRoutesHistory] = useState([]);
   const interval = React.useRef(null);
+
+  const [speed, setSpeed] = useState([]);
 
   const saveRoutesHistory = async () => {
     try {
@@ -33,28 +34,41 @@ export const TrafficSignsScreen = ({ navigation }) => {
     if (gps.errorMsg) {
       console.log(gps.errorMsg);
     } else {
-      setLocation({
-        ...gps.location,
-        settlement: settlement,
-        speedLimit: speedLimit,
-      });
+      //console.log(gps.time);
+      if (location !== gps.location)
+        setLocation({
+          ...gps.location,
+        });
     }
   };
 
   useEffect(() => {
     console.log('[]')
     loadRoutesHistory();
-    return () => setRoutesHistory([])
+    interval.current = setInterval(getLocation, 1000);
+    return () => {
+      clearInterval(interval.current);
+      setRoutesHistory([]);
+    }
   }, []);
 
   useEffect(() => {
-    console.log('routesHistory',routesHistory.length)
+    console.log('routesHistory', routesHistory.length)
     saveRoutesHistory();
   }, [routesHistory]);
 
 
   const changeSpeed = (speed) => {
-    setSpeedLimit(speed);
+    console.log(speed)
+    let now = new Date
+    setTrafficSigns([
+      ...trafficSigns,
+      {
+        sign: speed,
+        time: now.getTime()
+      }
+    ])
+    //setSpeedLimit(speed);
   }
 
   const activate = () => {
@@ -68,76 +82,57 @@ export const TrafficSignsScreen = ({ navigation }) => {
   };
 
   const addLocation = () => {
-    const lastLocation = route.length > 0 ? route[route.length - 1] : DEFAULT_LOCATION;
-    if ((lastLocation.timestamp !== location.timestamp) && (location.coords !== DEFAULT_LOCATION.coords)) {
-      setRoute([
-        ...route,
-        {
-          ...location,
-          key: String(route.length + 1),
-        }
-      ]);
-      console.log('addLocation', location.timestamp)
+    if (location) {
+      if (!path.length) {
+        setPath([{ location: location, }]);
+      } else if (path[path.length - 1].location.timestamp !== location.timestamp && path.length < 10) {
+        //console.log('add',location.timestamp - (path.length ? path[path.length - 1].location.timestamp : 0))
+        setPath([
+          ...path,
+          {
+            location: location,
+          }
+        ]);
+      } else {
+      }
+      //console.log('addLocation', path.map(l => l.location.timestamp))
     }
   }
   useEffect(() => {
-    console.log('rec',rec)
-    /*
-    setLocation({
-      ...location,
-      settlement: settlement,
-      speedLimit: speedLimit,
-    });
-    */
-    interval.current = setInterval(getLocation, 1000);
-    return () => clearInterval(interval.current);
+    //console.log('rec', rec)
   }, [rec]);
 
   useEffect(() => {
-    console.log('ss',speedLimit, settlement)
-    if (route.length) {
-      setRoute([
-        ...route,
-        {
-          ...location,
-          key: String(route.length + 1),
-          timestamp: new Date().getMilliseconds,
-          settlement: settlement,
-          speedLimit: speedLimit,
-        }
-      ]);
-      console.log('setRoute', location.coords)
-    }
-  }, [speedLimit, settlement]);
+    console.log('trafficSigns', trafficSigns)
+  }, [trafficSigns]);
 
   useEffect(() => {
     if (rec) {
-    console.log('location')
-    addLocation();
+      addLocation();
     }
   }, [location]);
 
   const addRoute = () => {
     //console.log(route,routesHistory)
-    if (route.length > 1) {
+    if (path.length > 1) {
       setRoutesHistory([
         ...routesHistory,
         {
           //key: String(routesHistory.length + 1),
           id: route[0].timestamp,
           title: route[0].timestamp,
-          route: String(route.length) + ' dots',
-          data: route,
+          route: String(path.length) + ' dots',
+          data: path,
         }
       ]);
     }
+    setRoute([]);
+    setRec(false);
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-      </View>
-      <View style={styles.row}>
+      <View style={[styles.row, { flex: 1 }]}>
         <SpeedLimitButton speed='30' onPress={() => changeSpeed(30)} />
         <SpeedLimitButton speed='40' onPress={() => changeSpeed(40)} />
         <SpeedLimitButton speed='50' onPress={() => changeSpeed(50)} />
@@ -149,66 +144,49 @@ export const TrafficSignsScreen = ({ navigation }) => {
         <SpeedLimitButton speed='110' onPress={() => changeSpeed(110)} />
         <SpeedLimitButton speed='120' onPress={() => changeSpeed(120)} />
         <SpeedLimitButton speed='130' onPress={() => changeSpeed(130)} />
-        <PrestanakButton speed={speedLimit} onPress={() => changeSpeed(null)} />
-        <SemaforButton onPress={() => changeSpeed(null)} />
+        <PrestanakButton speed={null} onPress={() => changeSpeed(null)} />
+        <SignButton type='semafor' onPress={() => changeSpeed(null)} />
+        <SignButton type='b01' onPress={() => changeSpeed(null)} />
         <B01Button onPress={() => changeSpeed(null)} />
         <B02Button onPress={() => changeSpeed(null)} />
       </View>
       <View style={styles.row}>
+        <Text>
+          Trenutno ograničenje: {'nema'}{"\n"}
+          {errorMsg ?? ''}
+          {location ? location.timestamp : 'nema lokacije'} {path.length} {routesHistory.length}
+        </Text>
+        <RoundedButton
+          style={var_styles(location ? location.coords.accuracy : null).gps}
+        />
+      </View>
+      <View style={styles.row}>
         <MyButton
-          title='Naselje'
-          style={[styles.button, settlement ? styles.selected : null]}
-          textStyle={[styles.buttonLabel, settlement ? styles.selectedLabel : null]}
-          onPress={() => setSettlement(true)}
+          title='REC'
+          style={[styles.button, styles.rec, rec ? styles.selected : null]}
+          textStyle={[styles.buttonLabel, rec ? styles.selectedLabel : null]}
+          onPress={() => {
+            console.log('rec');
+            activate
+            setRec(true)
+          }}
         />
         <MyButton
-          title='Van naselja'
-          style={[styles.button, !settlement ? styles.selected : styles.button]}
-          textStyle={[styles.buttonLabel, !settlement ? styles.selectedLabel : styles.buttonLabel]}
-          onPress={() => setSettlement(false)}
+          title='PAUSE'
+          style={[styles.button, styles.rec, !rec ? styles.selected : null]}
+          textStyle={[styles.buttonLabel, !rec ? styles.selectedLabel : null]}
+          onPress={() => setRec(false)}
         />
-        <View style={styles.row}>
-          <Text>
-            Trenutno ograničenje: {speedLimit ?? 'nema'}{"\n"}
-            {errorMsg ?? ''}
-            {location.timestamp ?? 'nema lokacije'} {route.length} {routesHistory.length}
-          </Text>
-          <RoundedButton
-            style={var_styles(location.coords.accuracy ?? null).gps}
-          />
-        </View>
-        <View style={styles.row}>
-          <MyButton
-            title='REC'
-            style={[styles.button, styles.rec, rec ? styles.selected : null]}
-            textStyle={[styles.buttonLabel, rec ? styles.selectedLabel : null]}
-            onPress={() => {
-              console.log('rec');
-              activate
-              setRec(true)
-            }}
-          />
-          <MyButton
-            title='PAUSE'
-            style={[styles.button, styles.rec, !rec ? styles.selected : null]}
-            textStyle={[styles.buttonLabel, !rec ? styles.selectedLabel : null]}
-            onPress={() => setRec(false)}
-          />
-          <MyButton
-            title='SAVE'
-            style={[styles.button, styles.rec]}
-            textStyle={styles.buttonLabel}
-            onPress={() => {
-              console.log('save');
-              deactivate
-              if (route.length) {
-                addRoute();
-                setRoute([]);
-                setRec(false);
-              }
-            }}
-          />
-        </View>
+        <MyButton
+          title='SAVE'
+          style={[styles.button, styles.rec]}
+          textStyle={styles.buttonLabel}
+          onPress={() => {
+            console.log('save');
+            deactivate
+            addRoute();
+          }}
+        />
       </View>
     </View>
   );

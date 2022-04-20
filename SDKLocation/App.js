@@ -17,7 +17,11 @@ export default function App() {
           component={HomeScreen}
           options={{ title: 'Overview' }}
         />
-        <Stack.Screen name="TrafficSigns" component={TrafficSignsScreen} />
+        <Stack.Screen
+          name="TrafficSigns"
+          component={TrafficSignsScreen}
+          options={{ title: 'Traffic Signs' }}
+        />
         <Stack.Screen name="Routes" component={RoutesScreen} />
       </Stack.Navigator>
     </NavigationContainer>

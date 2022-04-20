@@ -4,6 +4,7 @@ import * as Location from 'expo-location';
 
 export const gpsLocation = async () => {
   let errorMsg = null;
+  let start = new Date();
   if (Platform.OS === 'android' && !Device.isDevice) {
     errorMsg = 'Oops, this will not work on Snack in an Android emulator. Try it on your device!';
     return { 'errorMsg': errorMsg };
@@ -14,5 +15,5 @@ export const gpsLocation = async () => {
     return { 'errorMsg': errorMsg };
   }
   let location = await Location.getCurrentPositionAsync({});
-  return { 'errorMsg': errorMsg, 'location': location }
+  return { 'errorMsg': errorMsg, 'location': location, 'time': (new Date() - start) }
 };

@@ -1,42 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BASE_URL } from '../config';
-
-const formatTime = (time) => time < 10 ? `0${time}` : time;
-const longToDate = (millisec) => {
-  const d = new Date(millisec);
-  return (d.toDateString() + ' ' + formatTime(d.getHours()) + ':' + formatTime(d.getMinutes()));
-};
-
-const Item = ({ item, onPress, onSend, onDelete, backgroundColor, textColor }) => (
-  <View style={styles.row}>
-    <TouchableOpacity
-      onPress={onPress}
-      style={[
-        styles.item,
-        backgroundColor,
-        { flex: 1 },
-      ]}
-    >
-      <Text style={[styles.title, textColor]}>
-        {longToDate(item.title)}
-      </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      onPress={onSend}
-      style={[styles.item, backgroundColor]}
-    >
-      <Text style={[styles.title, textColor]}>send</Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      onPress={onDelete}
-      style={[styles.item, backgroundColor]}
-    >
-      <Text style={[styles.title, textColor]}>X</Text>
-    </TouchableOpacity>
-  </View>
-);
+import { Item } from '../components/Items';
+import { sizes, colors } from '../Utils';
 
 export const RoutesScreen = () => {
   const [selectedId, setSelectedId] = useState(null);
@@ -62,8 +29,7 @@ export const RoutesScreen = () => {
   };
 
   const sendRoute = (routeId) => {
-    console.log('send',routeId)
-    /**/
+    console.log('send', routeId)
     fetch(`${BASE_URL}/routes`, {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json', },
@@ -71,10 +37,9 @@ export const RoutesScreen = () => {
     }).then((response) => response.json())
       .then((responseData) => {
         console.log(responseData);
-      }).catch((error) => {
-        console.log("Error");
+      }).catch((e) => {
+        console.log("Error",e);
       });
-      /**/
   }
 
   const removeRoute = (routeId) => {
@@ -95,8 +60,8 @@ export const RoutesScreen = () => {
   }, [routesHistory]);
 
   const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.id === selectedId ? 'white' : 'black';
+    const backgroundColor = item.id === selectedId ? colors.label : colors.button;
+    const color = item.id === selectedId ? colors.button : colors.label;
 
     return (
       <Item
@@ -131,24 +96,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
   },
-  row: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: 'flex-start'
-  },
-  item: {
-    padding: 12,
-    marginVertical: 4,
-    marginHorizontal: 4,
-  },
-  title: {
-    fontSize: 16,
-  },
   route: {
     flex: 1,
-    fontSize: 32,
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    fontSize: sizes.xl,
+    padding: sizes.xx,
+    marginVertical: sizes.sm,
+    marginHorizontal: sizes.md,
   },
 });

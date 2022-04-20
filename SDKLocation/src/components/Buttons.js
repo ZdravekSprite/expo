@@ -20,6 +20,31 @@ export const MyButton = ({
   );
 };
 
+export const SignButton = ({
+  style = {},
+  textStyle = {},
+  type = '',
+  size = sizes.xxx,
+  onPress = () => {},
+  ...props
+}) => {
+  if (type == 'semafor') return <SemaforButton onPress={onPress} />
+  return (
+    <TouchableOpacity
+      style={[styles(size).kraj, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[
+        styles(size*1.5).limit,
+        textStyle,
+        { transform: [{ translateY: - size / 15 }] }
+      ]}>
+        ?
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
 export const RoundedButton = ({
   style = {},
   textStyle = {},
