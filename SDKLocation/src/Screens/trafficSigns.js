@@ -7,11 +7,18 @@ import { sizes } from '../Utils';
 import { gpsLocation } from '../features/Location';
 import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton, SemaforButton, B01Button, B02Button } from '../components/Buttons';
 
+const formatTime = (time) => time < 10 ? `0${time}` : time;
+const longToDate = (millisec) => {
+  const d = new Date(millisec);
+  return (d.toDateString() + ' ' + formatTime(d.getHours()) + ':' + formatTime(d.getMinutes()));
+};
+
 export const TrafficSignsScreen = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [rec, setRec] = useState(false);
   const [path, setPath] = useState([]);
+  const [signs, setSigns] = useState([]);
   const [trafficSigns, setTrafficSigns] = useState([]);
   const [routesHistory, setRoutesHistory] = useState([]);
   const interval = React.useRef(null);
@@ -35,7 +42,7 @@ export const TrafficSignsScreen = () => {
       console.log(gps.errorMsg);
     } else {
       //console.log(gps.time);
-      if (location !== gps.location)
+      if (location ? location.timestamp : null !== gps.location.timestamp)
         setLocation({
           ...gps.location,
         });
@@ -45,7 +52,7 @@ export const TrafficSignsScreen = () => {
   useEffect(() => {
     console.log('[]')
     loadRoutesHistory();
-    interval.current = setInterval(getLocation, 1000);
+    interval.current = setInterval(getLocation, 500);
     return () => {
       clearInterval(interval.current);
       setRoutesHistory([]);
@@ -61,9 +68,10 @@ export const TrafficSignsScreen = () => {
   const changeSpeed = (speed) => {
     console.log(speed)
     let now = new Date
-    setTrafficSigns([
-      ...trafficSigns,
+    setSigns([
+      ...signs,
       {
+        before: location,
         sign: speed,
         time: now.getTime()
       }
@@ -85,7 +93,7 @@ export const TrafficSignsScreen = () => {
     if (location) {
       if (!path.length) {
         setPath([{ location: location, }]);
-      } else if (path[path.length - 1].location.timestamp !== location.timestamp && path.length < 10) {
+      } else if (path[path.length - 1].location.timestamp !== location.timestamp) {
         //console.log('add',location.timestamp - (path.length ? path[path.length - 1].location.timestamp : 0))
         setPath([
           ...path,
@@ -98,35 +106,60 @@ export const TrafficSignsScreen = () => {
       //console.log('addLocation', path.map(l => l.location.timestamp))
     }
   }
-  useEffect(() => {
-    //console.log('rec', rec)
-  }, [rec]);
 
   useEffect(() => {
-    console.log('trafficSigns', trafficSigns)
+    console.log('trafficSigns', trafficSigns.length)
+    trafficSigns.forEach(sign => {
+      console.log('before', sign.before.timestamp)
+      console.log('click_', sign.time)
+      console.log('affter', sign.affter.timestamp)
+    });
   }, [trafficSigns]);
 
   useEffect(() => {
     if (rec) {
       addLocation();
     }
+    if (signs.length) {
+      signs.forEach(sign => {
+        //console.log('before',sign.before.timestamp)
+        //console.log('click',sign.time)
+        //console.log('now',location.timestamp)
+        setTrafficSigns([
+          ...trafficSigns,
+          {
+            ...sign,
+            affter: location,
+            location: {
+              before: sign.before.timestamp,
+              click_: sign.before.timestamp,
+              affter: location.timestamp,
+            }
+          }
+        ])
+      });
+      setSigns([]);
+    }
   }, [location]);
 
   const addRoute = () => {
     //console.log(route,routesHistory)
     if (path.length > 1) {
+      let now = new Date
       setRoutesHistory([
         ...routesHistory,
         {
           //key: String(routesHistory.length + 1),
-          id: route[0].timestamp,
-          title: route[0].timestamp,
-          route: String(path.length) + ' dots',
-          data: path,
+          id: now,
+          title: now,
+          route: String(path.length) + ' dots & ' + String(trafficSigns.length) + ' signs',
+          path: path,
+          signs: trafficSigns,
         }
       ]);
     }
-    setRoute([]);
+    setPath([]);
+    setTrafficSigns([]);
     setRec(false);
   }
 
