@@ -26,9 +26,16 @@ export const SignButton = ({
   type = '',
   size = sizes.xxx,
   onPress = () => {},
+  speed = null,
   ...props
 }) => {
   if (type == 'semafor') return <SemaforButton onPress={onPress} />
+  if (type == 'b01') return <B01Button onPress={onPress} />
+  if (type == 'b02') return <B02Button onPress={onPress} />
+  if (type == 'b31') return <SpeedLimitButton speed={speed} onPress={onPress} />
+  if (type == 'b44') return <LowLimitButton speed={speed} onPress={onPress} />
+  if (type == 'c13') return <PrestanakButton speed={speed} onPress={onPress} />
+  if (type == 'c16') return <PrestanakButton onPress={onPress} />
   return (
     <TouchableOpacity
       style={[styles(size).kraj, style]}
@@ -75,6 +82,24 @@ export const SpeedLimitButton = ({
       onPress={props.onPress}
     >
       <Text style={[props.speed < 100 ? styles(size).limit : styles(size).limit100, textStyle]}>
+        {props.speed}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const LowLimitButton = ({
+  style = {},
+  textStyle = {},
+  size = sizes.xxx,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[styles(size).lowSpeed, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[props.speed < 100 ? styles(size).limit : styles(size).limit100, fix_styles.low, textStyle]}>
         {props.speed}
       </Text>
     </TouchableOpacity>
@@ -241,6 +266,15 @@ const styles = (size) => StyleSheet.create({
     borderWidth: size / 10,
     margin: size / 30,
   },
+  lowSpeed: {
+    borderRadius: size / 2,
+    width: size,
+    height: size,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#59e",
+    margin: size / 30,
+  },
   kraj: {
     borderRadius: size / 2,
     width: size,
@@ -324,5 +358,8 @@ const fix_styles = StyleSheet.create({
   },
   green: {
     backgroundColor: 'green',
+  },
+  low: {
+    color: '#fff',
   },
 })

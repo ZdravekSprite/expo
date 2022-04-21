@@ -5,16 +5,11 @@ import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 
 import { sizes } from '../Utils';
 import { gpsLocation } from '../features/Location';
-import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton, SemaforButton, B01Button, B02Button } from '../components/Buttons';
-
-const formatTime = (time) => time < 10 ? `0${time}` : time;
-const longToDate = (millisec) => {
-  const d = new Date(millisec);
-  return (d.toDateString() + ' ' + formatTime(d.getHours()) + ':' + formatTime(d.getMinutes()));
-};
+import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton } from '../components/Buttons';
 
 export const TrafficSignsScreen = () => {
   const [location, setLocation] = useState(null);
+  const [gpsLocationState, setGpsLocationState] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [rec, setRec] = useState(false);
   const [path, setPath] = useState([]);
@@ -24,6 +19,7 @@ export const TrafficSignsScreen = () => {
   const interval = React.useRef(null);
 
   const [speed, setSpeed] = useState([]);
+  const [speedType, setSpeedType] = useState('b31');
 
   const saveRoutesHistory = async () => {
     try {
@@ -37,15 +33,13 @@ export const TrafficSignsScreen = () => {
     } catch (e) { console.log(e); }
   };
   const getLocation = async () => {
-    let gps = await gpsLocation(setLocation, setErrorMsg);
+    let gps = await gpsLocation();
     if (gps.errorMsg) {
+      setErrorMsg(gps.errorMsg);
       console.log(gps.errorMsg);
     } else {
-      //console.log(gps.time);
-      if (location ? location.timestamp : null !== gps.location.timestamp)
-        setLocation({
-          ...gps.location,
-        });
+      //console.log('getLocation:' + gps.location.timestamp)
+      setGpsLocationState(gps.location);
     }
   };
 
@@ -64,6 +58,12 @@ export const TrafficSignsScreen = () => {
     saveRoutesHistory();
   }, [routesHistory]);
 
+  useEffect(() => {
+    if ((location ? location.timestamp : null) !== (gpsLocationState ? gpsLocationState.timestamp : null)) {
+      //console.log((location ? location.timestamp : null) + ' ', gpsLocationState.timestamp)
+      setLocation(gpsLocationState);
+    }
+  }, [gpsLocationState]);
 
   const changeSpeed = (speed) => {
     console.log(speed)
@@ -76,7 +76,7 @@ export const TrafficSignsScreen = () => {
         time: now.getTime()
       }
     ])
-    //setSpeedLimit(speed);
+    setSpeed(speed);
   }
 
   const activate = () => {
@@ -110,9 +110,7 @@ export const TrafficSignsScreen = () => {
   useEffect(() => {
     console.log('trafficSigns', trafficSigns.length)
     trafficSigns.forEach(sign => {
-      console.log('before', sign.before.timestamp)
-      console.log('click_', sign.time)
-      console.log('affter', sign.affter.timestamp)
+      console.log(sign.coords)
     });
   }, [trafficSigns]);
 
@@ -120,25 +118,42 @@ export const TrafficSignsScreen = () => {
     if (rec) {
       addLocation();
     }
+    let signsAgain = [];
     if (signs.length) {
       signs.forEach(sign => {
+        //console.log(sign.before)
         //console.log('before',sign.before.timestamp)
         //console.log('click',sign.time)
         //console.log('now',location.timestamp)
-        setTrafficSigns([
-          ...trafficSigns,
-          {
-            ...sign,
-            affter: location,
-            location: {
-              before: sign.before.timestamp,
-              click_: sign.before.timestamp,
-              affter: location.timestamp,
+        if (location.timestamp < sign.time) {
+          signsAgain = [
+            ...signsAgain,
+            {
+              ...sign,
+              before: location
             }
-          }
-        ])
+          ]
+        } else {
+          let p = (location.timestamp - sign.before.timestamp) / (location.timestamp - sign.time)
+          setTrafficSigns([
+            ...trafficSigns,
+            {
+              timestamp: sign.time,
+              type: sign.sign,
+              coords: {
+                latitude: location.coords.latitude - (location.coords.latitude - sign.before.coords.latitude) / p,
+                longitude: location.coords.longitude - (location.coords.longitude - sign.before.coords.longitude) / p,
+                accuracy: location.coords.accuracy - (location.coords.accuracy - sign.before.coords.accuracy) / p,
+                altitude: location.coords.altitude - (location.coords.altitude - sign.before.coords.altitude) / p,
+                altitudeAccuracy: location.coords.altitudeAccuracy - (location.coords.altitudeAccuracy - sign.before.coords.altitudeAccuracy) / p,
+                heading: location.coords.heading - (location.coords.heading - sign.before.coords.heading) / p,
+                speed: location.coords.speed - (location.coords.speed - sign.before.coords.speed) / p,
+              },
+            }
+          ])
+        }
       });
-      setSigns([]);
+      setSigns(signsAgain);
     }
   }, [location]);
 
@@ -166,22 +181,34 @@ export const TrafficSignsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={[styles.row, { flex: 1 }]}>
-        <SpeedLimitButton speed='30' onPress={() => changeSpeed(30)} />
-        <SpeedLimitButton speed='40' onPress={() => changeSpeed(40)} />
-        <SpeedLimitButton speed='50' onPress={() => changeSpeed(50)} />
-        <SpeedLimitButton speed='60' onPress={() => changeSpeed(60)} />
-        <SpeedLimitButton speed='70' onPress={() => changeSpeed(70)} />
-        <SpeedLimitButton speed='80' onPress={() => changeSpeed(80)} />
-        <SpeedLimitButton speed='90' onPress={() => changeSpeed(90)} />
-        <SpeedLimitButton speed='100' onPress={() => changeSpeed(100)} />
-        <SpeedLimitButton speed='110' onPress={() => changeSpeed(110)} />
-        <SpeedLimitButton speed='120' onPress={() => changeSpeed(120)} />
-        <SpeedLimitButton speed='130' onPress={() => changeSpeed(130)} />
-        <PrestanakButton speed={null} onPress={() => changeSpeed(null)} />
-        <SignButton type='semafor' onPress={() => changeSpeed(null)} />
-        <SignButton type='b01' onPress={() => changeSpeed(null)} />
-        <B01Button onPress={() => changeSpeed(null)} />
-        <B02Button onPress={() => changeSpeed(null)} />
+        {location ? (
+          <>
+            <View style={styles.row}>
+              <SignButton type='b31' speed={'??'} onPress={() => setSpeedType('b31')} />  
+              <SignButton type='b44' speed={'??'} onPress={() => setSpeedType('b44')} />  
+              <SignButton type='c13' speed={'??'} onPress={() => setSpeedType('c13')} />  
+            </View>
+            <View style={styles.row}>
+            <SignButton type={speedType} speed={30} onPress={() => changeSpeed(30)} />
+            <SignButton type={speedType} speed={40} onPress={() => changeSpeed(40)} />
+            <SignButton type={speedType} speed={50} onPress={() => changeSpeed(50)} />
+            <SignButton type={speedType} speed={60} onPress={() => changeSpeed(60)} />
+            <SignButton type={speedType} speed={70} onPress={() => changeSpeed(70)} />
+            <SignButton type={speedType} speed={80} onPress={() => changeSpeed(80)} />
+            <SignButton type={speedType} speed={90} onPress={() => changeSpeed(90)} />
+            <SignButton type={speedType} speed={100} onPress={() => changeSpeed(100)} />
+            <SignButton type={speedType} speed={110} onPress={() => changeSpeed(110)} />
+            <SignButton type={speedType} speed={120} onPress={() => changeSpeed(120)} />
+            <SignButton type={speedType} speed={130} onPress={() => changeSpeed(130)} />
+            </View>
+            <SignButton type='c16' onPress={() => changeSpeed(null)} />
+            <SignButton type='semafor' onPress={() => changeSpeed(null)} />
+            <SignButton type='b01' onPress={() => changeSpeed(null)} />
+            <SignButton type='b02' onPress={() => changeSpeed(null)} />
+          </>
+        ) : (
+          <View style={styles.container}><Text>Traži se lokacija</Text></View>
+        )}
       </View>
       <View style={styles.row}>
         <Text>

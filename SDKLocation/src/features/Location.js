@@ -15,5 +15,5 @@ export const gpsLocation = async () => {
     return { 'errorMsg': errorMsg };
   }
   let location = await Location.getCurrentPositionAsync({});
-  return { 'errorMsg': errorMsg, 'location': location, 'time': (new Date() - start) }
+  return { 'errorMsg': errorMsg, 'location': location }
 };
