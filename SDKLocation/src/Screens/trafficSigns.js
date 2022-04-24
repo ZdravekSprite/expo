@@ -65,20 +65,6 @@ export const TrafficSignsScreen = () => {
     }
   }, [gpsLocationState]);
 
-  const changeSpeed = (speed) => {
-    console.log(speed)
-    let now = new Date
-    setSigns([
-      ...signs,
-      {
-        before: location,
-        sign: speed,
-        time: now.getTime()
-      }
-    ])
-    setSpeed(speed);
-  }
-
   const activate = () => {
     activateKeepAwake();
     alert('Activated!');
@@ -157,6 +143,20 @@ export const TrafficSignsScreen = () => {
     }
   }, [location]);
 
+  const addSign = ((type, speed = null) => {
+    console.log(type, speed)
+    let now = new Date
+    setSigns([
+      ...signs,
+      {
+        before: location,
+        sign: type + (speed ? '-' + speed : ''),
+        time: now.getTime()
+      }
+    ])
+    setSpeed(speed);
+  });
+
   const addRoute = () => {
     //console.log(route,routesHistory)
     if (path.length > 1) {
@@ -167,7 +167,7 @@ export const TrafficSignsScreen = () => {
           //key: String(routesHistory.length + 1),
           id: now,
           title: now,
-          route: String(path.length) + ' dots & ' + String(trafficSigns.length) + ' signs',
+          route: String(path.length) + ' dots and ' + String(trafficSigns.length) + ' signs',
           path: path,
           signs: trafficSigns,
         }
@@ -184,27 +184,30 @@ export const TrafficSignsScreen = () => {
         {location ? (
           <>
             <View style={styles.row}>
-              <SignButton type='b31' speed={'??'} onPress={() => setSpeedType('b31')} />  
-              <SignButton type='b44' speed={'??'} onPress={() => setSpeedType('b44')} />  
-              <SignButton type='c13' speed={'??'} onPress={() => setSpeedType('c13')} />  
+              <SignButton size={50} type='b31' speed={'??'} onPress={() => setSpeedType('b31')} />  
+              <SignButton size={50} type='b44' speed={'??'} onPress={() => setSpeedType('b44')} />  
+              <SignButton size={50} type='c13' speed={'??'} onPress={() => setSpeedType('c13')} />  
+              <SignButton size={50} type='c14' speed={'??'} onPress={() => setSpeedType('c14')} />  
+              <SignButton size={50} type='c33' speed={'??'} onPress={() => setSpeedType('c33')} />  
+              <SignButton size={50} type='c34' speed={'??'} onPress={() => setSpeedType('c34')} />  
             </View>
             <View style={styles.row}>
-            <SignButton type={speedType} speed={30} onPress={() => changeSpeed(30)} />
-            <SignButton type={speedType} speed={40} onPress={() => changeSpeed(40)} />
-            <SignButton type={speedType} speed={50} onPress={() => changeSpeed(50)} />
-            <SignButton type={speedType} speed={60} onPress={() => changeSpeed(60)} />
-            <SignButton type={speedType} speed={70} onPress={() => changeSpeed(70)} />
-            <SignButton type={speedType} speed={80} onPress={() => changeSpeed(80)} />
-            <SignButton type={speedType} speed={90} onPress={() => changeSpeed(90)} />
-            <SignButton type={speedType} speed={100} onPress={() => changeSpeed(100)} />
-            <SignButton type={speedType} speed={110} onPress={() => changeSpeed(110)} />
-            <SignButton type={speedType} speed={120} onPress={() => changeSpeed(120)} />
-            <SignButton type={speedType} speed={130} onPress={() => changeSpeed(130)} />
+            <SignButton type={speedType} speed={30} onPress={() => addSign(speedType,30)} />
+            <SignButton type={speedType} speed={40} onPress={() => addSign(speedType,40)} />
+            <SignButton type={speedType} speed={50} onPress={() => addSign(speedType,50)} />
+            <SignButton type={speedType} speed={60} onPress={() => addSign(speedType,60)} />
+            <SignButton type={speedType} speed={70} onPress={() => addSign(speedType,70)} />
+            <SignButton type={speedType} speed={80} onPress={() => addSign(speedType,80)} />
+            <SignButton type={speedType} speed={90} onPress={() => addSign(speedType,90)} />
+            <SignButton type={speedType} speed={100} onPress={() => addSign(speedType,100)} />
+            <SignButton type={speedType} speed={110} onPress={() => addSign(speedType,110)} />
+            <SignButton type={speedType} speed={120} onPress={() => addSign(speedType,120)} />
+            <SignButton type={speedType} speed={130} onPress={() => addSign(speedType,130)} />
             </View>
-            <SignButton type='c16' onPress={() => changeSpeed(null)} />
-            <SignButton type='semafor' onPress={() => changeSpeed(null)} />
-            <SignButton type='b01' onPress={() => changeSpeed(null)} />
-            <SignButton type='b02' onPress={() => changeSpeed(null)} />
+            <SignButton type='c16' onPress={() => addSign('c16')} />
+            <SignButton type='semafor' onPress={() => addSign('semafor')} />
+            <SignButton type='b01' onPress={() => addSign('b01')} />
+            <SignButton type='b02' onPress={() => addSign('b02')} />
           </>
         ) : (
           <View style={styles.container}><Text>Traži se lokacija</Text></View>
@@ -212,7 +215,7 @@ export const TrafficSignsScreen = () => {
       </View>
       <View style={styles.row}>
         <Text>
-          Trenutno ograničenje: {'nema'}{"\n"}
+          Trenutno ograničenje: {speed ? speed : 'nema'}{"\n"}
           {errorMsg ?? ''}
           {location ? location.timestamp : 'nema lokacije'} {path.length} {routesHistory.length}
         </Text>

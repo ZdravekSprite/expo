@@ -25,24 +25,27 @@ export const SignButton = ({
   textStyle = {},
   type = '',
   size = sizes.xxx,
-  onPress = () => {},
+  onPress = () => { },
   speed = null,
   ...props
 }) => {
-  if (type == 'semafor') return <SemaforButton onPress={onPress} />
-  if (type == 'b01') return <B01Button onPress={onPress} />
-  if (type == 'b02') return <B02Button onPress={onPress} />
-  if (type == 'b31') return <SpeedLimitButton speed={speed} onPress={onPress} />
-  if (type == 'b44') return <LowLimitButton speed={speed} onPress={onPress} />
-  if (type == 'c13') return <PrestanakButton speed={speed} onPress={onPress} />
-  if (type == 'c16') return <PrestanakButton onPress={onPress} />
+  if (type == 'semafor') return <SemaforButton size={size} onPress={onPress} />
+  if (type == 'b01') return <B01Button size={size} onPress={onPress} />
+  if (type == 'b02') return <B02Button size={size} onPress={onPress} />
+  if (type == 'b31') return <SpeedLimitButton size={size} speed={speed} onPress={onPress} />
+  if (type == 'b44') return <LowLimitButton size={size} speed={speed} onPress={onPress} />
+  if (type == 'c13') return <C16Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c14') return <C14Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c16') return <C16Button size={size} onPress={onPress} />
+  if (type == 'c33') return <C33Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c34') return <C34Button size={size} speed={speed} onPress={onPress} />
   return (
     <TouchableOpacity
       style={[styles(size).kraj, style]}
       onPress={props.onPress}
     >
       <Text style={[
-        styles(size*1.5).limit,
+        styles(size * 1.5).limit,
         textStyle,
         { transform: [{ translateY: - size / 15 }] }
       ]}>
@@ -106,7 +109,7 @@ export const LowLimitButton = ({
   );
 };
 
-export const PrestanakButton = ({
+export const C16Button = ({
   style = {},
   textStyle = {},
   size = sizes.xxx,
@@ -133,6 +136,37 @@ export const PrestanakButton = ({
         <View style={styles(size).strokes} />
         <View style={styles(size).strokes} />
         <View style={styles(size).strokes} />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export const C14Button = ({
+  style = {},
+  textStyle = {},
+  size = sizes.xxx,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[styles(size).lowSpeed, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[
+        props.speed < 100 ? styles(size).limit : styles(size).limit100,
+        fix_styles.low,
+        textStyle,
+        { transform: [{ translateY: size / 25 }] }
+      ]}>
+        {props.speed ?? ' '}
+      </Text>
+      <View style={{
+        transform: [
+          { translateY: props.speed < 100 ? - size / 3 : - size / 3.8 },
+          { rotate: "-45deg" }
+        ]
+      }}>
+        <View style={[styles(size).red]} />
       </View>
     </TouchableOpacity>
   );
@@ -214,6 +248,58 @@ export const B02Button = ({
   );
 };
 
+export const C33Button = ({
+  style = {},
+  textStyle = {},
+  size = sizes.xxx,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[styles(size).low, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[
+        props.speed < 100 ? styles(size).limit : styles(size).limit100,
+        fix_styles.low,
+        textStyle,
+      ]}>
+        {props.speed ?? ' '}
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+export const C34Button = ({
+  style = {},
+  textStyle = {},
+  size = sizes.xxx,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[styles(size).low, style]}
+      onPress={props.onPress}
+    >
+      <Text style={[
+        props.speed < 100 ? styles(size).limit : styles(size).limit100,
+        fix_styles.low,
+        textStyle,
+      ]}>
+        {props.speed ?? ' '}
+      </Text>
+      <View style={{
+        transform: [
+          { translateY: props.speed < 100 ? - size / 3 : - size / 3.8 },
+          { rotate: "-45deg" }
+        ]
+      }}>
+        <View style={[styles(size).noRed]} />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 const styles = (size) => StyleSheet.create({
   svg: {
     width: size,
@@ -275,6 +361,15 @@ const styles = (size) => StyleSheet.create({
     backgroundColor: "#59e",
     margin: size / 30,
   },
+  low: {
+    borderRadius: size / 16,
+    width: size,
+    height: size,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "#59e",
+    margin: size / 30,
+  },
   kraj: {
     borderRadius: size / 2,
     width: size,
@@ -326,7 +421,7 @@ const styles = (size) => StyleSheet.create({
     fontSize: size / 3,
     transform: [
       { scaleY: 1.33 },
-      { translateY: size/5 },
+      { translateY: size / 5 },
       { translateX: size / 12 },
     ]
   },
@@ -335,6 +430,18 @@ const styles = (size) => StyleSheet.create({
     height: size / 25,
     margin: size / 100,
     borderWidth: 1,
+  },
+  red: {
+    width: size,
+    height: size / 15,
+    margin: size / 100,
+    backgroundColor: 'red',
+  },
+  noRed: {
+    width: size * 1.4,
+    height: size / 15,
+    margin: size / 100,
+    backgroundColor: 'red',
   },
 })
 
@@ -359,7 +466,11 @@ const fix_styles = StyleSheet.create({
   green: {
     backgroundColor: 'green',
   },
+  blue: {
+    backgroundColor: '#59e',
+  },
   low: {
     color: '#fff',
+    backgroundColor: '#59e',
   },
 })
