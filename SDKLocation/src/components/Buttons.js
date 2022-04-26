@@ -32,11 +32,13 @@ export const SignButton = ({
   if (type == 'semafor') return <SemaforButton size={size} onPress={onPress} />
   if (type == 'b01') return <B01Button size={size} onPress={onPress} />
   if (type == 'b02') return <B02Button size={size} onPress={onPress} />
-  if (type == 'b31') return <SpeedLimitButton size={size} speed={speed} onPress={onPress} />
-  if (type == 'b44') return <LowLimitButton size={size} speed={speed} onPress={onPress} />
-  if (type == 'c13') return <C16Button size={size} speed={speed} onPress={onPress} />
-  if (type == 'c14') return <C14Button size={size} speed={speed} onPress={onPress} />
-  if (type == 'c16') return <C16Button size={size} onPress={onPress} />
+  if (type == 'b03') return <B03Button size={size} onPress={onPress} />
+  if (type == 'b04') return <B04Button size={size} onPress={onPress} />
+  if (type == 'b30') return <B30Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'b38') return <B38Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c11') return <C11Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c12') return <C12Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c14') return <C14Button size={size} onPress={onPress} />
   if (type == 'c33') return <C33Button size={size} speed={speed} onPress={onPress} />
   if (type == 'c34') return <C34Button size={size} speed={speed} onPress={onPress} />
   return (
@@ -52,6 +54,164 @@ export const SignButton = ({
         ?
       </Text>
     </TouchableOpacity>
+  );
+};
+
+//A01 - Opasnost na cesti
+
+//A - crna kružnica
+
+export const AButton = ({
+  style = {},
+  size = sizes.xxx,
+  onPress = () => { },
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[{
+        borderRadius: size / 2,
+        width: size,
+        height: size,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: '#000',
+        borderWidth: size / 100,
+        margin: size / 30,
+      }, style]}
+      onPress={onPress}
+    >
+      {props.children}
+    </TouchableOpacity>
+  );
+};
+
+//R - crveni krug
+
+export const RButton = ({
+  style = {},
+  size = sizes.xl,
+  onPress = () => { },
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      style={[{
+        borderRadius: size / 2,
+        width: size,
+        height: size,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderColor: '#FFF',
+        borderWidth: size / 100,
+        backgroundColor: colors.red,
+        margin: size / 30,
+      }, style]}
+      onPress={onPress}
+    >
+      {props.children}
+    </TouchableOpacity>
+  );
+};
+
+//R - crveni krug
+
+export const BButton = ({
+  size = sizes.xl,
+  onPress = () => { },
+  ...props
+}) => {
+  return (
+    <RButton style={{ backgroundColor: colors.blue }} size={size} onPress={onPress}>
+      {props.children}
+    </RButton>
+  );
+};
+
+//B03 - Zabrana prometa u oba smjera
+
+export const B03Button = ({
+  size = sizes.xl,
+  ...props
+}) => {
+  return (
+    <RButton size={size} onPress={props.onPress}>
+      <View style={{
+        borderRadius: size * 39 / 100,
+        width: size * 39 / 50,
+        height: size * 39 / 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+      }}>
+        {props.children}
+      </View>
+    </RButton>
+  );
+};
+
+//B04 - Zabrana prometa u jednom smjeru
+
+export const B04Button = ({
+  size = sizes.xl,
+  ...props
+}) => {
+  return (
+    <RButton size={size} onPress={props.onPress}>
+      <View style={{
+        width: size * 4 / 5,
+        height: size / 5,
+        backgroundColor: '#FFF',
+      }} />
+    </RButton>
+  );
+};
+
+//B30 - Ograničenje brzine
+
+export const B30Button = ({
+  speed = null,
+  size = sizes.xl,
+  ...props
+}) => {
+  return (
+    <B03Button size={size} onPress={props.onPress}>
+      <Text style={{
+        fontWeight: "bold",
+        color: '#000',
+        fontSize: size * 3 / 7,
+        transform: [
+          { scaleX: (speed > 99 ? 5 : 6) / 6 },
+          { scaleY: 1.2 }
+        ]
+      }}>
+        {speed}
+      </Text>
+    </B03Button>
+  );
+};
+
+//B38 - Ograničenje brzine
+
+export const B38Button = ({
+  speed = null,
+  size = sizes.xl,
+  ...props
+}) => {
+  return (
+    <BButton size={size} onPress={props.onPress}>
+      <Text style={{
+        fontWeight: "bold",
+        color: '#FFF',
+        fontSize: size * 3 / 7,
+        transform: [
+          { scaleX: (speed > 99 ? 5 : 6) / 6 },
+          { scaleY: 1.2 }
+        ]
+      }}>
+        {speed}
+      </Text>
+    </BButton>
   );
 };
 
@@ -73,75 +233,33 @@ export const RoundedButton = ({
   );
 };
 
-export const SpeedLimitButton = ({
-  style = {},
-  textStyle = {},
-  size = sizes.xxx,
-  ...props
-}) => {
-  return (
-    <TouchableOpacity
-      style={[styles(size).speed, style]}
-      onPress={props.onPress}
-    >
-      <Text style={[props.speed < 100 ? styles(size).limit : styles(size).limit100, textStyle]}>
-        {props.speed}
-      </Text>
-    </TouchableOpacity>
-  );
-};
+// C11 - Prestanak ograničenja brzine
 
-export const LowLimitButton = ({
-  style = {},
-  textStyle = {},
+export const C11Button = ({
+  speed = null,
   size = sizes.xxx,
   ...props
 }) => {
   return (
-    <TouchableOpacity
-      style={[styles(size).lowSpeed, style]}
-      onPress={props.onPress}
-    >
-      <Text style={[props.speed < 100 ? styles(size).limit : styles(size).limit100, fix_styles.low, textStyle]}>
-        {props.speed}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-export const C16Button = ({
-  style = {},
-  textStyle = {},
-  size = sizes.xxx,
-  ...props
-}) => {
-  return (
-    <TouchableOpacity
-      style={[styles(size).kraj, style]}
-      onPress={props.onPress}
-    >
-      <Text style={[
-        props.speed < 100 ? styles(size).limit : styles(size).limit100,
-        textStyle,
-        { transform: [{ translateY: size / 25 }] }
-      ]}>
-        {props.speed ?? ' '}
-      </Text>
-      <View style={{
+    <C14Button size = {size} onPress={props.onPress}>
+      <Text style={{
+        fontWeight: "bold",
+        color: '#000',
+        fontSize: size * 3 / 7,
         transform: [
-          { translateY: props.speed < 100 ? - size / 3 : - size / 3.8 },
-          { rotate: "-45deg" }
+          { scaleX: (speed > 99 ? 5 : 6) / 6 },
+          { scaleY: 1.2 }
         ]
       }}>
-        <View style={styles(size).strokes} />
-        <View style={styles(size).strokes} />
-        <View style={styles(size).strokes} />
-      </View>
-    </TouchableOpacity>
+        {speed}
+      </Text>
+    </C14Button>
   );
 };
 
-export const C14Button = ({
+// C12 - Prestanak najmanje dopuštene brzine
+
+export const C12Button = ({
   style = {},
   textStyle = {},
   size = sizes.xxx,
@@ -169,6 +287,36 @@ export const C14Button = ({
         <View style={[styles(size).red]} />
       </View>
     </TouchableOpacity>
+  );
+};
+
+// C14 - Prestanak svih zabrana
+
+export const C14Button = ({
+  size = sizes.xxx,
+  ...props
+}) => {
+  return (
+    <AButton size = {size} onPress={props.onPress} >
+      <View style={{
+        flexDirection: "row",
+        transform: [
+          { translateY: props.children ? size/4 + size/25 : 0 },
+          { rotate: "45deg" }
+        ]
+      }}>
+        <View style={styles(size).strokes} />
+        <View style={styles(size).strokes} />
+        <View style={styles(size).strokes} />
+      </View>
+      <View style={{
+        transform: [
+          { translateY: props.children ? -size/2 : 0 },
+        ]
+      }}>
+      {props.children}
+      </View>
+    </AButton>
   );
 };
 
@@ -426,8 +574,8 @@ const styles = (size) => StyleSheet.create({
     ]
   },
   strokes: {
-    width: size,
-    height: size / 25,
+    width: size / 25,
+    height: size,
     margin: size / 100,
     borderWidth: 1,
   },
