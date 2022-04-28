@@ -6,7 +6,7 @@ export const colors = {
   darkAlfa: 'rgba(94, 132, 226, 0.3)',
   button: 'oldlace',
   label: 'coral',
-  red: '#f00',
+  red: '#c00',
   blue: '#59e',
 }
 

@@ -218,6 +218,7 @@ export const TrafficSignsScreen = () => {
                     <SignButton type='b02' onPress={() => addSign('b02')} />
                     <SignButton type='b03' onPress={() => addSign('b03')} />
                     <SignButton type='b04' onPress={() => addSign('b04')} />
+                    <SignButton type='b05' onPress={() => addSign('b05')} />
                     <SignButton type='c14' onPress={() => addSign('c14')} />
                     <SignButton type='semafor' onPress={() => addSign('semafor')} />
                     <SignButton type='a01' onPress={() => addSign('a01')} />

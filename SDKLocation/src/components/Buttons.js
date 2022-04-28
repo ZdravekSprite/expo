@@ -34,6 +34,7 @@ export const SignButton = ({
   if (type == 'b02') return <B02Button size={size} onPress={onPress} />
   if (type == 'b03') return <B03Button size={size} onPress={onPress} />
   if (type == 'b04') return <B04Button size={size} onPress={onPress} />
+  if (type == 'b05') return <B05Button size={size} onPress={onPress} />
   if (type == 'b30') return <B30Button size={size} speed={speed} onPress={onPress} />
   if (type == 'b38') return <B38Button size={size} speed={speed} onPress={onPress} />
   if (type == 'c11') return <C11Button size={size} speed={speed} onPress={onPress} />
@@ -158,7 +159,7 @@ export const A04Button = ({
 }) => {
   return (
     <A00Button size={size} onPress={props.onPress}>
-      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-112.5 75,0 0,-30 -75,0 0,-105 -37.5,-37.5 -37.5,37.5 0,105 -75,0 0,30 75,0 z"/>
+      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-112.5 75,0 0,-30 -75,0 0,-105 -37.5,-37.5 -37.5,37.5 0,105 -75,0 0,30 75,0 z" />
     </A00Button>
   );
 };
@@ -172,7 +173,7 @@ export const A041Button = ({
 }) => {
   return (
     <A00Button size={size} onPress={props.onPress}>
-      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-247.5 -37.5,-37.5 -37.5,37.5 0,105 -75,0 0,30 75,0 z"/>
+      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-247.5 -37.5,-37.5 -37.5,37.5 0,105 -75,0 0,30 75,0 z" />
     </A00Button>
   );
 };
@@ -186,7 +187,7 @@ export const A042Button = ({
 }) => {
   return (
     <A00Button size={size} onPress={props.onPress}>
-      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-112.5 75,0 0,-30 -75,0 0,-105 -37.5,-37.5 -37.5,37.5 z"/>
+      <Path fill="#000" d="m322.5,568.5 37.5,-37.5 37.5,37.5 0,-112.5 75,0 0,-30 -75,0 0,-105 -37.5,-37.5 -37.5,37.5 z" />
     </A00Button>
   );
 };
@@ -245,7 +246,7 @@ export const RButton = ({
   );
 };
 
-//R - crveni krug
+//B - plavi krug
 export const BButton = ({
   size = sizes.xl,
   onPress = () => { },
@@ -292,6 +293,45 @@ export const B04Button = ({
         backgroundColor: '#FFF',
       }} />
     </RButton>
+  );
+};
+
+//B05 - Prednost prolaska za vozila iz suprotnog smjera
+export const B05Button = ({
+  size = sizes.xl,
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={props.onPress}
+    >
+      <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
+        <Circle
+          fill="#FFF"
+          stroke="#000"
+          stroke-width="2"
+          cx="362.5"
+          cy="362.5"
+          r="350"
+        />
+        <Circle
+          fill="#FFF"
+          stroke={colors.red}
+          stroke-width="55"
+          cx="362.5"
+          cy="362.5"
+          r="315"
+        />
+        <Path
+          d="m168,437 91,91 91,-91 0,-56 -70,70 0,-259 -42,0 0,259 -70,-70 z"
+          fill="#000"
+        />
+        <Path
+          d="m552,283 -91,-91 -91,91 0,56 70,-70 0,259 42,0 0,-259 70,70 z"
+          fill={colors.red}
+        />
+      </Svg>
+    </TouchableOpacity>
   );
 };
 
@@ -495,25 +535,21 @@ export const B02Button = ({
       style={[styles(size).svg, style]}
       onPress={props.onPress}
     >
-      <Svg height={size} width={size} viewBox="0 0 113.76 113.76" {...props}>
-        <G transform="matrix(1.3333333,0,0,-1.3333333,0,113.76)" id="g10">
-          <G transform="scale(0.1)" id="g12">
-            <Path
-              d="M 250.504,1.41797 H 602.727 L 851.809,250.5 V 602.727 L 602.727,851.809 H 250.504 L 1.41797,602.727 V 250.5 L 250.504,1.41797"
-              fill="#ffffff"
-              stroke="#231f20"
-              strokeWidth="2.83500004"
-            />
-            <Path
-              d="M 264.164,34.4336 H 589.063 L 818.789,264.16 V 589.063 L 589.063,818.789 H 264.164 L 34.4336,589.063 V 264.16 L 264.164,34.4336"
-              fill="#ee2c30"
-              stroke="none"
-            />
-            <Text style={[styles(size).stop, textStyle]}>
-              STOP
-            </Text>
-          </G>
-        </G>
+      <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
+        <Path
+          d="m220,710 280,0 210,-210 0,-280 -210,-210 -280,0 -210,210 0,280 z"
+          fill="#fff"
+          stroke="#000"
+          strokeWidth="2"
+        />
+        <Path
+          d="m230,682 260,0 192,-192 0,-260 -192,-192 -260,0 -192,192 0,260 z"
+          fill={colors.red}
+          stroke="none"
+        />
+        <Text style={[styles(size).stop, textStyle]}>
+          STOP
+        </Text>
       </Svg>
     </TouchableOpacity>
   );
@@ -586,7 +622,7 @@ const styles = (size) => StyleSheet.create({
     borderTopWidth: size,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderTopColor: "red",
+    borderTopColor: colors.red,
   },
   triangleW: {
     width: 0,
@@ -706,13 +742,13 @@ const styles = (size) => StyleSheet.create({
     width: size,
     height: size / 15,
     margin: size / 100,
-    backgroundColor: 'red',
+    backgroundColor: colors.red,
   },
   noRed: {
     width: size * 1.4,
     height: size / 15,
     margin: size / 100,
-    backgroundColor: 'red',
+    backgroundColor: colors.red,
   },
 })
 
@@ -729,7 +765,7 @@ const fix_styles = StyleSheet.create({
     color: colors.label,
   },
   red: {
-    backgroundColor: 'red',
+    backgroundColor: colors.red,
   },
   yellow: {
     backgroundColor: 'yellow',
