@@ -214,6 +214,14 @@ export const TrafficSignsScreen = () => {
                   </View>
                 ) : (
                   <View style={styles.row}>
+                    <SignButton type='a01' onPress={() => addSign('a01')} />
+                    <SignButton type='a02' onPress={() => addSign('a02')} />
+                    <SignButton type='a03' onPress={() => addSign('a03')} />
+                    <SignButton type='a04' onPress={() => addSign('a04')} />
+                    <SignButton type='a04-1' onPress={() => addSign('a04-1')} />
+                    <SignButton type='a04-2' onPress={() => addSign('a04-2')} />
+                    <SignButton type='a04-3' onPress={() => addSign('a04-3')} />
+                    <SignButton type='a04-4' onPress={() => addSign('a04-4')} />
                     <SignButton type='b01' onPress={() => addSign('b01')} />
                     <SignButton type='b02' onPress={() => addSign('b02')} />
                     <SignButton type='b03' onPress={() => addSign('b03')} />
@@ -221,12 +229,6 @@ export const TrafficSignsScreen = () => {
                     <SignButton type='b05' onPress={() => addSign('b05')} />
                     <SignButton type='c14' onPress={() => addSign('c14')} />
                     <SignButton type='semafor' onPress={() => addSign('semafor')} />
-                    <SignButton type='a01' onPress={() => addSign('a01')} />
-                    <SignButton type='a02' onPress={() => addSign('a02')} />
-                    <SignButton type='a03' onPress={() => addSign('a03')} />
-                    <SignButton type='a04' onPress={() => addSign('a04')} />
-                    <SignButton type='a04-1' onPress={() => addSign('a04-1')} />
-                    <SignButton type='a04-2' onPress={() => addSign('a04-2')} />
                   </View>
                 )}
               </ScrollView>

@@ -83,7 +83,7 @@ yarn start
 
 ```bash
 git add .
-git commit -am "SDKLocation v0.1.28x"
+git commit -am "SDKLocation v0.1.29"
 git push
 ```
 
