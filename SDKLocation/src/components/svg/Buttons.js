@@ -46,3 +46,41 @@ export const SvgA00 = ({
     </SvgSign>
   );
 };
+
+// C00
+export const SvgC00 = ({
+  ...props
+}) => {
+  return (
+    <SvgSign {...props} >
+      <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="32" />
+      <Rect fill={colors.blue} x="17" y="17" width="686" height="686" rx="25" />
+      {props.children}
+    </SvgSign>
+  );
+};
+
+// E00
+export const SvgE00 = ({
+  ...props
+}) => {
+  return (
+    <SvgSign {...props} >
+      <G transform="translate(0 175)">
+        <Path
+          d="M685,360 A 25 25 0 0 0 710 335 L 710,35 A 25 25 0 0 0 685 10 L 35,10 A 25 25 0 0 0 10 35 L 10,335 A 25 25 0 0 0 35 360 z"
+          fill="#fff"
+          stroke="#000"
+          strokeWidth="2"
+        />
+        <Path
+          d="M685,349.5 A 14.5 14.5 0 0 0 699.5 335 L 699.5,35 A 14.5 14.5 0 0 0 685 20.5 L 35,20.5 A 14.5 14.5 0 0 0 20.5 35 L 20.5,335 A 14.5 14.5 0 0 0 35 349.5 z"
+          fill="#fff"
+          stroke="#000"
+          strokeWidth="7"
+        />
+        {props.children}
+      </G>
+    </SvgSign>
+  );
+};

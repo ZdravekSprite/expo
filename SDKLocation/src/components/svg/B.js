@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import Svg, { Circle, Rect, Path, G } from 'react-native-svg';
 import { SvgSign, SvgA00 } from './Buttons';
 import { sizes, colors } from '../../Utils';
+import { SpeedText } from './Speed';
 
 // B01 - Raskrižje s cestom s prednošću prolaska
 export const SvgB01 = ({
@@ -100,7 +101,6 @@ export const SvgB05 = ({
 
 //B30 - Ograničenje brzine
 export const SvgB30 = ({
-  type = '',
   speed = null,
   size = sizes.xxx,
   onPress = () => { },
@@ -113,22 +113,29 @@ export const SvgB30 = ({
       <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
         <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
         <Circle fill="#FFF" stroke="#c00" strokeWidth="55" cx="362.5" cy="362.5" r="315" />
-        <Text style={{
-          textAlign: 'center',
-          fontWeight: "bold",
-          color: '#000',
-          fontSize: size * 3 / 7,
-          transform: [
-            { scaleX: (speed > 99 ? 5 : 6) / 6 },
-            { scaleY: 1.25 },
-            { translateY: size / 7 },
-           ]
-        }}>
-          {speed}
-        </Text>
+        <SpeedText speed={speed} fill='#000'/>
       </Svg>
     </TouchableOpacity>
+  );
+};
 
+//B38 - Ograničenje brzine
+export const SvgB38 = ({
+  speed = null,
+  size = sizes.xxx,
+  onPress = () => { },
+  ...props
+}) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+    >
+      <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
+        <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
+        <Circle fill={colors.blue} stroke={colors.blue} strokeWidth="55" cx="362.5" cy="362.5" r="315" />
+        <SpeedText speed={speed} fill='#fff'/>
+      </Svg>
+    </TouchableOpacity>
   );
 };
 

@@ -6,8 +6,9 @@ export const colors = {
   darkAlfa: 'rgba(94, 132, 226, 0.3)',
   button: 'oldlace',
   label: 'coral',
-  red: '#c00',
-  blue: '#59e',
+  red: '#E3000F',
+  blue: '#007CBD',
+  yellow: '#FFED00',
 }
 
 export const sizes = {

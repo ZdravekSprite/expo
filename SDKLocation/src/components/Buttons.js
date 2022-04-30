@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { sizes, colors } from '../Utils';
-import { SvgA00 } from './svg/Buttons';
+import { SvgA00, SvgE00 } from './svg/Buttons';
 import { SvgA01, SvgA02, SvgA03, SvgA04, SvgA041, SvgA042, SvgA043, SvgA044 } from './svg/A';
-import { SvgB01, SvgB02, SvgB03, SvgB04, SvgB05, SvgB30 } from './svg/B';
+import { SvgB01, SvgB02, SvgB03, SvgB04, SvgB05, SvgB30, SvgB38 } from './svg/B';
+import { SvgC01, SvgC05, SvgC06, SvgC07, SvgC12, SvgC33, SvgC34 } from './svg/C';
 
 export const MyButton = ({
   style = {},
@@ -32,6 +33,7 @@ export const SignButton = ({
   ...props
 }) => {
   if (type == 'a00') return <SvgA00 size={size} onPress={onPress} />
+  if (type == 'e00') return <SvgE00 size={size} onPress={onPress} />
 
   if (type == 'a01') return <SvgA01 size={size} onPress={onPress} />
   if (type == 'a02') return <SvgA02 size={size} onPress={onPress} />
@@ -50,13 +52,18 @@ export const SignButton = ({
   if (type == 'b04') return <SvgB04 size={size} onPress={onPress} />
   if (type == 'b05') return <SvgB05 size={size} onPress={onPress} />
 
+  if (type == 'c01') return <SvgC01 size={size} onPress={onPress} />
+  if (type == 'c05') return <SvgC05 size={size} onPress={onPress} />
+  if (type == 'c06') return <SvgC06 size={size} onPress={onPress} />
+  if (type == 'c07') return <SvgC07 size={size} onPress={onPress} />
+  
   if (type == 'b30') return <SvgB30 size={size} speed={speed} onPress={onPress} />
-  if (type == 'b38') return <B38Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'b38') return <SvgB38 size={size} speed={speed} onPress={onPress} />
   if (type == 'c11') return <C11Button size={size} speed={speed} onPress={onPress} />
-  if (type == 'c12') return <C12Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c12') return <SvgC12 size={size} speed={speed} onPress={onPress} />
   if (type == 'c14') return <C14Button size={size} onPress={onPress} />
-  if (type == 'c33') return <C33Button size={size} speed={speed} onPress={onPress} />
-  if (type == 'c34') return <C34Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c33') return <SvgC33 size={size} speed={speed} onPress={onPress} />
+  if (type == 'c34') return <SvgC34 size={size} speed={speed} onPress={onPress} />
   return (
     <TouchableOpacity
       style={[styles(size).kraj, style]}
@@ -124,63 +131,6 @@ export const RButton = ({
     >
       {props.children}
     </TouchableOpacity>
-  );
-};
-
-//B - plavi krug
-export const BButton = ({
-  size = sizes.xl,
-  onPress = () => { },
-  ...props
-}) => {
-  return (
-    <RButton style={{ backgroundColor: colors.blue }} size={size} onPress={onPress}>
-      {props.children}
-    </RButton>
-  );
-};
-
-//B03 - Zabrana prometa u oba smjera
-export const B03Button = ({
-  size = sizes.xl,
-  ...props
-}) => {
-  return (
-    <RButton size={size} onPress={props.onPress}>
-      <View style={{
-        borderRadius: size * 39 / 100,
-        width: size * 39 / 50,
-        height: size * 39 / 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#FFF',
-      }}>
-        {props.children}
-      </View>
-    </RButton>
-  );
-};
-
-//B38 - Ograničenje brzine
-export const B38Button = ({
-  speed = null,
-  size = sizes.xl,
-  ...props
-}) => {
-  return (
-    <BButton size={size} onPress={props.onPress}>
-      <Text style={{
-        fontWeight: "bold",
-        color: '#FFF',
-        fontSize: size * 3 / 7,
-        transform: [
-          { scaleX: (speed > 99 ? 5 : 6) / 6 },
-          { scaleY: 1.2 }
-        ]
-      }}>
-        {speed}
-      </Text>
-    </BButton>
   );
 };
 
@@ -301,58 +251,6 @@ export const SemaforButton = ({
         <View style={[styles(size).svjetla, fix_styles.red]} />
         <View style={[styles(size).svjetla, fix_styles.yellow]} />
         <View style={[styles(size).svjetla, fix_styles.green]} />
-      </View>
-    </TouchableOpacity>
-  );
-};
-
-export const C33Button = ({
-  style = {},
-  textStyle = {},
-  size = sizes.xxx,
-  ...props
-}) => {
-  return (
-    <TouchableOpacity
-      style={[styles(size).low, style]}
-      onPress={props.onPress}
-    >
-      <Text style={[
-        props.speed < 100 ? styles(size).limit : styles(size).limit100,
-        fix_styles.low,
-        textStyle,
-      ]}>
-        {props.speed ?? ' '}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-export const C34Button = ({
-  style = {},
-  textStyle = {},
-  size = sizes.xxx,
-  ...props
-}) => {
-  return (
-    <TouchableOpacity
-      style={[styles(size).low, style]}
-      onPress={props.onPress}
-    >
-      <Text style={[
-        props.speed < 100 ? styles(size).limit : styles(size).limit100,
-        fix_styles.low,
-        textStyle,
-      ]}>
-        {props.speed ?? ' '}
-      </Text>
-      <View style={{
-        transform: [
-          { translateY: props.speed < 100 ? - size / 3 : - size / 3.8 },
-          { rotate: "-45deg" }
-        ]
-      }}>
-        <View style={[styles(size).noRed]} />
       </View>
     </TouchableOpacity>
   );
