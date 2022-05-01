@@ -6,6 +6,7 @@ import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 import { sizes } from '../Utils';
 import { gpsLocation } from '../features/Location';
 import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton } from '../components/Buttons';
+import { SignTypeMenu, SpeedMenu } from '../components/Menu';
 
 export const TrafficSignsScreen = () => {
   const [location, setLocation] = useState(null);
@@ -20,7 +21,7 @@ export const TrafficSignsScreen = () => {
 
   const [speed, setSpeed] = useState([]);
   const [speedType, setSpeedType] = useState('b30');
-  const [signType, setSignType] = useState('b');
+  const [signType, setSignType] = useState('speed');
 
   const saveRoutesHistory = async () => {
     try {
@@ -185,65 +186,66 @@ export const TrafficSignsScreen = () => {
         <SafeAreaView>
           {location ? (
             <>
-              <View style={styles.row}>
-                <SignButton size={36} type='b30' speed={'??'} onPress={() => setSpeedType('b30')} />
-                <SignButton size={36} type='b38' speed={'??'} onPress={() => setSpeedType('b38')} />
-                <SignButton size={36} type='c33' speed={'??'} onPress={() => setSpeedType('c33')} />
-                <SignButton size={36} type='c11' speed={'??'} onPress={() => setSpeedType('c11')} />
-                <SignButton size={36} type='c12' speed={'??'} onPress={() => setSpeedType('c12')} />
-                <SignButton size={36} type='c34' speed={'??'} onPress={() => setSpeedType('c34')} />
-                <SignButton size={36} type='a00' onPress={() => {setSpeedType(null), setSignType('a')}} />
-                <SignButton size={36} type='e00' onPress={() => {setSpeedType(null), setSignType('e')}} />
-              </View>
+              <SignTypeMenu onPress={(e) => { e==='speed' && speedType===null ? setSpeedType('b30') : null, setSignType(e) }} />
+              {signType == 'speed' &&
+                <SpeedMenu onPress={(e) => { setSpeedType(e) }} />
+              }
               <ScrollView>
-                {speedType ? (
-                  <View style={styles.row}>
-                    <SignButton type={speedType} speed={5} onPress={() => addSign(speedType, 5)} />
-                    <SignButton type={speedType} speed={10} onPress={() => addSign(speedType, 10)} />
-                    <SignButton type={speedType} speed={15} onPress={() => addSign(speedType, 15)} />
-                    <SignButton type={speedType} speed={20} onPress={() => addSign(speedType, 20)} />
-                    <SignButton type={speedType} speed={30} onPress={() => addSign(speedType, 30)} />
-                    <SignButton type={speedType} speed={40} onPress={() => addSign(speedType, 40)} />
-                    <SignButton type={speedType} speed={50} onPress={() => addSign(speedType, 50)} />
-                    <SignButton type={speedType} speed={60} onPress={() => addSign(speedType, 60)} />
-                    <SignButton type={speedType} speed={70} onPress={() => addSign(speedType, 70)} />
-                    <SignButton type={speedType} speed={80} onPress={() => addSign(speedType, 80)} />
-                    <SignButton type={speedType} speed={90} onPress={() => addSign(speedType, 90)} />
-                    <SignButton type={speedType} speed={100} onPress={() => addSign(speedType, 100)} />
-                    <SignButton type={speedType} speed={110} onPress={() => addSign(speedType, 110)} />
-                    <SignButton type={speedType} speed={120} onPress={() => addSign(speedType, 120)} />
-                    <SignButton type={speedType} speed={130} onPress={() => addSign(speedType, 130)} />
-                  </View>
-                ) : (
-                  <View style={styles.row}>
-                    {signType == 'a' ? (
-                      <>
-                        <SignButton type='a01' onPress={() => addSign('a01')} />
-                        <SignButton type='a02' onPress={() => addSign('a02')} />
-                        <SignButton type='a03' onPress={() => addSign('a03')} />
-                        <SignButton type='a04' onPress={() => addSign('a04')} />
-                        <SignButton type='a04-1' onPress={() => addSign('a04-1')} />
-                        <SignButton type='a04-2' onPress={() => addSign('a04-2')} />
-                        <SignButton type='a04-3' onPress={() => addSign('a04-3')} />
-                        <SignButton type='a04-4' onPress={() => addSign('a04-4')} />
-                      </>
-                    ) : (
-                      <>
-                        <SignButton type='b01' onPress={() => addSign('b01')} />
-                        <SignButton type='b02' onPress={() => addSign('b02')} />
-                        <SignButton type='b03' onPress={() => addSign('b03')} />
-                        <SignButton type='b04' onPress={() => addSign('b04')} />
-                        <SignButton type='b05' onPress={() => addSign('b05')} />
-                        <SignButton type='c14' onPress={() => addSign('c14')} />
-                        <SignButton type='semafor' onPress={() => addSign('semafor')} />
-                        <SignButton type='c01' onPress={() => addSign('c01')} />
-                        <SignButton type='c05' onPress={() => addSign('c05')} />
-                        <SignButton type='c06' onPress={() => addSign('c06')} />
-                        <SignButton type='c07' onPress={() => addSign('c07')} />
-                      </>
-                    )}
-                  </View>
-                )}
+                <View style={styles.row}>
+                  <SignButton type='semafor' onPress={() => addSign('semafor')} />
+                  {signType == 'speed' &&
+                    <>
+                      <SignButton type={speedType} speed={5} onPress={() => addSign(speedType, 5)} />
+                      <SignButton type={speedType} speed={10} onPress={() => addSign(speedType, 10)} />
+                      <SignButton type={speedType} speed={15} onPress={() => addSign(speedType, 15)} />
+                      <SignButton type={speedType} speed={20} onPress={() => addSign(speedType, 20)} />
+                      <SignButton type={speedType} speed={30} onPress={() => addSign(speedType, 30)} />
+                      <SignButton type={speedType} speed={40} onPress={() => addSign(speedType, 40)} />
+                      <SignButton type={speedType} speed={50} onPress={() => addSign(speedType, 50)} />
+                      <SignButton type={speedType} speed={60} onPress={() => addSign(speedType, 60)} />
+                      <SignButton type={speedType} speed={70} onPress={() => addSign(speedType, 70)} />
+                      <SignButton type={speedType} speed={80} onPress={() => addSign(speedType, 80)} />
+                      <SignButton type={speedType} speed={90} onPress={() => addSign(speedType, 90)} />
+                      <SignButton type={speedType} speed={100} onPress={() => addSign(speedType, 100)} />
+                      <SignButton type={speedType} speed={110} onPress={() => addSign(speedType, 110)} />
+                      <SignButton type={speedType} speed={120} onPress={() => addSign(speedType, 120)} />
+                      <SignButton type={speedType} speed={130} onPress={() => addSign(speedType, 130)} />
+                    </>
+                  }
+                  {signType == 'a' &&
+                    <>
+                      <SignButton type='a01' onPress={() => addSign('a01')} />
+                      <SignButton type='a02' onPress={() => addSign('a02')} />
+                      <SignButton type='a03' onPress={() => addSign('a03')} />
+                      <SignButton type='a04' onPress={() => addSign('a04')} />
+                      <SignButton type='a04-1' onPress={() => addSign('a04-1')} />
+                      <SignButton type='a04-2' onPress={() => addSign('a04-2')} />
+                      <SignButton type='a04-3' onPress={() => addSign('a04-3')} />
+                      <SignButton type='a04-4' onPress={() => addSign('a04-4')} />
+                    </>
+                  }
+                  {signType == 'b' &&
+                    <>
+                      <SignButton type='b01' onPress={() => addSign('b01')} />
+                      <SignButton type='b02' onPress={() => addSign('b02')} />
+                      <SignButton type='b03' onPress={() => addSign('b03')} />
+                      <SignButton type='b04' onPress={() => addSign('b04')} />
+                      <SignButton type='b05' onPress={() => addSign('b05')} />
+                    </>
+                  }
+                  {signType == 'c' &&
+                    <>
+                      <SignButton type='c01' onPress={() => addSign('c01')} />
+                      <SignButton type='c05' onPress={() => addSign('c05')} />
+                      <SignButton type='c06' onPress={() => addSign('c06')} />
+                      <SignButton type='c07' onPress={() => addSign('c07')} />
+                      <SignButton type='c14' onPress={() => addSign('c14')} />
+                      <SignButton type='c24' onPress={() => addSign('c24')} />
+                      <SignButton type='c25' onPress={() => addSign('c25')} />
+                      <SignButton type='c36' onPress={() => addSign('c36')} />
+                    </>
+                  }
+                </View>
               </ScrollView>
             </>
           ) : (
@@ -265,7 +267,7 @@ export const TrafficSignsScreen = () => {
         <MyButton
           title='REC'
           style={[styles.button, styles.rec, rec ? styles.selected : null]}
-          textStyle={[styles.buttonLabel, rec ? styles.selectedLabel : null]}
+          textStyle={rec ? styles.selectedLabel : null}
           onPress={() => {
             console.log('rec');
             activate
@@ -275,13 +277,12 @@ export const TrafficSignsScreen = () => {
         <MyButton
           title='PAUSE'
           style={[styles.button, styles.rec, !rec ? styles.selected : null]}
-          textStyle={[styles.buttonLabel, !rec ? styles.selectedLabel : null]}
+          textStyle={!rec ? styles.selectedLabel : null}
           onPress={() => setRec(false)}
         />
         <MyButton
           title='SAVE'
           style={[styles.button, styles.rec]}
-          textStyle={styles.buttonLabel}
           onPress={() => {
             console.log('save');
             deactivate
@@ -323,12 +324,6 @@ const styles = StyleSheet.create({
   selected: {
     backgroundColor: "coral",
     borderWidth: 0,
-  },
-  buttonLabel: {
-    padding: 4,
-    fontSize: 24,
-    fontWeight: "500",
-    color: "coral",
   },
   selectedLabel: {
     color: "oldlace",

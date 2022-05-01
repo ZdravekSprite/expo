@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import Svg, { Circle, Rect, Path, G } from 'react-native-svg';
+import { Circle, Rect, Path, G } from 'react-native-svg';
 import { SvgSign, SvgA00 } from './Buttons';
-import { sizes, colors } from '../../Utils';
-import { SpeedText } from './Speed';
+import { colors } from '../../Utils';
+import { SpeedText, SvgText } from './Speed';
 
 // B01 - Raskrižje s cestom s prednošću prolaska
 export const SvgB01 = ({
@@ -23,7 +22,7 @@ export const SvgB01 = ({
 
 // B02 - Obavezno zaustavljanje
 export const SvgB02 = ({
-  size = sizes.xxx,
+  speed = 'STOP',
   ...props
 }) => {
   return (
@@ -34,23 +33,10 @@ export const SvgB02 = ({
         stroke="#000"
         strokeWidth="2"
       />
-      <Path
-        d="m230,682 260,0 192,-192 0,-260 -192,-192 -260,0 -192,192 0,260 z"
-        fill={colors.red}
-        stroke="none"
-      />
-      <Text style={{
-        fontWeight: "bold",
-        color: "#fff",
-        fontSize: size / 3,
-        transform: [
-          { scaleY: 1.33 },
-          { translateY: size / 5 },
-          { translateX: size / 12 },
-        ]
-      }}>
-        STOP
-      </Text>
+      <Path fill={colors.red} d="m230,682 260,0 192,-192 0,-260 -192,-192 -260,0 -192,192 0,260 z" />
+      <G transform="scale(1,1.2)">
+        <SvgText fontSize="240" y="380" speed='STOP' />
+      </G>
     </SvgSign>
   );
 };
@@ -62,7 +48,7 @@ export const SvgB03 = ({
   return (
     <SvgSign {...props}>
       <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
-      <Circle fill="#FFF" stroke="#c00" strokeWidth="55" cx="362.5" cy="362.5" r="315" />
+      <Circle fill="#FFF" stroke={colors.red} strokeWidth="55" cx="362.5" cy="362.5" r="315" />
       {props.children}
     </SvgSign>
   );
@@ -75,7 +61,7 @@ export const SvgB04 = ({
   return (
     <SvgSign {...props}>
       <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
-      <Circle fill="#c00" stroke="#c00" strokeWidth="55" cx="362.5" cy="362.5" r="315" />
+      <Circle fill={colors.red} stroke={colors.red} strokeWidth="55" cx="362.5" cy="362.5" r="315" />
       <Rect fill="#fff" x="80" y="290" width="560" height="140" />
     </SvgSign>
   );
@@ -87,14 +73,8 @@ export const SvgB05 = ({
 }) => {
   return (
     <SvgB03 {...props}>
-      <Path
-        d="m168,437 91,91 91,-91 0,-56 -70,70 0,-259 -42,0 0,259 -70,-70 z"
-        fill="#000"
-      />
-      <Path
-        d="m552,283 -91,-91 -91,91 0,56 70,-70 0,259 42,0 0,-259 70,70 z"
-        fill={colors.red}
-      />
+      <Path fill="#000" d="m168,437 91,91 91,-91 0,-56 -70,70 0,-259 -42,0 0,259 -70,-70 z" />
+      <Path fill={colors.red} d="m552,283 -91,-91 -91,91 0,56 70,-70 0,259 42,0 0,-259 70,70 z" />
     </SvgB03>
   );
 };
@@ -102,40 +82,28 @@ export const SvgB05 = ({
 //B30 - Ograničenje brzine
 export const SvgB30 = ({
   speed = null,
-  size = sizes.xxx,
-  onPress = () => { },
   ...props
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
-      <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
-        <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
-        <Circle fill="#FFF" stroke="#c00" strokeWidth="55" cx="362.5" cy="362.5" r="315" />
-        <SpeedText speed={speed} fill='#000'/>
-      </Svg>
-    </TouchableOpacity>
+    <SvgB03 {...props}>
+      <SpeedText speed={speed} fill='#000' />
+      {props.children}
+    </SvgB03>
   );
 };
 
 //B38 - Ograničenje brzine
 export const SvgB38 = ({
   speed = null,
-  size = sizes.xxx,
-  onPress = () => { },
   ...props
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
-      <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
-        <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
-        <Circle fill={colors.blue} stroke={colors.blue} strokeWidth="55" cx="362.5" cy="362.5" r="315" />
-        <SpeedText speed={speed} fill='#fff'/>
-      </Svg>
-    </TouchableOpacity>
+    <SvgSign {...props}>
+      <Circle fill="#FFF" stroke="#000" strokeWidth="2" cx="362.5" cy="362.5" r="350" />
+      <Circle fill={colors.blue} stroke={colors.blue} strokeWidth="55" cx="362.5" cy="362.5" r="315" />
+      <SpeedText speed={speed} />
+      {props.children}
+    </SvgSign>
   );
 };
 

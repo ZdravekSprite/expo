@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Svg, { Circle, Rect, Path, G } from 'react-native-svg';
+import { TouchableOpacity } from 'react-native';
+import Svg, { Circle, Defs, ClipPath, Rect, Path, G } from 'react-native-svg';
 import { sizes, colors } from '../../Utils';
+import { SvgText } from './Speed';
 
 export const SvgSign = ({
   type = '',
@@ -11,9 +12,7 @@ export const SvgSign = ({
   ...props
 }) => {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
+    <TouchableOpacity onPress={onPress}>
       <Svg height={size} width={size} viewBox="0 0 720 720" {...props}>
         {props.children}
       </Svg>
@@ -33,15 +32,8 @@ export const SvgA00 = ({
         stroke="#000"
         strokeWidth="2"
       />
-      <Path
-        d="M675,662 A 31.5 31.5 0 0 0 703 619 L 385,70 A 31.5 31.5 0 0 0 335 70 L 18,619 A 31.5 31.5 0 0 0 45 662 z"
-        fill={colors.red}
-        stroke="none"
-      />
-      <Path
-        d="M610,590 360,170 110,590 z"
-        fill="#fff"
-      />
+      <Path fill={colors.red} d="M675,662 A 31.5 31.5 0 0 0 703 619 L 385,70 A 31.5 31.5 0 0 0 335 70 L 18,619 A 31.5 31.5 0 0 0 45 662 z" />
+      <Path fill="#fff" d="M610,590 360,170 110,590 z" />
       {props.children}
     </SvgSign>
   );
@@ -57,6 +49,49 @@ export const SvgC00 = ({
       <Rect fill={colors.blue} x="17" y="17" width="686" height="686" rx="25" />
       {props.children}
     </SvgSign>
+  );
+};
+
+// Zona
+export const SvgZona = ({
+  speed = null,
+  ...props
+}) => {
+  return (
+    <SvgSign {...props}>
+      <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="39" />
+      <Rect fill="#fff" stroke="#000" strokeWidth="7" x="20.5" y="20.5" width="679" height="679" rx="28.5" />
+      <G transform="scale(1,1.3)">
+        <SvgText fill="#000" fontSize="130" y="500" speed="ZONA" />
+      </G>
+      {props.children}
+    </SvgSign>
+  );
+};
+
+// Završetak zone
+export const SvgZonaEnd = ({
+  ...props
+}) => {
+  return (
+    <>
+      <Defs>
+        <ClipPath id="clip">
+          <Rect x="17" y="17" width="686" height="686" rx="32" />
+        </ClipPath>
+      </Defs>
+      <G clipPath="url(#clip)">
+        <G transform="translate(360,360)" >
+          <G transform="rotate(-45,0,0)">
+            <Rect fill="#000" x="-500" y="-45.5" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="-24.5" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="-3.5" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="17.5" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="38.5" width="1000" height="7" />
+          </G>
+        </G>
+      </G>
+    </>
   );
 };
 

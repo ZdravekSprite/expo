@@ -8,10 +8,7 @@ export const SvgA01 = ({
 }) => {
   return (
     <SvgA00 {...props}>
-      <Path
-        d="M345,456 A 15 15 0 0 0 375 456 L 390,283.5 A 30 30 0 0 0 330 283.5 z"
-        fill="#000"
-      />
+      <Path fill="#000" d="M345,456 A 15 15 0 0 0 375 456 L 390,283.5 A 30 30 0 0 0 330 283.5 z" />
       <Circle cx="360" cy="523.5" r="30" fill="#000" stroke="none" />
     </SvgA00>
   );
