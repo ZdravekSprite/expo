@@ -3,8 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { sizes, colors } from '../Utils';
 import { SvgA00, SvgE00 } from './svg/Buttons';
 import { SvgA01, SvgA02, SvgA03, SvgA04, SvgA041, SvgA042, SvgA043, SvgA044 } from './svg/A';
-import { SvgB01, SvgB02, SvgB03, SvgB04, SvgB05, SvgB30, SvgB38 } from './svg/B';
-import { SvgC01, SvgC05, SvgC06, SvgC07, SvgC12, SvgC22, SvgC23, SvgC24, SvgC25, SvgC33, SvgC34, SvgC36 } from './svg/C';
+import { SvgB01, SvgB02, SvgB03, SvgB04, SvgB05, SvgB28, SvgB281, SvgB29, SvgB30, SvgB36, SvgB37, SvgB38, SvgB45, SvgB451, SvgB452, SvgB47, SvgB471 } from './svg/B';
+import { SvgC01, SvgC05, SvgC06, SvgC07, SvgC11, SvgC12, SvgC14, SvgC22, SvgC23, SvgC24, SvgC25, SvgC33, SvgC34, SvgC36, SvgC37, SvgC38, SvgC39, SvgC391 } from './svg/C';
+import { SvgE06, SvgE11, SvgE19 } from './svg/E';
 
 export const MyButton = ({
   style = {},
@@ -52,24 +53,42 @@ export const SignButton = ({
   if (type == 'b03') return <SvgB03 size={size} onPress={onPress} />
   if (type == 'b04') return <SvgB04 size={size} onPress={onPress} />
   if (type == 'b05') return <SvgB05 size={size} onPress={onPress} />
+  if (type == 'b28') return <SvgB28 size={size} onPress={onPress} />
+  if (type == 'b28-1') return <SvgB281 size={size} onPress={onPress} />
+  if (type == 'b29') return <SvgB29 size={size} onPress={onPress} />
+  if (type == 'b36') return <SvgB36 size={size} onPress={onPress} />
+  if (type == 'b37') return <SvgB37 size={size} onPress={onPress} />
+  if (type == 'b45') return <SvgB45 size={size} onPress={onPress} />
+  if (type == 'b45-1') return <SvgB451 size={size} onPress={onPress} />
+  if (type == 'b45-2') return <SvgB452 size={size} onPress={onPress} />
+  if (type == 'b47') return <SvgB47 size={size} onPress={onPress} />
+  if (type == 'b47-1') return <SvgB471 size={size} onPress={onPress} />
 
   if (type == 'c01') return <SvgC01 size={size} onPress={onPress} />
   if (type == 'c05') return <SvgC05 size={size} onPress={onPress} />
   if (type == 'c06') return <SvgC06 size={size} onPress={onPress} />
   if (type == 'c07') return <SvgC07 size={size} onPress={onPress} />
+  if (type == 'c14') return <SvgC14 size={size} onPress={onPress} />
   if (type == 'c24') return <SvgC24 size={size} onPress={onPress} />
   if (type == 'c25') return <SvgC25 size={size} onPress={onPress} />
+  if (type == 'c36') return <SvgC36 size={size} onPress={onPress} />
+  if (type == 'c37') return <SvgC37 size={size} onPress={onPress} />
+  if (type == 'c38') return <SvgC38 size={size} onPress={onPress} />
+  if (type == 'c39') return <SvgC39 size={size} onPress={onPress} />
+  if (type == 'c39-1') return <SvgC391 size={size} onPress={onPress} />
+
+  if (type == 'e06') return <SvgE06 size={size} onPress={onPress} />
+  if (type == 'e11') return <SvgE11 size={size} onPress={onPress} />
+  if (type == 'e19') return <SvgE19 size={size} onPress={onPress} />
 
   if (type == 'b30') return <SvgB30 size={size} speed={speed} onPress={onPress} />
   if (type == 'b38') return <SvgB38 size={size} speed={speed} onPress={onPress} />
-  if (type == 'c11') return <C11Button size={size} speed={speed} onPress={onPress} />
+  if (type == 'c11') return <SvgC11 size={size} speed={speed} onPress={onPress} />
   if (type == 'c12') return <SvgC12 size={size} speed={speed} onPress={onPress} />
-  if (type == 'c14') return <C14Button size={size} onPress={onPress} />
   if (type == 'c22') return <SvgC22 size={size} speed={speed} onPress={onPress} />
   if (type == 'c23') return <SvgC23 size={size} speed={speed} onPress={onPress} />
   if (type == 'c33') return <SvgC33 size={size} speed={speed} onPress={onPress} />
   if (type == 'c34') return <SvgC34 size={size} speed={speed} onPress={onPress} />
-  if (type == 'c36') return <SvgC36 size={size} speed={speed} onPress={onPress} />
   return (
     <TouchableOpacity
       style={[styles(size).kraj, style]}

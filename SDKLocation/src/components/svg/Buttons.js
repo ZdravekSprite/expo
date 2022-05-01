@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Svg, { Circle, Defs, ClipPath, Rect, Path, G } from 'react-native-svg';
+import Svg, { Circle, Line, Defs, ClipPath, Rect, Path, G } from 'react-native-svg';
 import { sizes, colors } from '../../Utils';
 import { SvgText } from './Speed';
 
@@ -39,6 +39,28 @@ export const SvgA00 = ({
   );
 };
 
+//B001 - Plavi krug
+export const SvgB001 = ({
+  ...props
+}) => {
+  return (
+    <SvgSign {...props}>
+      <Circle fill="#FFF" stroke="#000" strokeWidth="1" cx="360" cy="360" r="350" />
+      <Circle fill={colors.blue} cx="360" cy="360" r="343" />
+      {props.children}
+    </SvgSign>
+  );
+};
+
+//Arrow8a
+export const Arr8a = ({
+  fill = "#fff"
+}) => {
+  return (
+    <Path fill={fill} d="m535,255 -175,-175 -175,175 0,98 140,-140 0,420 70,0 0,-420 140,140 z" />
+  );
+};
+
 // C00
 export const SvgC00 = ({
   ...props
@@ -49,6 +71,59 @@ export const SvgC00 = ({
       <Rect fill={colors.blue} x="17" y="17" width="686" height="686" rx="25" />
       {props.children}
     </SvgSign>
+  );
+};
+
+//
+export const SvgC001 = ({
+  ...props
+}) => {
+  return (
+    <SvgC00 {...props}>
+      <Rect fill="#fff" x="80" y="80" width="560" height="560" />
+      {props.children}
+    </SvgC00>
+  );
+};
+
+//
+export const SvgC002 = ({
+  ...props
+}) => {
+  return (
+    <SvgSign {...props}>
+      <Defs>
+        <ClipPath id="C002">
+          <Circle cx="360" cy="360" r="343" />
+        </ClipPath>
+      </Defs>
+      <Circle fill="#fff" stroke="#000" strokeWidth="1" cx="360" cy="360" r="350" />
+      <Circle fill="#fff" stroke="#000" strokeWidth="7" cx="360" cy="360" r="339.5" />
+      {props.children}
+    </SvgSign>
+  );
+};
+
+//
+export const SvgC0026 = ({
+  ...props
+}) => {
+  return (
+    <SvgC002 {...props}>
+      {props.children}
+      <G clipPath="url(#C002)">
+        <G transform="translate(360,360)" >
+          <G transform="rotate(-45,0,0)">
+            <Rect fill="#000" x="-500" y="-56" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="-35" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="-14" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="7" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="28" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="59" width="1000" height="7" />
+          </G>
+        </G>
+      </G>
+    </SvgC002>
   );
 };
 

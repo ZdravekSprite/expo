@@ -231,6 +231,16 @@ export const TrafficSignsScreen = () => {
                       <SignButton type='b03' onPress={() => addSign('b03')} />
                       <SignButton type='b04' onPress={() => addSign('b04')} />
                       <SignButton type='b05' onPress={() => addSign('b05')} />
+                      <SignButton type='b28' onPress={() => addSign('b28')} />
+                      <SignButton type='b28-1' onPress={() => addSign('b28-1')} />
+                      <SignButton type='b29' onPress={() => addSign('b29')} />
+                      <SignButton type='b36' onPress={() => addSign('b36')} />
+                      <SignButton type='b37' onPress={() => addSign('b37')} />
+                      <SignButton type='b45' onPress={() => addSign('b45')} />
+                      <SignButton type='b45-1' onPress={() => addSign('b45-1')} />
+                      <SignButton type='b45-2' onPress={() => addSign('b45-2')} />
+                      <SignButton type='b47' onPress={() => addSign('b47')} />
+                      <SignButton type='b47-1' onPress={() => addSign('b47-1')} />
                     </>
                   }
                   {signType == 'c' &&
@@ -243,6 +253,17 @@ export const TrafficSignsScreen = () => {
                       <SignButton type='c24' onPress={() => addSign('c24')} />
                       <SignButton type='c25' onPress={() => addSign('c25')} />
                       <SignButton type='c36' onPress={() => addSign('c36')} />
+                      <SignButton type='c37' onPress={() => addSign('c37')} />
+                      <SignButton type='c38' onPress={() => addSign('c38')} />
+                      <SignButton type='c39' onPress={() => addSign('c39')} />
+                      <SignButton type='c39-1' onPress={() => addSign('c39-1')} />
+                    </>
+                  }
+                  {signType == 'e' &&
+                    <>
+                      <SignButton type='e06' onPress={() => addSign('e06')} />
+                      <SignButton type='e11' onPress={() => addSign('e11')} />
+                      <SignButton type='e19' onPress={() => addSign('e19')} />
                     </>
                   }
                 </View>
