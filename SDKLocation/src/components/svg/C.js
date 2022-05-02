@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line, Polyline, Defs, ClipPath, Circle, Rect, Path, G } from 'react-native-svg';
-import { SvgSign, SvgC00, SvgZona, SvgZonaEnd, SvgC001, Arr8a, SvgC002, SvgC0026 } from './Buttons';
+import { SvgSign, SvgC00, SvgZona, SvgZonaEnd, SvgC001, Arr8a, SvgC002, SvgC0026, SvgCa, SvgEa, SvgEi } from './Buttons';
 import { colors } from '../../Utils';
 import { SpeedText, SvgText, ZonaSpeed } from './Speed';
 import { SvgB38 } from './B';
@@ -243,6 +243,24 @@ export const SvgC39 = ({
     <SvgC00 {...props}>
       <SvgText speed="P" fontSize="550" y="550" />
     </SvgC00>
+  );
+};
+
+// C39E11 - Parkiralište
+export const SvgC39E11 = ({
+  ...props
+}) => {
+  return (
+    <SvgSign {...props} >
+      <G transform="scale(0.68)">
+        <SvgCa />
+        <SvgText speed="P" fontSize="550" y="550" />
+        <G transform="translate(0 700)">
+          <SvgEa />
+          <SvgEi />
+        </G>
+      </G>
+    </SvgSign>
   );
 };
 

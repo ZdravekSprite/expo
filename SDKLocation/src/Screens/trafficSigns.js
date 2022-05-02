@@ -266,6 +266,11 @@ export const TrafficSignsScreen = () => {
                       <SignButton type='e19' onPress={() => addSign('e19')} />
                     </>
                   }
+                  {signType == 'x2' &&
+                    <>
+                      <SignButton type='c39e11' onPress={() => addSign('c39e11')} />
+                    </>
+                  }
                 </View>
               </ScrollView>
             </>

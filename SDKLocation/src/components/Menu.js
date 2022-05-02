@@ -9,8 +9,8 @@ export const SignTypeMenu = ({ onPress = (e) => { console.log(e) } }) => {
       <MyButton title='A' style={styles.menu} onPress={() => { onPress('a'); }} />
       <MyButton title='B' style={styles.menu} onPress={() => { onPress('b'); }} />
       <MyButton title='C' style={styles.menu} onPress={() => { onPress('c'); }} />
-      <MyButton title='D' style={styles.menu} onPress={() => { onPress('d'); }} />
       <MyButton title='E' style={styles.menu} onPress={() => { onPress('e'); }} />
+      <MyButton title='2' style={styles.menu} onPress={() => { onPress('x2'); }} />
     </View>
   )
 }

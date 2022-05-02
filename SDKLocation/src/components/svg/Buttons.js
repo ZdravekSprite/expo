@@ -67,10 +67,19 @@ export const SvgC00 = ({
 }) => {
   return (
     <SvgSign {...props} >
-      <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="32" />
-      <Rect fill={colors.blue} x="17" y="17" width="686" height="686" rx="25" />
+      <SvgCa />
       {props.children}
     </SvgSign>
+  );
+};
+
+// Plavi kvadrat
+export const SvgCa = () => {
+  return (
+    <>
+      <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="32" />
+      <Rect fill={colors.blue} x="17" y="17" width="686" height="686" rx="25" />
+    </>
   );
 };
 
@@ -177,20 +186,33 @@ export const SvgE00 = ({
   return (
     <SvgSign {...props} >
       <G transform="translate(0 175)">
-        <Path
-          d="M685,360 A 25 25 0 0 0 710 335 L 710,35 A 25 25 0 0 0 685 10 L 35,10 A 25 25 0 0 0 10 35 L 10,335 A 25 25 0 0 0 35 360 z"
-          fill="#fff"
-          stroke="#000"
-          strokeWidth="2"
-        />
-        <Path
-          d="M685,349.5 A 14.5 14.5 0 0 0 699.5 335 L 699.5,35 A 14.5 14.5 0 0 0 685 20.5 L 35,20.5 A 14.5 14.5 0 0 0 20.5 35 L 20.5,335 A 14.5 14.5 0 0 0 35 349.5 z"
-          fill="#fff"
-          stroke="#000"
-          strokeWidth="7"
-        />
+        <SvgEa />
         {props.children}
       </G>
     </SvgSign>
   );
 };
+
+//
+export const SvgEa = () => {
+  return (
+    <>
+      <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="350" rx="25" />
+      <Rect fill="#fff" stroke="#000" strokeWidth="7" x="20.5" y="20.5" width="679" height="329" rx="14.5" />
+    </>
+  );
+};
+
+//
+export const SvgEi = () => {
+  return (
+    <>
+      <Circle fill="#000" cx="375" cy="85" r="18" />
+      <Circle fill="none" stroke="#000" strokeWidth="20" cx="390" cy="220" r="70" />
+      <Path fill="#fff" stroke="#fff" strokeWidth="25" d="m270,270 30,-70 h80 v-70 h-80 z" />
+      <Path fill="none" stroke="#000" strokeWidth="21" strokeLinecap="round" d="m265,260 30,-70 h80 v-70" />
+      <Rect fill="#000" x="305" y="125" width="75" height="21" />
+    </>
+  );
+};
+

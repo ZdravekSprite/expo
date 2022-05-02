@@ -1,6 +1,6 @@
 import React from 'react';
 import { Circle, Rect, Path, G } from 'react-native-svg';
-import { SvgSign, SvgE00 } from './Buttons';
+import { SvgSign, SvgE00, SvgEi } from './Buttons';
 import { sizes, colors } from '../../Utils';
 import { SvgText } from './Speed';
 
@@ -38,11 +38,7 @@ export const SvgE11 = ({
 }) => {
   return (
     <SvgE00 {...props}>
-      <Circle fill="#000" cx="375" cy="85" r="18" />
-      <Circle fill="none" stroke="#000" strokeWidth="20" cx="390" cy="220" r="70" />
-      <Path fill="#fff" stroke="#fff" strokeWidth="25" d="m270,270 30,-70 h80 v-70 h-80 z" />
-      <Path fill="none" stroke="#000" strokeWidth="21" strokeLinecap="round" d="m265,260 30,-70 h80 v-70" />
-      <Rect fill="#000" x="305" y="125" width="75" height="21" />
+      <SvgEi />
     </SvgE00>
   );
 };
