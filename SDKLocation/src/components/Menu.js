@@ -31,6 +31,17 @@ export const SpeedMenu = ({ onPress = () => { } }) => {
   )
 }
 
+export const EMenu = ({ onPress = () => { } }) => {
+  let size = 70
+  return (
+    <View style={styles.row}>
+      <SignButton size={size} type='e00' onPress={() => { onPress(null) }} />
+      <SignButton size={size} type='e01' m={'??'} onPress={() => { onPress('e01') }} />
+      <SignButton size={size} type='e02' m={'??'} onPress={() => { onPress('e02') }} />
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",

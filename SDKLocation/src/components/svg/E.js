@@ -6,13 +6,32 @@ import { SvgText } from './Speed';
 
 // E01 - Dopunska ploča
 export const SvgE01 = ({
-  speed = null,
+  m = null,
   fill = '#000',
   ...props
 }) => {
   return (
     <SvgE00 {...props}>
-      <SvgText fill={fill} fontSize="350" y="490" speed={speed} />
+      <G transform="scale(1,1.3)">
+        <SvgText fill={fill} fontSize="180" y="200" text={m + ' m'} />
+      </G>
+    </SvgE00>
+  );
+};
+
+// E02 - Dopunska ploča
+export const SvgE02 = ({
+  m = null,
+  fill = '#000',
+  ...props
+}) => {
+  return (
+    <SvgE00 {...props}>
+      <G transform="scale(1,1.3)">
+        <SvgText fill={fill} fontSize="140" y="190" text={m + ' m'} />
+      </G>
+      <Path fill={fill} d="m59,178 l24.5,-7 v87.5 h21 v-87.5 l24.5,-7 -35,-63  z" />
+      <Path fill={fill} d="m591,178 l24.5,-7 v87.5 h21 v-87.5 l24.5,-7 -35,-63  z" />
     </SvgE00>
   );
 };

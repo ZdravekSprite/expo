@@ -146,7 +146,7 @@ export const SvgZona = ({
       <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="39" />
       <Rect fill="#fff" stroke="#000" strokeWidth="7" x="20.5" y="20.5" width="679" height="679" rx="28.5" />
       <G transform="scale(1,1.3)">
-        <SvgText fill="#000" fontSize="130" y="500" speed="ZONA" />
+        <SvgText fill="#000" fontSize="130" y="500" text="ZONA" />
       </G>
       {props.children}
     </SvgSign>

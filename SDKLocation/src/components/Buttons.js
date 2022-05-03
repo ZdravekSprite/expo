@@ -5,7 +5,7 @@ import { SvgA00, SvgE00 } from './svg/Buttons';
 import { SvgA01, SvgA02, SvgA03, SvgA04, SvgA041, SvgA042, SvgA043, SvgA044 } from './svg/A';
 import { SvgB01, SvgB02, SvgB03, SvgB04, SvgB05, SvgB28, SvgB281, SvgB29, SvgB30, SvgB36, SvgB37, SvgB38, SvgB45, SvgB451, SvgB452, SvgB47, SvgB471 } from './svg/B';
 import { SvgC01, SvgC05, SvgC06, SvgC07, SvgC11, SvgC12, SvgC14, SvgC22, SvgC23, SvgC24, SvgC25, SvgC33, SvgC34, SvgC36, SvgC37, SvgC38, SvgC39, SvgC391, SvgC39E11 } from './svg/C';
-import { SvgE06, SvgE11, SvgE19 } from './svg/E';
+import { SvgE01, SvgE02, SvgE06, SvgE11, SvgE19 } from './svg/E';
 
 export const MyButton = ({
   style = {},
@@ -51,6 +51,7 @@ export const SignButton = ({
   size = sizes.xxx,
   onPress = () => { },
   speed = null,
+  m = null,
   ...props
 }) => {
   if (type == 'a00') return <SvgA00 size={size} onPress={onPress} />
@@ -99,6 +100,9 @@ export const SignButton = ({
   if (type == 'e06') return <SvgE06 size={size} onPress={onPress} />
   if (type == 'e11') return <SvgE11 size={size} onPress={onPress} />
   if (type == 'e19') return <SvgE19 size={size} onPress={onPress} />
+
+  if (type == 'e01') return <SvgE01 size={size} m={m} onPress={onPress} />
+  if (type == 'e02') return <SvgE02 size={size} m={m} onPress={onPress} />
 
   if (type == 'b30') return <SvgB30 size={size} speed={speed} onPress={onPress} />
   if (type == 'b38') return <SvgB38 size={size} speed={speed} onPress={onPress} />

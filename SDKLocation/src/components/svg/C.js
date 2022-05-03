@@ -203,7 +203,7 @@ export const SvgC36 = ({
           <Rect fill="#fff" stroke="#000" strokeWidth="1" x="-350" y="-525" width="700" height="1050" rx="32" />
           <Rect fill={colors.blue} x="-343" y="-518" width="686" height="1036" />
           <Path fill="#fff" d="m-140,35 h70 v-175 h140 v175 h70 v-420 h-70 v175 h-140 v-175 h-70 z" />
-          <SvgText speed="Bolnica" fontSize="150" x="0" y="385" />
+          <SvgText text="Bolnica" fontSize="150" x="0" y="385" />
         </G>
       </G>
     </SvgSign>
@@ -229,7 +229,7 @@ export const SvgC38 = ({
   return (
     <SvgC001 {...props}>
       <G transform="scale(1,1.4)">
-        <SvgText speed="Policija" fill="#000" fontSize="150" y="310" />
+        <SvgText text="Policija" fill="#000" fontSize="150" y="310" />
       </G>
     </SvgC001>
   );
@@ -241,7 +241,7 @@ export const SvgC39 = ({
 }) => {
   return (
     <SvgC00 {...props}>
-      <SvgText speed="P" fontSize="550" y="550" />
+      <SvgText text="P" fontSize="550" y="550" />
     </SvgC00>
   );
 };
@@ -254,7 +254,7 @@ export const SvgC39E11 = ({
     <SvgSign {...props} >
       <G transform="scale(0.68)">
         <SvgCa />
-        <SvgText speed="P" fontSize="550" y="550" />
+        <SvgText text="P" fontSize="550" y="550" />
         <G transform="translate(0 700)">
           <SvgEa />
           <SvgEi />
@@ -276,7 +276,7 @@ export const SvgC391 = ({
         stroke="#fff"
         strokeWidth="35"
       />
-      <SvgText speed="P" fontSize="525" y="600" />
+      <SvgText text="P" fontSize="525" y="600" />
     </SvgC00>
   );
 };

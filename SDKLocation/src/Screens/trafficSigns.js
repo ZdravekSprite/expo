@@ -6,7 +6,7 @@ import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 import { sizes } from '../Utils';
 import { gpsLocation } from '../features/Location';
 import { MyButton, SignButton, PrestanakButton, SpeedLimitButton, RoundedButton } from '../components/Buttons';
-import { SignTypeMenu, SpeedMenu } from '../components/Menu';
+import { EMenu, SignTypeMenu, SpeedMenu } from '../components/Menu';
 
 export const TrafficSignsScreen = () => {
   const [location, setLocation] = useState(null);
@@ -21,6 +21,7 @@ export const TrafficSignsScreen = () => {
 
   const [speed, setSpeed] = useState([]);
   const [speedType, setSpeedType] = useState('b30');
+  const [eType, setEType] = useState(null);
   const [signType, setSignType] = useState('speed');
 
   const saveRoutesHistory = async () => {
@@ -186,9 +187,12 @@ export const TrafficSignsScreen = () => {
         <SafeAreaView>
           {location ? (
             <>
-              <SignTypeMenu onPress={(e) => { e==='speed' && speedType===null ? setSpeedType('b30') : null, setSignType(e) }} />
+              <SignTypeMenu onPress={(e) => { e === 'speed' && speedType === null ? setSpeedType('b30') : null, setSignType(e) }} />
               {signType == 'speed' &&
                 <SpeedMenu onPress={(e) => { setSpeedType(e) }} />
+              }
+              {signType == 'e' &&
+                <EMenu onPress={(e) => { setEType(e) }} />
               }
               <ScrollView>
                 <View style={styles.row}>
@@ -261,9 +265,23 @@ export const TrafficSignsScreen = () => {
                   }
                   {signType == 'e' &&
                     <>
-                      <SignButton type='e06' onPress={() => addSign('e06')} />
-                      <SignButton type='e11' onPress={() => addSign('e11')} />
-                      <SignButton type='e19' onPress={() => addSign('e19')} />
+                      {eType ? (
+                        <>
+                          <SignButton type={eType} m={100} onPress={() => addSign(eType, 100)} />
+                          <SignButton type={eType} m={200} onPress={() => addSign(eType, 200)} />
+                          <SignButton type={eType} m={300} onPress={() => addSign(eType, 300)} />
+                          <SignButton type={eType} m={400} onPress={() => addSign(eType, 400)} />
+                          <SignButton type={eType} m={500} onPress={() => addSign(eType, 500)} />
+                          <SignButton type={eType} m={600} onPress={() => addSign(eType, 600)} />
+                          <SignButton type={eType} m={700} onPress={() => addSign(eType, 700)} />
+                        </>
+                      ) : (
+                        <>
+                          <SignButton type='e06' onPress={() => addSign('e06')} />
+                          <SignButton type='e11' onPress={() => addSign('e11')} />
+                          <SignButton type='e19' onPress={() => addSign('e19')} />
+                        </>
+                      )}
                     </>
                   }
                   {signType == 'x2' &&

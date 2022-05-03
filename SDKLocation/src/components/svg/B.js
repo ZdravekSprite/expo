@@ -22,7 +22,6 @@ export const SvgB01 = ({
 
 // B02 - Obavezno zaustavljanje
 export const SvgB02 = ({
-  speed = 'STOP',
   ...props
 }) => {
   return (
@@ -35,7 +34,7 @@ export const SvgB02 = ({
       />
       <Path fill={colors.red} d="m230,682 260,0 192,-192 0,-260 -192,-192 -260,0 -192,192 0,260 z" />
       <G transform="scale(1,1.2)">
-        <SvgText fontSize="240" y="380" speed='STOP' />
+        <SvgText fontSize="240" y="380" text='STOP' />
       </G>
     </SvgSign>
   );
