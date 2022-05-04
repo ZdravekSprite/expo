@@ -30,7 +30,7 @@ export const SvgA00 = ({
         d="M675,666 A 35 35 0 0 0 708 620 L 390,70 A 35 35 0 0 0 330 70 L 12,620 A 35 35 0 0 0 45 666 z"
         fill="#fff"
         stroke="#000"
-        strokeWidth="2"
+        strokeWidth="1"
       />
       <Path fill={colors.red} d="M675,662 A 31.5 31.5 0 0 0 703 619 L 385,70 A 31.5 31.5 0 0 0 335 70 L 18,619 A 31.5 31.5 0 0 0 45 662 z" />
       <Path fill="#fff" d="M610,590 360,170 110,590 z" />
@@ -128,7 +128,7 @@ export const SvgC0026 = ({
             <Rect fill="#000" x="-500" y="-14" width="1000" height="7" />
             <Rect fill="#000" x="-500" y="7" width="1000" height="7" />
             <Rect fill="#000" x="-500" y="28" width="1000" height="7" />
-            <Rect fill="#000" x="-500" y="59" width="1000" height="7" />
+            <Rect fill="#000" x="-500" y="49" width="1000" height="7" />
           </G>
         </G>
       </G>
@@ -145,8 +145,8 @@ export const SvgZona = ({
     <SvgSign {...props}>
       <Rect fill="#fff" stroke="#000" strokeWidth="1" x="10" y="10" width="700" height="700" rx="39" />
       <Rect fill="#fff" stroke="#000" strokeWidth="7" x="20.5" y="20.5" width="679" height="679" rx="28.5" />
-      <G transform="scale(1,1.3)">
-        <SvgText fill="#000" fontSize="130" y="500" text="ZONA" />
+      <G transform="scale(1,1.25)">
+        <SvgText fill="#000" fontSize="130" y="520" text="ZONA" />
       </G>
       {props.children}
     </SvgSign>

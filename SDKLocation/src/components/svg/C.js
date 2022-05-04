@@ -201,7 +201,7 @@ export const SvgC36 = ({
       <G transform="translate(360,360)">
         <G transform="scale(0.65)">
           <Rect fill="#fff" stroke="#000" strokeWidth="1" x="-350" y="-525" width="700" height="1050" rx="32" />
-          <Rect fill={colors.blue} x="-343" y="-518" width="686" height="1036" />
+          <Rect fill={colors.blue} x="-343" y="-518" width="686" height="1036" rx="25" />
           <Path fill="#fff" d="m-140,35 h70 v-175 h140 v175 h70 v-420 h-70 v175 h-140 v-175 h-70 z" />
           <SvgText text="Bolnica" fontSize="150" x="0" y="385" />
         </G>
