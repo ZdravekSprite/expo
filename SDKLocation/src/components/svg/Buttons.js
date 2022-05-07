@@ -216,3 +216,16 @@ export const SvgEi = () => {
   );
 };
 
+// Pješak
+export const SvgW = () => {
+  return (
+    <>
+      <Circle fill="#000" cx="350" cy="305" r="22.5" />
+      <Path fill="#000" d="m334,435 h54 v-80 h-54 v80 z" />
+      <Path fill="none" stroke="#000" strokeWidth="30" strokeLinecap="round" d="M300,555 348,443 372,443 420,555" />
+      <Path fill="none" stroke="#000" strokeWidth="18" strokeLinecap="round" strokeLinejoin="round" d="M295,415 350,345 A 31.5 31.5 0 0 1 370,340 L425,370 420,405 425,370 350,345" />
+      <Path fill="none" stroke="#fff" strokeWidth="7" d="M320,435 400,435" />
+    </>
+  );
+};
+

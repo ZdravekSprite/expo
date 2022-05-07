@@ -9,6 +9,7 @@ export const colors = {
   red: '#E3000F',
   blue: '#007CBD',
   yellow: '#FFED00',
+  green: '#00963F',
 }
 
 export const sizes = {

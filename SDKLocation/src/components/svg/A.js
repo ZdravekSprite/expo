@@ -1,6 +1,6 @@
 import React from 'react';
 import { Circle, Rect, Path, G } from 'react-native-svg';
-import { SvgA00 } from './Buttons';
+import { SvgA00, SvgW } from './Buttons';
 
 //A01 - Opasnost na cesti
 export const SvgA01 = ({
@@ -96,3 +96,152 @@ export const SvgA044 = ({
   );
 };
 
+export const SvgA05 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <Path fill="#000" d="m420,570 30,-30 30,30 0,-50 a180 180 0 0 0 -155 -175 l-35,25 l25,30 a120 120 0 0 1 105 125 z" />
+    </SvgA00>
+  );
+};
+
+export const SvgA051 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <Path fill="#000" d="m300,570 -30,-30 -30,30 0,-50 a180 180 0 0 1 155 -175 l35,25 l-25,30 a120 120 0 0 0 -105 125 z" />
+    </SvgA00>
+  );
+};
+
+export const SvgA052 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <Path fill="#000" d="m397.5,570 22.5,-22.5 22.5,22.5 0,-140 a30 30 0 0 0 -37.5 -25 l-50,20 0,-110 -22.5,-22.5 -22.5,22.5 0,135 a30 30 0 0 0 37.5 25 l50,-20 z" />
+    </SvgA00>
+  );
+};
+
+export const SvgA053 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <Path fill="#000" d="m322.5,570 -22.5,-22.5 -22.5,22.5 0,-140 a30 30 0 0 1 37.5 -25 l50,20 0,-110 22.5,-22.5 22.5,22.5 0,135 a30 30 0 0 1 -37.5 25 l-50,-20 z" />
+    </SvgA00>
+  );
+};
+
+export const SvgA08 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G fill="none" stroke="#000" strokeWidth="45">
+        <Path d="m285,570 v-127.5 l30,-52.5 v-60" />
+        <Path d="m435,570 v-127.5 l-30,-52.5 v-60" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA081 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G fill="none" stroke="#000" strokeWidth="45">
+        <Path d="m315,570 v-240" />
+        <Path d="m435,570 v-127.5 l-30,-52.5 v-60" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA082 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G fill="none" stroke="#000" strokeWidth="45">
+        <Path d="m285,570 v-127.5 l30,-52.5 v-60" />
+        <Path d="m405,570 v-240" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA14 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G stroke="#000" strokeWidth="4">
+        <Circle fill="#E3000F" cx="360" cy="330" r="34.5" />
+        <Circle fill="#FFED00" cx="360" cy="427.5" r="34.5" />
+        <Circle fill="#00963F" cx="360" cy="525" r="34.5" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA141 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G stroke="#000" strokeWidth="4">
+        <Circle fill="#E3000F" cx="262.5" cy="515" r="34.5" />
+        <Circle fill="#FFED00" cx="360" cy="515" r="34.5" />
+        <Circle fill="#00963F" cx="457.5" cy="515" r="34.5" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA16 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G fill="#000">
+        <Path d="m240,507.5 60,60 60,-60 0,-30 -42,42 0,-157.5 -30,0 0,157.5 -42,-42 z" />
+        <Path d="m480,425 -60,-60 -60,60 0,30 42,-42 0,157.5 30,0 0,-157.5 42,42 z" />
+      </G>
+    </SvgA00>
+  );
+};
+
+export const SvgA20 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <SvgW />
+    </SvgA00>
+  );
+};
+
+export const SvgA21 = ({
+  ...props
+}) => {
+  return (
+    <SvgA00 {...props}>
+      <G fill="#000">
+        <Path d="M570,570 517.5,480 482.5,480 523.3,570 z" />
+        <Path d="M476.7,570 447.5,480 412.5,480 430,570 z" />
+        <Path d="M383.3,570 377.5,480 342.5,480 336.7,570 z" />
+        <Path d="M290,570 307.5,480 272.5,480 243.3,570 z" />
+        <Path d="M196.7,570 237.5,480 202.5,480 150,570 z" />
+      </G>
+      <G transform="translate(0 -30)">
+        <Path fill="none" stroke="#fff" strokeWidth="45" strokeLinecap="round" d="M300,555 348,443 372,443 420,555" />
+        <SvgW />
+      </G>
+    </SvgA00>
+  );
+};

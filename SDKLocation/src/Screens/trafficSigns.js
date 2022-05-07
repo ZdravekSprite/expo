@@ -226,6 +226,18 @@ export const TrafficSignsScreen = () => {
                       <SignButton type='a04-2' onPress={() => addSign('a04-2')} />
                       <SignButton type='a04-3' onPress={() => addSign('a04-3')} />
                       <SignButton type='a04-4' onPress={() => addSign('a04-4')} />
+                      <SignButton type='a05' onPress={() => addSign('a05')} />
+                      <SignButton type='a05-1' onPress={() => addSign('a05-1')} />
+                      <SignButton type='a05-2' onPress={() => addSign('a05-2')} />
+                      <SignButton type='a05-3' onPress={() => addSign('a05-3')} />
+                      <SignButton type='a08' onPress={() => addSign('a08')} />
+                      <SignButton type='a08-1' onPress={() => addSign('a08-1')} />
+                      <SignButton type='a08-2' onPress={() => addSign('a08-2')} />
+                      <SignButton type='a14' onPress={() => addSign('a14')} />
+                      <SignButton type='a14-1' onPress={() => addSign('a14-1')} />
+                      <SignButton type='a16' onPress={() => addSign('a16')} />
+                      <SignButton type='a20' onPress={() => addSign('a20')} />
+                      <SignButton type='a21' onPress={() => addSign('a21')} />
                     </>
                   }
                   {signType == 'b' &&
@@ -235,6 +247,7 @@ export const TrafficSignsScreen = () => {
                       <SignButton type='b03' onPress={() => addSign('b03')} />
                       <SignButton type='b04' onPress={() => addSign('b04')} />
                       <SignButton type='b05' onPress={() => addSign('b05')} />
+                      <SignButton type='b21' onPress={() => addSign('b21')} />
                       <SignButton type='b28' onPress={() => addSign('b28')} />
                       <SignButton type='b28-1' onPress={() => addSign('b28-1')} />
                       <SignButton type='b29' onPress={() => addSign('b29')} />
@@ -250,6 +263,7 @@ export const TrafficSignsScreen = () => {
                   {signType == 'c' &&
                     <>
                       <SignButton type='c01' onPress={() => addSign('c01')} />
+                      <SignButton type='c02' onPress={() => addSign('c02')} />
                       <SignButton type='c05' onPress={() => addSign('c05')} />
                       <SignButton type='c06' onPress={() => addSign('c06')} />
                       <SignButton type='c07' onPress={() => addSign('c07')} />

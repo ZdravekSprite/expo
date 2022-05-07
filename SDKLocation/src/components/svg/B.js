@@ -1,6 +1,6 @@
 import React from 'react';
 import { Polygon, Line, Defs, ClipPath, Circle, Rect, Path, G } from 'react-native-svg';
-import { SvgSign, SvgA00, SvgB001, Arr8a } from './Buttons';
+import { SvgSign, SvgA00, SvgB001, Arr8a, SvgW } from './Buttons';
 import { colors } from '../../Utils';
 import { SpeedText, SvgText } from './Speed';
 
@@ -74,6 +74,18 @@ export const SvgB05 = ({
     <SvgB03 {...props}>
       <Path fill="#000" d="m168,437 91,91 91,-91 0,-56 -70,70 0,-259 -42,0 0,259 -70,-70 z" />
       <Path fill={colors.red} d="m552,283 -91,-91 -91,91 0,56 70,-70 0,259 42,0 0,-259 70,70 z" />
+    </SvgB03>
+  );
+};
+
+export const SvgB21 = ({
+  ...props
+}) => {
+  return (
+    <SvgB03 {...props}>
+      <G transform="translate(-140 -250) scale(1.4)">
+        <SvgW />
+      </G>
     </SvgB03>
   );
 };

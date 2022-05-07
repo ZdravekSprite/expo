@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line, Polyline, Defs, ClipPath, Circle, Rect, Path, G } from 'react-native-svg';
-import { SvgSign, SvgC00, SvgZona, SvgZonaEnd, SvgC001, Arr8a, SvgC002, SvgC0026, SvgCa, SvgEa, SvgEi } from './Buttons';
+import { SvgSign, SvgC00, SvgZona, SvgZonaEnd, SvgC001, Arr8a, SvgC002, SvgC0026, SvgCa, SvgEa, SvgEi, SvgW } from './Buttons';
 import { colors } from '../../Utils';
 import { SpeedText, SvgText, ZonaSpeed } from './Speed';
 import { SvgB38 } from './B';
@@ -13,6 +13,29 @@ export const SvgC01 = ({
     <SvgC00 {...props}>
       <Path fill={colors.red} d="m136,458 112,112 112,-112 0,-77 -84,84 0,-315 -56,0 0,315 -84,-84 z" />
       <Path fill="#fff" d="m584,248 -112,-112 -112,112 0,77 84,-84 0,315 56,0 0,-315 84,84 z" />
+    </SvgC00>
+  );
+};
+
+export const SvgC02 = ({
+  ...props
+}) => {
+  return (
+    <SvgC00 {...props}>
+      <G transform="translate(-110 -130) scale(1.3)">
+        <Path fill="#fff" d="M610,590 360,170 110,590 z" />
+        <G fill="#000">
+          <Path d="M570,570 517.5,480 482.5,480 523.3,570 z" />
+          <Path d="M476.7,570 447.5,480 412.5,480 430,570 z" />
+          <Path d="M383.3,570 377.5,480 342.5,480 336.7,570 z" />
+          <Path d="M290,570 307.5,480 272.5,480 243.3,570 z" />
+          <Path d="M196.7,570 237.5,480 202.5,480 150,570 z" />
+        </G>
+        <G transform="translate(0 -30)">
+          <Path fill="none" stroke="#fff" strokeWidth="45" strokeLinecap="round" d="M300,555 348,443 372,443 420,555" />
+          <SvgW />
+        </G>
+      </G>
     </SvgC00>
   );
 };
