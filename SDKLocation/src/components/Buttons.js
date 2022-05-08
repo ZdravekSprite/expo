@@ -221,7 +221,6 @@ const fix_styles = StyleSheet.create({
     borderRadius: sizes.xs,
     backgroundColor: colors.button,
     margin: sizes.xs,
-    minWidth: "48%",
     textAlign: "center",
   },
   buttonLabel: {
