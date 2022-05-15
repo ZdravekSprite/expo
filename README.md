@@ -68,6 +68,7 @@ yarn add react-native-paper
 yarn add @react-native-picker/picker
 expo install react-native-svg
 expo install expo-keep-awake
+yarn add axios
 ```
 
 ### SDKLocation\src\config.js
@@ -78,12 +79,13 @@ export const BASE_URL = 'http://example.com/api';
 
 ```bash
 cd SDKLocation
+yarn android
 yarn start
 ```
 
 ```bash
 git add .
-git commit -am "SDKLocation v0.1.37"
+git commit -am "SDKLocation v0.1.38"
 git push
 ```
 
