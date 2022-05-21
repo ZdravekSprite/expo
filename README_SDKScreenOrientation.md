@@ -12,6 +12,6 @@ expo install expo-location
 ```bash
 git push --set-upstream origin screen
 git add .
-git commit -am "SDKScreen v0.0.1"
+git commit -am "SDKScreen v0.0.2"
 git push
 ```

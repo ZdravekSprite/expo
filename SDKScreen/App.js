@@ -5,8 +5,8 @@ import * as ScreenOrientation from 'expo-screen-orientation'
 
 export default function App() {
   const [orientationIsLandscape, setOrientation] = useState(true)
-  async function changeScreenOrientation() {
 
+  async function changeScreenOrientation() {
     if (orientationIsLandscape == true) {
       ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_LEFT);
     }
@@ -18,11 +18,15 @@ export default function App() {
     setOrientation(!orientationIsLandscape)
     changeScreenOrientation()
   }
+  async function unlockOrientation() {
+    ScreenOrientation.unlockAsync()
+  }
 
   return (
     <View style={styles.container}>
       <Text >Screen Orientation</Text>
       <Button title="Change Orientation" onPress={toggleOrientation} />
+      <Button title="Unlock Orientation" onPress={() => unlockOrientation()} />
       <StatusBar style="none" />
     </View>
   );
