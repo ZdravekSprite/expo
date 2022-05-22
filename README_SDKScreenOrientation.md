@@ -1,17 +1,31 @@
-# SDK Screen Orientation
+# SDK
 
 ```bash
 git checkout -b screen
 expo init SDKScreen
 cd SDKScreen
+```
+
+## Screen Orientation
+
+```bash
+expo install expo-location
+```
+
+## Brightness
+
+```bash
+expo install expo-brightness
+```
+
+```bash
 yarn android
 yarn start
-expo install expo-location
 ```
 
 ```bash
 git push --set-upstream origin screen
 git add .
-git commit -am "SDKScreen v0.0.2"
+git commit -am "SDKScreen v0.0.3"
 git push
 ```
