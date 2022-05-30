@@ -7,7 +7,7 @@ import{ HomeScreen } from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import SplashScreen from '../screens/SplashScreen';
-import { TrafficSignsScreen } from '../screens/trafficSigns';
+import { TrafficSignsScreen } from '../screens/EmulatorScreen';
 import { RoutesScreen } from '../screens/routes';
 
 const Stack = createNativeStackNavigator();

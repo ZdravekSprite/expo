@@ -9,7 +9,7 @@ cd SDKScreen
 ## Screen Orientation
 
 ```bash
-expo install expo-location
+expo install expo-screen-orientation
 ```
 
 ## Brightness
