@@ -2,8 +2,7 @@
   "expo": {
     "name": "POI",
     "slug": "POI",
-    "version": "1.0.0",
-    "orientation": "portrait",
+    "version": "0.0.2",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",

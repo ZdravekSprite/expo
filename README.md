@@ -138,6 +138,14 @@ cd POI
 yarn android
 ```
 
+### [Creating React Native Authentication](https://gist.github.com/silvioramalho/29389b4b3c16b696a5b0a8b3db81e5e7)
+
+```bash
+git add .
+git commit -am "POI v0.0.2"
+git push
+```
+
 ### location -> main
 
 ```bash
