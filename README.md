@@ -6,9 +6,11 @@ Expo is a framework and a platform for universal React applications
 npm install npm@latest -g
 npm install --global yarn
 npm install yarn@latest -g 
+npm install yarn@latest --location=global
 yarn --version
 yarn -v
 npm install -g expo-cli
+npm install expo-cli@latest --location=global
 yarn global add expo-cli@latest
 git add .
 git commit -am "install/update npm expo"
@@ -45,7 +47,7 @@ git add .
 git commit -am "clear History"
 ```
 
-### SDK Location MapView
+## SDK Location MapView
 
 ```bash
 expo init SDKLocation
@@ -87,6 +89,53 @@ yarn start
 git add .
 git commit -am "SDKLocation v0.1.39"
 git push
+```
+
+## Screen Orientation
+
+```bash
+git checkout -b screen
+expo init SDKScreen
+cd SDKScreen
+```
+
+```bash
+expo install expo-screen-orientation
+```
+
+### Brightness
+
+```bash
+expo install expo-brightness
+```
+
+```bash
+yarn android
+yarn start
+```
+
+```bash
+git push --set-upstream origin screen
+git add .
+git commit -am "SDKScreen v0.0.3"
+git push
+```
+
+## POI
+
+```bash
+expo init POI
+```
+
+- tabs (TypeScript)
+
+```bash
+git checkout -b play
+git add .
+git commit -am "POI v0.0.1"
+git push --set-upstream origin play
+cd POI
+yarn android
 ```
 
 ### location -> main
