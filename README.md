@@ -158,11 +158,17 @@ touch src/contexts/auth.tsx
 ```bash
 mkdir src/services
 touch src/services/auth.tsx
+mkdir src/pages
+mkdir src/pages/SignIn
+touch src/pages/SignIn/index.tsx
+mkdir src/routes
+touch src/routes/app.routes.tsx
+touch src/routes/auth.routes.tsx
 ```
 
 ```bash
 git add .
-git commit -am "POI v0.0.6"
+git commit -am "POI v0.0.7"
 git push
 ```
 
