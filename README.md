@@ -145,9 +145,17 @@ yarn android
 ```bash
 ```
 
+- Creating Contexts
+
+```bash
+mkdir src
+mkdir src/contexts
+touch src/contexts/auth.tsx
+```
+
 ```bash
 git add .
-git commit -am "POI v0.0.4"
+git commit -am "POI v0.0.5"
 git push
 ```
 
