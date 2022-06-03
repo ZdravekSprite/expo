@@ -164,11 +164,12 @@ touch src/pages/SignIn/index.tsx
 mkdir src/routes
 touch src/routes/app.routes.tsx
 touch src/routes/auth.routes.tsx
+touch src/routes/index.tsx
 ```
 
 ```bash
 git add .
-git commit -am "POI v0.0.8"
+git commit -am "POI v0.0.9"
 git push
 ```
 

@@ -2,8 +2,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { ColorSchemeName } from 'react-native';
 
 import { AuthProvider } from '../src/contexts/auth';
-import AppRoutes from '../src/routes/app.routes';
-import AuthRoutes from '../src/routes/auth.routes';
+import Routes from '../src/routes';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -12,7 +11,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
       linking={LinkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <AuthProvider>
-        <AuthRoutes />
+        <Routes />
       </AuthProvider>
     </NavigationContainer>
   );
