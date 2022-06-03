@@ -143,13 +143,11 @@ yarn android
 - Install dependencies
 
 ```bash
-expo install @react-navigation/native
-expo install react-native-gesture-handler
 ```
 
 ```bash
 git add .
-git commit -am "POI v0.0.3"
+git commit -am "POI v0.0.4"
 git push
 ```
 
