@@ -153,9 +153,16 @@ mkdir src/contexts
 touch src/contexts/auth.tsx
 ```
 
+- Creating Service
+
+```bash
+mkdir src/services
+touch src/services/auth.tsx
+```
+
 ```bash
 git add .
-git commit -am "POI v0.0.5"
+git commit -am "POI v0.0.6"
 git push
 ```
 
