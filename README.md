@@ -168,7 +168,7 @@ touch src/routes/auth.routes.tsx
 
 ```bash
 git add .
-git commit -am "POI v0.0.7"
+git commit -am "POI v0.0.8"
 git push
 ```
 

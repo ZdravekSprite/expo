@@ -38,7 +38,7 @@ export type AuthStackParamList = {
   SignIn: NavigatorScreenParams<AuthTabParamList> | undefined;
 };
 
-export type AurhStackScreenProps<Screen extends keyof AuthStackParamList> = NativeStackScreenProps<
+export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> = NativeStackScreenProps<
   AuthStackParamList,
   Screen
 >;
