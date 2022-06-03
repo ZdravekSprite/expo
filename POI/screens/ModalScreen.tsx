@@ -1,12 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
+import AuthContext from '../src/contexts/auth';
 
 export default function ModalScreen() {
+  const {signOut} = useContext(AuthContext);
+
+  async function handleSignOut() {
+    await signOut();
+  }
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={handleSignOut} style={styles.link}>
+        <Text style={styles.linkText}>Sign Out</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Modal</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/ModalScreen.tsx" />
@@ -31,5 +42,13 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: '80%',
+  },
+  link: {
+    marginTop: 15,
+    paddingVertical: 15,
+  },
+  linkText: {
+    fontSize: 14,
+    color: '#2e78b7',
   },
 });

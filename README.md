@@ -169,7 +169,7 @@ touch src/routes/index.tsx
 
 ```bash
 git add .
-git commit -am "POI v0.0.9"
+git commit -am "POI v0.0.10"
 git push
 ```
 
