@@ -143,6 +143,7 @@ yarn android
 - Install dependencies
 
 ```bash
+expo install @react-native-async-storage/async-storage
 ```
 
 - Creating Contexts
@@ -169,7 +170,7 @@ touch src/routes/index.tsx
 
 ```bash
 git add .
-git commit -am "POI v0.0.10"
+git commit -am "POI v0.0.11"
 git push
 ```
 
