@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Text, View } from '../../components/Themed';
+import { Text, View } from '../components/Themed';
 import { AuthStackScreenProps } from '../types';
 import AuthContext from '../contexts/AuthContext';
 
