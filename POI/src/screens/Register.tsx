@@ -5,20 +5,28 @@ import { Text, View } from '../components/Themed';
 import { RootStackScreenProps } from '../types';
 import AuthContext from '../contexts/AuthContext';
 
-export default function LogInScreen({ navigation }: RootStackScreenProps<'LogIn'>) {
+export default function RegisterScreen({ navigation }: RootStackScreenProps<'Register'>) {
+  const [name, setName] = useState<string | undefined>(undefined);
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
-  const { login } = useContext(AuthContext);
+  const [password_confirmation, setPassword_confirmation] = useState<string | undefined>(undefined);
+  const { register } = useContext(AuthContext);
 
-  async function handleLogIn() {
-    console.log('login');
-    const response = await login(email, password);
+  async function handleRegister() {
+    console.log('register');
+    const response = await register(name, email, password, password_confirmation);
     console.log('response: ', response);
   }
 
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
+        <TextInput
+          style={styles.input}
+          value={name}
+          placeholder='Enter name'
+          onChangeText={text => setName(text)}
+        />
         <TextInput
           style={styles.input}
           value={email}
@@ -32,14 +40,21 @@ export default function LogInScreen({ navigation }: RootStackScreenProps<'LogIn'
           onChangeText={text => setPassword(text)}
           secureTextEntry
         />
+        <TextInput
+          style={styles.input}
+          value={password_confirmation}
+          placeholder='Confirm password'
+          onChangeText={text => setPassword_confirmation(text)}
+          secureTextEntry
+        />
       </View>
-      <TouchableOpacity onPress={handleLogIn} style={styles.link}>
-        <Text style={styles.linkText}>Sign In</Text>
+      <TouchableOpacity onPress={handleRegister} style={styles.link}>
+        <Text style={styles.linkText}>Register</Text>
       </TouchableOpacity>
       <View style={{ flexDirection: 'row' }}>
-        <Text style={styles.link}>Don't have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Register')} style={styles.link}>
-          <Text style={styles.linkText}>Register</Text>
+        <Text style={styles.link}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('LogIn')} style={styles.link}>
+          <Text style={styles.linkText}>Login</Text>
         </TouchableOpacity>
       </View>
     </View>

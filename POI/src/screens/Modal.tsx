@@ -7,10 +7,10 @@ import { Text, View } from '../components/Themed';
 import AuthContext from '../contexts/AuthContext';
 
 export default function ModalScreen() {
-  const {logOut} = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
   async function handleLogOut() {
-    await logOut();
+    await logout();
   }
 
   return (

@@ -1,53 +1,63 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, SetStateAction } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as auth from '../services/auth';
 
+export interface UserInfo {
+  token: string;
+  user: {
+    name: string;
+    email: string;
+  }
+}
+
 interface AuthContextData {
   signed: boolean;
-  user: object | null;
-  logIn(): Promise<void>;
-  logOut(): void;
+  userInfo: UserInfo | null;
+  register(
+    name: string | undefined,
+    email: string | undefined,
+    password: string | undefined,
+    password_confirmation: string | undefined,
+  ): Promise<void>;
+  login(
+    email: string | undefined,
+    password: string | undefined,
+  ): Promise<void>;
+  logout(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<object | null>(null);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     async function loadStorageData() {
-      // TODO: Try using multiget instead of 2 awaits
-      const storageUser = await AsyncStorage.getItem('@reactNativeAuth:user');
-      const storageToken = await AsyncStorage.getItem('@reactNativeAuth:token');
+      const storageUserInfo = await AsyncStorage.getItem('userInfo');
 
-      if (storageUser && storageToken) {
-        setUser(JSON.parse(storageUser));
+      if (storageUserInfo) {
+        setUserInfo(JSON.parse(storageUserInfo));
+        console.log('storageUserInfo: ', storageUserInfo);
       }
     }
 
     loadStorageData();
-  });
+  }, []);
 
-  async function logIn() {
-    const response = await auth.logIn();
-
-    setUser(response.user);
-
-    await AsyncStorage.setItem(
-      '@reactNativeAuth:user',
-      JSON.stringify(response.user),
-    );
-    await AsyncStorage.setItem('@reactNativeAuth:token', response.token);
+  async function register(name: string | undefined, email: string | undefined, password: string | undefined, password_confirmation: string | undefined) {
+    auth.register(name, email, password, password_confirmation, setUserInfo);
   }
 
-  function logOut() {
-    AsyncStorage.clear().then(() => {
-      setUser(null);
-    });
+  async function login(email: string | undefined, password: string | undefined) {
+    auth.login(email, password, setUserInfo);
+  }
+
+  function logout() {
+    userInfo && auth.logout(userInfo, setUserInfo)
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, user: user, logIn, logOut }}>
+    <AuthContext.Provider value={{ signed: !!userInfo, userInfo, register, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
