@@ -8,7 +8,7 @@ interface Response {
   }
 }
 
-export function signIn(): Promise<Response> {
+export function logIn(): Promise<Response> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

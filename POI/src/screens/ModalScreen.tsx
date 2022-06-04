@@ -2,20 +2,20 @@ import { StatusBar } from 'expo-status-bar';
 import { useContext } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import AuthContext from '../src/contexts/auth';
+import EditScreenInfo from '../../components/EditScreenInfo';
+import { Text, View } from '../../components/Themed';
+import AuthContext from '../contexts/AuthContext';
 
 export default function ModalScreen() {
-  const {signOut} = useContext(AuthContext);
+  const {logOut} = useContext(AuthContext);
 
-  async function handleSignOut() {
-    await signOut();
+  async function handleLogOut() {
+    await logOut();
   }
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleSignOut} style={styles.link}>
+      <TouchableOpacity onPress={handleLogOut} style={styles.link}>
         <Text style={styles.linkText}>Sign Out</Text>
       </TouchableOpacity>
       <Text style={styles.title}>Modal</Text>

@@ -1,25 +1,25 @@
 import { useContext } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Text, View } from '../../../components/Themed';
-import { AuthStackScreenProps } from '../../../types';
-import AuthContext from '../../contexts/auth';
+import { Text, View } from '../../components/Themed';
+import { AuthStackScreenProps } from '../../types';
+import AuthContext from '../contexts/AuthContext';
 
-export default function SignIn({ navigation }: AuthStackScreenProps<'SignIn'>) {
-  const {signed, user, signIn} = useContext(AuthContext);
+export default function LogIn({ navigation }: AuthStackScreenProps<'LogIn'>) {
+  const {signed, user, logIn} = useContext(AuthContext);
   
   console.log(signed);
   console.log(user);
   
-  async function handleSignIn() {
-    const response = await signIn();
+  async function handleLogIn() {
+    const response = await logIn();
     console.log(response);
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In.</Text>
-      <TouchableOpacity onPress={handleSignIn} style={styles.link}>
+      <TouchableOpacity onPress={handleLogIn} style={styles.link}>
         <Text style={styles.linkText}>Sign In</Text>
       </TouchableOpacity>
     </View>

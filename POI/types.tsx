@@ -35,7 +35,7 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
 >;
 
 export type AuthStackParamList = {
-  SignIn: NavigatorScreenParams<AuthTabParamList> | undefined;
+  LogIn: NavigatorScreenParams<AuthTabParamList> | undefined;
 };
 
 export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> = NativeStackScreenProps<
@@ -44,7 +44,7 @@ export type AuthStackScreenProps<Screen extends keyof AuthStackParamList> = Nati
 >;
 
 export type AuthTabParamList = {
-  SingIn: undefined;
+  LogIn: undefined;
 };
 
 export type AuthTabScreenProps<Screen extends keyof AuthTabParamList> = CompositeScreenProps<

@@ -1,7 +1,7 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { ColorSchemeName } from 'react-native';
 
-import { AuthProvider } from '../src/contexts/auth';
+import { AuthProvider } from '../src/contexts/AuthContext';
 import Routes from '../src/routes';
 import LinkingConfiguration from './LinkingConfiguration';
 

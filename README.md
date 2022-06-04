@@ -144,6 +144,7 @@ yarn android
 
 ```bash
 expo install @react-native-async-storage/async-storage
+expo install axios
 ```
 
 - Creating Contexts
@@ -168,9 +169,15 @@ touch src/routes/auth.routes.tsx
 touch src/routes/index.tsx
 ```
 
+- Request to server
+
+```bash
+touch src/services/api.ts
+```
+
 ```bash
 git add .
-git commit -am "POI v0.0.11"
+git commit -am "POI v0.0.12"
 git push
 ```
 
