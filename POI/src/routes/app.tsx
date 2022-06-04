@@ -11,9 +11,9 @@ import { Pressable } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NotFoundScreen from '../screens/NotFound';
 import ModalScreen from '../screens/Modal';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import useColorScheme from '../../hooks/useColorScheme';
-import Colors from '../../constants/Colors';
+import Colors from '../constants/Colors';
 import TabOneScreen from '../screens/TabOne';
 import TabTwoScreen from '../screens/TabTwo';
 
