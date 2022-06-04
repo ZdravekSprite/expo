@@ -5,7 +5,7 @@ import { Text, View } from '../../components/Themed';
 import { AuthStackScreenProps } from '../../types';
 import AuthContext from '../contexts/AuthContext';
 
-export default function LogIn({ navigation }: AuthStackScreenProps<'LogIn'>) {
+export default function LogInScreen({ navigation }: AuthStackScreenProps<'LogIn'>) {
   const {signed, user, logIn} = useContext(AuthContext);
   
   console.log(signed);
