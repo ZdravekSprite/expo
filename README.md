@@ -185,7 +185,7 @@ cd POI
 yarn android
 yarn start
 git add .
-git commit -am "POI v0.1.1"
+git commit -am "POI v0.1.2"
 git push
 ```
 

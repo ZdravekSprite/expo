@@ -11,21 +11,24 @@ export default function TabTwoScreen() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
-      let location = await gpsLocation();
-      console.log('location: ', location);
-      location && location.location && setLocation(location.location);
-      location && location.errorMsg && setErrorMsg(location.errorMsg);
-    })();
+    handleGetLocationPress();
   }, []);
 
   let text = 'Waiting...';
-  console.log('text: ', text);
   if (errorMsg) {
     text = errorMsg;
   }
   if (location) {
-    text = JSON.stringify(location);
+    //text = JSON.stringify(location);
+    text = location.timestamp + '';
+  }
+
+  async function handleGetLocationPress() {
+    let location = await gpsLocation();
+    //console.log('location: ', location);
+    location && location.location && setLocation(location.location);
+    location && location.errorMsg && setErrorMsg(location.errorMsg);
+    console.log('getLocation');
   }
 
   return (
@@ -34,20 +37,19 @@ export default function TabTwoScreen() {
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <Text style={styles.paragraph}>{text}</Text>
       <Text style={styles.paragraph}>{errorMsg}</Text>
-      <Text style={styles.paragraph}>{location ? location.timestamp : ''}</Text>
+      <Text style={styles.paragraph}>x: {location ? location.coords.longitude : ''}</Text>
+      <Text style={styles.paragraph}>y: {location ? location.coords.latitude : ''}</Text>
+      <Text style={styles.paragraph}>tip:</Text>
+      <Text style={styles.paragraph}>ime:</Text>
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleGetLocationPress} style={styles.helpLink}>
           <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
-            Get Location
+            Get new location
           </Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
-
-function handleGetLocationPress() {
-  console.log('getLocation');
 }
 
 const styles = StyleSheet.create({
