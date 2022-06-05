@@ -15,7 +15,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 import TabOneScreen from '../screens/TabOne';
-import TabTwoScreen from '../screens/TabTwo';
+import TabTwoScreen from '../screens/NewPoi';
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -74,7 +74,7 @@ function BottomTabNavigator() {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
+          title: 'New POI',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

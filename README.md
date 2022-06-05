@@ -134,8 +134,6 @@ git checkout -b play
 git add .
 git commit -am "POI v0.0.1"
 git push --set-upstream origin play
-cd POI
-yarn android
 ```
 
 ### [Creating React Native Authentication](https://gist.github.com/silvioramalho/29389b4b3c16b696a5b0a8b3db81e5e7)
@@ -175,9 +173,19 @@ touch src/routes/index.tsx
 touch src/services/api.ts
 ```
 
+### Locatio
+
 ```bash
+expo install expo-location
+expo install expo-device
+```
+
+```bash
+cd POI
+yarn android
+yarn start
 git add .
-git commit -am "POI v0.1.0"
+git commit -am "POI v0.1.1"
 git push
 ```
 
