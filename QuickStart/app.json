@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "POI",
-    "slug": "POI",
+    "name": "QuickStart",
+    "slug": "quickstart",
     "version": "0.1.0",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",

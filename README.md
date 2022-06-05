@@ -177,7 +177,7 @@ touch src/services/api.ts
 
 ```bash
 git add .
-git commit -am "POI v0.0.16"
+git commit -am "POI v0.1.0"
 git push
 ```
 
