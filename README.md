@@ -6,10 +6,13 @@ Expo is a framework and a platform for universal React applications
 npm install npm@latest -g
 npm install --global yarn
 npm install yarn@latest -g 
-npm install yarn@latest --location=global
 yarn --version
-yarn -v
 npm install -g expo-cli
+
+npm install npm@latest --location=global
+npm -v
+npm install yarn@latest --location=global
+yarn -v
 npm install expo-cli@latest --location=global
 yarn global add expo-cli@latest
 git add .
@@ -178,6 +181,8 @@ touch src/services/api.ts
 ```bash
 expo install expo-location
 expo install expo-device
+expo install @react-native-picker/picker
+expo install react-native-paper
 ```
 
 ```bash
@@ -185,7 +190,7 @@ cd POI
 yarn android
 yarn start
 git add .
-git commit -am "POI v0.1.2"
+git commit -am "POI v0.1.3"
 git push
 ```
 

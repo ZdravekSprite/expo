@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import * as Location from 'expo-location';
+import { Picker } from '@react-native-picker/picker';
+import { TextInput } from 'react-native-paper';
 
 import { Text, View } from '../components/Themed';
 import Colors from '../constants/Colors';
 import { gpsLocation } from '../services/location';
+import { POI_TYPE } from '../constants/PoiTypes';
+
+export interface Poi {
+  name?: string;
+  type?: number;
+}
 
 export default function TabTwoScreen() {
   const [location, setLocation] = useState<Location.LocationObject | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [poiName, setPOIName] = useState<string | undefined>(undefined);
+  const [poiType, setPOIType] = useState<number | null>(null);
 
   useEffect(() => {
     handleGetLocationPress();
@@ -40,7 +50,29 @@ export default function TabTwoScreen() {
       <Text style={styles.paragraph}>x: {location ? location.coords.longitude : ''}</Text>
       <Text style={styles.paragraph}>y: {location ? location.coords.latitude : ''}</Text>
       <Text style={styles.paragraph}>tip:</Text>
-      <Text style={styles.paragraph}>ime:</Text>
+      <Picker
+        selectedValue={poiType}
+        onValueChange={(itemValue, itemIndex) => {
+          setPOIType(itemValue)
+          //setPoi({ ...poi, type: itemIndex })
+        }
+        }>
+        {POI_TYPE.map(({ id, eng }) => {
+          return (
+            <Picker.Item key={id} label={eng} value={id} />
+          )
+        })}
+      </Picker>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          label="Ime"
+          value={poiName}
+          //onChangeText={text => setText(text)}
+          onSubmitEditing={({ nativeEvent }) => { setPOIName(nativeEvent.text ) }}
+          placeholder="ime točke interesa"
+        />
+      </View>
       <View style={styles.helpContainer}>
         <TouchableOpacity onPress={handleGetLocationPress} style={styles.helpLink}>
           <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
@@ -81,5 +113,14 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 18,
     textAlign: 'center',
+  },
+  inputContainer: {
+    paddingTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    flex: 1,
+    marginRight: 15,
   },
 });
